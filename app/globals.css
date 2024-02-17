@@ -1,0 +1,86 @@
+*{
+    font-family: 'Roboto';
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* background-color: #dae0e691; */
+    /* background-image: url; */
+    /* color: rgba(119, 117, 117, 0.507); */
+}
+
+.activeclass{
+    background-color: rgba(169, 169, 236, 0.486);
+    overflow-x: hidden;
+    color: blue;
+}
+.activelightposttab{
+    border-bottom: 2px solid blue;
+    color:'blue';
+    background-color: rgba(0, 0, 255, 0.062);
+}
+.activedarkposttabs{
+    border-bottom: 2px solid white;
+    color:'white';
+    background-color: rgba(233, 233, 236, 0.062);
+}
+
+.a{
+    text-decoration: none;
+    color: #000;
+}
+.cursor{
+    cursor: pointer;
+}
+
+.arrowup:hover{
+    color: red;
+}
+.arrowdown:hover{
+    color: blue;
+}
+
+.inputcheck fieldset{
+    border-radius: 20px;
+    border: none;
+}
+.input fieldset{
+    border-radius: 20px;
+    background-color: rgba(236, 232, 232, 0.334);
+    /* height: 20px; */
+    border-radius: 3px;
+}
+.inputname fieldset{
+    border-radius: 20px;
+    /* background-color: rgba(236, 232, 232, 0.334); */
+    /* border: 1px solid rgb(70, 70, 218); */
+}
+.inputcheckbox div{
+    top: -4px;
+    width: 20px;
+}
+.notification>div{
+    border-radius: 20px;
+}
+.sidenavBar::-webkit-scrollbar {
+    display: none;
+}
+.light{
+    background-color: #fff;
+    color: #000;
+}
+.dark{
+    background-color: #0b1416;
+    color: #fff;
+}
+body::-webkit-scrollbar{
+    display: none;
+}
+.postinginput input{
+    height: 10px;
+}
+.seemorecommunities::-webkit-scrollbar {
+  display: flex;
+}
+.popsidenavbar::-webkit-scrollbar {
+  display: flex;
+}

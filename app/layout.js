@@ -1,5 +1,8 @@
+import NavBarr from './(Components)/(NavBar)/NavBarr'
 import './globals.css'
 import { Inter } from 'next/font/google'
+import { ContextProvider } from './(Components)/(Context)/ContextProvider'
+import Apicontextprovider from './(Components)/(Apicontext)/Apicontextprovider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -11,7 +14,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ContextProvider>
+          <Apicontextprovider>
+        <div style={{width:'100%', overflow:'hidden',position:'fixed', top:'0',}}>
+          <NavBarr children={children}/>
+        </div>
+        </Apicontextprovider>
+        </ContextProvider>
+      </body>
     </html>
   )
 }
