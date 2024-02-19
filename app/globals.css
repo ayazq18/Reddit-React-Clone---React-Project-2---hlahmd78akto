@@ -83,6 +83,6 @@ body::-webkit-scrollbar{
 .seemorecommunities::-webkit-scrollbar {
   display: flex;
 }
-.popsidenavbar::-webkit-scrollbar {
+/* .popsidenavbar::-webkit-scrollbar {
     display: flex;
-}
+} */
