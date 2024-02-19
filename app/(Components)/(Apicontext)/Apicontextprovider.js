@@ -17,7 +17,6 @@ export default function Apicontextprovider({ children }) {
     const [subredditname, setsubredditname] = useState('')
     const [likedCount, setlikedcount] = useState('')
     const [dislikedCount, setdislikedcount] = useState('')
-    const [followbtntxt, setfollowbtntxt] = useState('Follow')
     const [toggleuserfollow, settoggleuserfollow] = useState(false)
 
 
@@ -95,10 +94,9 @@ export default function Apicontextprovider({ children }) {
             })
             const result = await response.json();
             if(result.status === 'success'){
-                setfollowbtntxt('unfollow')
                 settoggleuserfollow(!toggleuserfollow)
             }
-            // console.log(result)
+            console.log(result)
         }
         catch (error) {
             console.log(error)
@@ -116,10 +114,9 @@ export default function Apicontextprovider({ children }) {
             })
             const result = await response.json();
             if(result.status === 'success'){
-                setfollowbtntxt('Follow')
                 settoggleuserfollow(!toggleuserfollow)
             }
-            // console.log(result)
+            console.log(result)
         }
         catch (error) {
             console.log(error)
@@ -318,7 +315,7 @@ export default function Apicontextprovider({ children }) {
 
 
     return (
-        <apicontext.Provider value={{followbtntxt, setfollowbtntxt, Userfollow, Userunfollow, settoggleuserfollow, toggleuserfollow, Likepost, Disikepost, likedCount, dislikedCount, title, settitle, description, setdescription, postimage, setpostimage, subredditname, setsubredditname, fetchCreatePost, fetchDeletePost, fetchUpdatePost, fetchCreatesubreddit, createsubreddit, setcreatesubreddit, post, setpost, sort, setsort, handleselect, getTimeDifference, channel, setChannel, formatDate }}>
+        <apicontext.Provider value={{Userfollow, Userunfollow, settoggleuserfollow, toggleuserfollow, Likepost, Disikepost, likedCount, dislikedCount, title, settitle, description, setdescription, postimage, setpostimage, subredditname, setsubredditname, fetchCreatePost, fetchDeletePost, fetchUpdatePost, fetchCreatesubreddit, createsubreddit, setcreatesubreddit, post, setpost, sort, setsort, handleselect, getTimeDifference, channel, setChannel, formatDate }}>
             <div>
                 {children}
             </div>

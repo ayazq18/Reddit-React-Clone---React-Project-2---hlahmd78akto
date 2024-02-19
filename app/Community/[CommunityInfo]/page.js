@@ -77,7 +77,13 @@ export default function CommunityInfo(props) {
     }, [])
 
     return (
-        <Box sx={{ width: '100vw', height: '100vh', overflowY: 'scroll', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}` }}>
+        <Box sx={{position:'relative', width: '100vw', height: '100vh', overflowY: 'scroll', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}` }}>
+            {popup['deleteChannel'] && 
+            <Box sx={{ position: 'absolute', top: '20%', left: '20%', width: '50%', p: '20px', backgroundColor: `${theme === 'light' ? '#fff' : '#000'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.24)'}` }}>
+                <Typography sx={{textAlign:'center'}}>You won't be able to recover the deleted Channelonce deleted!</Typography>
+                <Button variant='outlined' sx={{ width: '100px', p: '5px', borderRadius: '10px', fontSize: '16px', fontWeight: '900', textTransform: 'revert', color: `${theme === 'light' ? 'blue' : '#fff'}`, }}>{popup['join'] ? "Leave" : "Join"}</Button>
+
+            </Box>}
             <Box sx={{ width: '100%', height: '30vh', backgroundImage: "url('https://thumbs.dreamstime.com/b/d-high-decoration-background-wallpaper-n-d-wallpaper-design-floral-photo-mural-background-d-wallpaper-background-163061267.jpg')", }}></Box>
             <Box sx={{ width: '100%', height: '15vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, }}>
                 <Box sx={{ width: '70%', height: '15vh', }}>
@@ -89,10 +95,17 @@ export default function CommunityInfo(props) {
                                 <Typography variant='h6' sx={{ fontSize: '30px', fontWeight: '900', textWrap: 'nowrap' }}>{channelid.name}</Typography>
                                 <Typography variant='h6' sx={{ fontSize: '15px', fontWeight: '700', color: `${theme === 'light' ? '#808080' : '#fff'}` }}>r/{channelid.name}</Typography>
                             </Box>
-                            <Box sx={{ width: '100%', height: '10vh', display: 'flex', alignItems: 'center',gap: '10px' }}>
-                                <Button variant='outlined' onClick={()=>pop('join')} sx={{ width: '100px', p: '5px', borderRadius: '50px', fontSize:'16px', fontWeight:'900', textTransform:'revert', color: `${theme === 'light' ? 'blue' : '#000'}`, }}>{popup['join'] ? "Leave" : "Join"}</Button>
-                                
-                                {popup['join'] && <Box sx={{border:'1px solid blue',borderRadius:"50%", p:'5px',display: 'flex', alignItems: 'center', }}><Notifications sx={{ color: 'blue',width:'25px', height:'25px' }} /></Box>}
+                            <Box sx={{ width: '100%', height: '10vh', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                <Button variant='outlined' onClick={() => pop('join')} sx={{ width: '100px', p: '5px', borderRadius: '50px', fontSize: '16px', fontWeight: '900', textTransform: 'revert', color: `${theme === 'light' ? 'blue' : '#fff'}`, }}>{popup['join'] ? "Leave" : "Join"}</Button>
+                                {popup['join'] && <Box sx={{ border: '1px solid blue', borderRadius: "50%", p: '5px', display: 'flex', alignItems: 'center', }}><Notifications sx={{ color: 'blue', width: '25px', height: '25px' }} /></Box>}
+                                <Box position='relative' sx={{ cursor: 'pointer' }} >
+                                    <MoreHoriz onClick={() => pop('deleteChannelpop')} />
+                                    {popup['deleteChannelpop'] && <Box sx={{ position: 'absolute', top: '20px', left: '20px', width: '200px', p: '10px', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.24)'}` }}>
+                                        <Box onClick={() => {pop('deleteChannel')}} sx={{ p: '10px ', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
+                                            <Typography variant="contained" fontWeight='700'>Delete Channel</Typography>
+                                        </Box>
+                                    </Box>}
+                                </Box>
                             </Box>
                         </Box>
                     </Box>

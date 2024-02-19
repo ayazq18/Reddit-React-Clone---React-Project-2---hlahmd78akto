@@ -191,7 +191,7 @@ const NavBarr = ({ children }) => {
                                 <Box onClick={() => handleToggleDropdown()} sx={{ position: 'relative', p: '10px', width: '100%', }}>
                                     <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'space-between' }}>
                                         <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', }}>
-                                            <Typography sx={{display: 'flex', alignItems: 'center',}}>{activeTabs === 'Home' ? home : popular}</Typography>
+                                            <Typography sx={{ display: 'flex', alignItems: 'center', }}>{activeTabs === 'Home' ? home : popular}</Typography>
                                             <Typography variant='p' sx={{ fontSize: '16px', display: { xs: 'none', md: 'block' } }}>{activeTabs === 'Home' ? 'Home' : 'Popular'}</Typography>
                                         </Box>
                                         <Typography sx={{ display: 'flex', alignItems: 'center', transform: `${dropnav && 'rotate(180deg)'}`, transition: 'all .5s ease' }}>{communitydropdown}</Typography>
@@ -273,14 +273,15 @@ const NavBarr = ({ children }) => {
                             {token ?
                                 (
                                     <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, flexGrow: 0, display: 'flex', alignItems: 'center', gap: '5px' }}>
-                                        <Tooltip title="Advertise on Reddit">
-                                            <IconButton sx={{ p: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)', borderRadius: '50px' } }}>
+                                        <Tooltip title="Popular">
+                                            <IconButton onClick={()=>router.push('/Popular')} sx={{ p: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)', borderRadius: '50px' } }}>
                                                 <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, }}>{popular}</Typography>
                                             </IconButton>
                                         </Tooltip>
                                         <Tooltip title="Open chat">
-                                            <IconButton sx={{ p: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)', borderRadius: '50px' } }}>
+                                            <IconButton onClick={() => pop('chat')} sx={{display:{xs:'none', md:'block'}, position: 'relative', p: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)', borderRadius: '50px' } }}>
                                                 <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, }}>{chat}</Typography>
+                                                {popup['chat'] && <Box className='chat' sx={{ position: 'absolute', top: '60px', right: '0px', width: '650px', height: '350px', }}></Box>}
                                             </IconButton>
                                         </Tooltip>
                                         <Tooltip title="Create post">
@@ -289,32 +290,15 @@ const NavBarr = ({ children }) => {
                                             </IconButton>
                                         </Tooltip>
                                         <Tooltip title="Open inbox">
-                                            <IconButton onClick={handleOpenInboxMenu} sx={{ p: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
+                                            <IconButton onClick={() => pop('notification')} sx={{display:{xs:'none', md:'block'}, position: 'relative', p: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                                                 <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, }}>{notification}</Typography>
+                                                {popup['notification'] && <Box className='notification' sx={{ position: 'absolute', top: '60px', right: '0px', width: '650px', height: '350px', }}></Box>}
                                             </IconButton>
                                         </Tooltip>
-                                        <Menu
-                                            className='notification'
-                                            sx={{ mt: '45px', }}
-                                            id="menu-appbar"
-                                            anchorEl={anchorElinbox}
-                                            anchorOrigin={{
-                                                vertical: 'top',
-                                                horizontal: 'right',
-                                            }}
-                                            keepMounted
-                                            transformOrigin={{
-                                                vertical: 'top',
-                                                horizontal: 'right',
-                                            }}
-                                            open={Boolean(anchorElinbox)}
-                                            onClose={handleCloseInboxMenu}
-                                        >
-                                            <Box sx={{ width: '350px', height: '350px', }}></Box>
-                                        </Menu>
                                         <Tooltip title="Advertise">
-                                            <IconButton sx={{ p: '10px', display: 'flex', alignItems: 'center', gap: '7px', borderRadius: '50px', bgcolor: 'rgba(236, 232, 232, 0.734)' }}>
+                                            <IconButton onClick={() => pop('advertise')} sx={{position: 'relative', p: '5px', mr:'10px', display: 'flex', alignItems: 'center', gap: '7px', borderRadius: '50px', bgcolor: 'rgba(236, 232, 232, 0.734)' }}>
                                                 <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, }}><Podcasts /></Typography>
+                                                {popup['advertise'] && <Box className='notification' sx={{ position: 'absolute', top: '60px', right: '0px', width: '650px', height: '350px', }}></Box>}
                                             </IconButton>
                                         </Tooltip>
 
@@ -375,20 +359,20 @@ const NavBarr = ({ children }) => {
                                             <MenuItem sx={{ color: '#808080' }}>
                                                 <Avatar /> My Stuff
                                             </MenuItem>
-                                            <MenuItem onClick={handleClose} sx={{color: `${theme === 'light' ? '#000' : '#fff'}`}}>
+                                            <MenuItem onClick={handleClose} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }}>
                                                 <Avatar sx={{ visibility: 'hidden' }} /> Profile
                                             </MenuItem>
                                             <Divider />
                                             <MenuItem sx={{ color: '#808080' }}>
                                                 <Visibility /> &nbsp; View Options
                                             </MenuItem>
-                                            <MenuItem sx={{ display: 'flex', gap:'20px', alignItems:'center', p:'0', color: `${theme === 'light' ? '#000' : '#fff'}` }}>
+                                            <MenuItem sx={{ display: 'flex', gap: '20px', alignItems: 'center', p: '0', color: `${theme === 'light' ? '#000' : '#fff'}` }}>
                                                 <Avatar sx={{ visibility: 'hidden' }} />
                                                 Dark mode
                                                 <SwitchBtn theme={theme} switchLight={switchLight} switchDark={switchDark} />
                                             </MenuItem>
-                                            <MenuItem onClick={() => { handleClose(), handleSignOut() }} sx={{color: `${theme === 'light' ? '#000' : '#fff'}`}}>
-                                                    <Logout fontSize="small" /> &nbsp;&nbsp;&nbsp;&nbsp;
+                                            <MenuItem onClick={() => { handleClose(), handleSignOut() }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }}>
+                                                <Logout fontSize="small" /> &nbsp;&nbsp;&nbsp;&nbsp;
                                                 Logout
                                             </MenuItem>
                                         </Menu>

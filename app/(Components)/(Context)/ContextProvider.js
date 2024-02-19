@@ -10,8 +10,8 @@ export const context = createContext()
 export const ContextProvider = ({ children }) => {
     const router = useRouter();
 
-    const storedTheme = localStorage.getItem('theme');
-    const [theme, setTheme] = useState(storedTheme || 'dark')
+    // const storedTheme = localStorage.getItem('theme');
+    const [theme, setTheme] = useState( 'dark')
 
     const [signUpdata, setSignUpdata] = useState({ name: '', email: '', password: '' })
     const [popup, setpopup] = useState({});
