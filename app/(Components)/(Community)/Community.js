@@ -8,8 +8,8 @@ import { context } from '../(Context)/ContextProvider'
 import { apicontext } from '../(Apicontext)/Apicontextprovider'
 
 export default function Community({ pop }) {
-    const {theme, token} = useContext(context)
-    const {createsubreddit, setcreatesubreddit,title, settitle, description, setdescription, postimage, setpostimage, subredditname, setsubredditname, fetchCreatesubreddit} = useContext(apicontext)
+    const {theme,} = useContext(context)
+    const { subredditname, setsubredditname, fetchCreatesubreddit} = useContext(apicontext)
     const [letterCount, setLetterCount] = useState(0)
     const handleNameLength = (e) => {
         setLetterCount(e.target.value.length)
@@ -22,7 +22,7 @@ export default function Community({ pop }) {
 
     return (
         <Box sx={{ m: { xs: '0', md: '10px' }, display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
-            <Box className='community' sx={{backgroundColor: `${theme === 'light' ? '#fff' : 'rgb(26,26,27)'}`,border:`1px solid ${theme === 'light' ? '#fff' : '#303031'}`, p: '15px', width: { xs: '100%', md: '37vw' }, height: { xs: '100vh', md: '85vh' }, overflowY: 'scroll',borderRadius: { xs: '0', md: '5px' } }}>
+            <Box className='community' sx={{backgroundColor: `${theme === 'light' ? '#fff' : 'rgb(26,26,27)'}`,border:`1px solid ${theme === 'light' ? '#fff' : '#303031'}`, p: '15px', width: { xs: '100%', md: '37vw' }, height: { xs: '100vh', md: '85vh' },borderRadius: { xs: '0', md: '5px' } }}>
                 <Box sx={{ mb: '10px', position: 'relative', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Box sx={{ pb: '10px', width: '100%', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: `1px solid ${theme === 'light' ? 'rgba(24, 23, 23, 0.26)' : '#303031'}`   }}>
                         <Typography variant='h5' sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, textWrap: 'nowrap', fontSize: { xs: '20px', md: '15px' } }}>Create a community</Typography>
@@ -83,7 +83,7 @@ export default function Community({ pop }) {
                     </Box>
                 </Box>
                 <Box display='flex' width='100%' mt='30px' p='10px' justifyContent='flex-end' alignItems='center' gap='5px'>
-                    <Button variant='outlined' sx={{ borderRadius: '20px', fontSize: '12px', fontWeight:'700', p: '5px 20px', }}>Cancel</Button>
+                    <Button onClick={()=>pop('popcom')} variant='outlined' sx={{ borderRadius: '20px', fontSize: '12px', fontWeight:'700', p: '5px 20px', }}>Cancel</Button>
                     <Button onClick={()=>handlecreatesubreddit()} variant='contained' sx={{ borderRadius: '30px', fontSize: '12px', fontWeight:'700', p: '5px 20px' , bgColor: `${theme === 'light' ? '#0045ac' : '#fff'}`, textTransform: 'revert' }}>Create Community</Button>
                 </Box>
             </Box>

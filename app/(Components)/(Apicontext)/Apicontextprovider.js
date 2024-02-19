@@ -1,5 +1,5 @@
 'use client'
-import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { context } from '../(Context)/ContextProvider'
 import { useRouter } from 'next/navigation'
 
@@ -15,6 +15,11 @@ export default function Apicontextprovider({ children }) {
     const [toggle, settoggle] = useState(true)
     const [createsubreddit, setcreatesubreddit] = useState('')
     const [subredditname, setsubredditname] = useState('')
+    const [likedCount, setlikedcount] = useState('')
+    const [dislikedCount, setdislikedcount] = useState('')
+    const [followbtntxt, setfollowbtntxt] = useState('Follow')
+    const [toggleuserfollow, settoggleuserfollow] = useState(false)
+
 
     // ----------------FetchPost---------------------
     const fetchPosts = useMemo(async () => {
@@ -28,6 +33,7 @@ export default function Apicontextprovider({ children }) {
             })
             const result = await response.json();
             setpost(result.data)
+            // console.log(result)
         }
         catch (error) {
             console.log(error)
@@ -35,21 +41,106 @@ export default function Apicontextprovider({ children }) {
     }, [toggle])
     // ----------------FetchPost---------------------
 
+    // ------------------Like and dislike----------------
+    const Likepost =useCallback (async (_id) => {
+        try {
+            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/like/${_id}`, {
+                method: 'Post',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'ProjectID': 'hlahmd78akto',
+                    "Content-Type": "application/json",
+                }
+            })
+            const result = await response.json();
+            setlikedcount(result)
+            settoggle(!toggle)
+            // console.log(result)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    },[])
+    const Disikepost = useCallback(async (_id) => {
+        try {
+            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/like/${_id}`, {
+                method: 'Delete',
+                headers: {
+                    'ProjectID': 'hlahmd78akto',
+                    'Authorization': `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            })
+            const result = await response.json();
+            setdislikedcount(result)
+            settoggle(!toggle)
+            // console.log(result)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    },[])
+    // ------------------Like and dislike----------------
+
+     // ------------------follow and unfollow----------------
+     const Userfollow =async (_id) => {
+        try {
+            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/follow/${_id}`, {
+                method: 'Post',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'ProjectID': 'hlahmd78akto',
+                    "Content-Type": "application/json",
+                }
+            })
+            const result = await response.json();
+            if(result.status === 'success'){
+                setfollowbtntxt('unfollow')
+                settoggleuserfollow(!toggleuserfollow)
+            }
+            // console.log(result)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    const Userunfollow = async (_id) => {
+        try {
+            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/follow/${_id}`, {
+                method: 'Delete',
+                headers: {
+                    'ProjectID': 'hlahmd78akto',
+                    'Authorization': `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            })
+            const result = await response.json();
+            if(result.status === 'success'){
+                setfollowbtntxt('Follow')
+                settoggleuserfollow(!toggleuserfollow)
+            }
+            // console.log(result)
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+    // ------------------follow and unfollow----------------
+
 
 
     const fetchChannel = useMemo(async () => {
         try {
-            const response = await fetch('https://academics.newtonschool.co/api/v1/reddit/channel', {
+            const response = await fetch('https://academics.newtonschool.co/api/v1/reddit/channel?limit=100', {
                 method: 'GET',
                 headers: {
                     'ProjectID': 'hlahmd78akto',
                     "Content-Type": "application/json",
                 },
-
             })
             const result = await response.json();
             setChannel(result.data)
-            // console.log(result)
+            console.log(result)
         }
         catch (error) {
             console.log(error)
@@ -72,7 +163,8 @@ export default function Apicontextprovider({ children }) {
             })
             const result = await response.json();
             settoggle(!toggle)
-            router.push('Home')
+            router.push('/Home')
+            // console.log(result)
         }
         catch (error) {
             console.log(error)
@@ -103,24 +195,24 @@ export default function Apicontextprovider({ children }) {
     // --------------------deletepost--------------------
     const fetchDeletePost = async (val) => {
         try {
-          const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/post/${val}`, {
-            method: 'Delete',
-            headers: {
-              'ProjectID': 'hlahmd78akto',
-              'Authorization': `Bearer ${token}`,
-            },
-          })
-          console.log(val)
-          settoggle(!toggle)
+            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/post/${val}`, {
+                method: 'Delete',
+                headers: {
+                    'ProjectID': 'hlahmd78akto',
+                    'Authorization': `Bearer ${token}`,
+                },
+            })
+            // console.log(val)
+            settoggle(!toggle)
         }
         catch (error) {
-          console.log(error)
+            console.log(error)
         }
-      }
+    }
 
     // -------------------Creating a Subreddits------------------
 
-      const fetchCreatesubreddit = async () => {
+    const fetchCreatesubreddit = async () => {
         try {
             const formData = new FormData();
             formData.append('name', subredditname);
@@ -150,7 +242,7 @@ export default function Apicontextprovider({ children }) {
         fetchPosts
     }, [])
 
-    
+
 
 
     // ---------------------Functions------------------------------
@@ -218,14 +310,15 @@ export default function Apicontextprovider({ children }) {
         }
     };
 
-    const datestring = '2024-02-12T12:14:33.023Z'
-    const date = new Date(datestring)
-    const formatteddate = date.toLocaleDateString('en-US', {month:'long', day:'numeric', year:'numeric'})
 
+    const formatDate = (dateStr) => {
+        const options = { month: 'short', day: 'numeric', year: 'numeric' };
+        return new Date(dateStr).toLocaleDateString('en-US', options);
+    };
 
 
     return (
-        <apicontext.Provider value={{formatteddate, title, settitle, description, setdescription, postimage, setpostimage, subredditname, setsubredditname, fetchCreatePost, fetchDeletePost, fetchUpdatePost, fetchCreatesubreddit, createsubreddit, setcreatesubreddit, post, setpost, sort, setsort, handleselect, getTimeDifference, channel, setChannel, }}>
+        <apicontext.Provider value={{followbtntxt, setfollowbtntxt, Userfollow, Userunfollow, settoggleuserfollow, toggleuserfollow, Likepost, Disikepost, likedCount, dislikedCount, title, settitle, description, setdescription, postimage, setpostimage, subredditname, setsubredditname, fetchCreatePost, fetchDeletePost, fetchUpdatePost, fetchCreatesubreddit, createsubreddit, setcreatesubreddit, post, setpost, sort, setsort, handleselect, getTimeDifference, channel, setChannel, formatDate }}>
             <div>
                 {children}
             </div>

@@ -2,7 +2,7 @@
 import { Button, Hidden, IconButton, ListItemIcon, Menu, MenuItem, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useContext, useState } from "react";
-import { LocalFireDepartment, MoreHoriz, NewReleasesTwoTone, Publish, Rocket, Security, VisibilityOff, } from "@mui/icons-material";
+import { ArrowUpwardOutlined, LocalFireDepartment, MoreHoriz, NewReleasesTwoTone, Publish, Rocket, Security, VisibilityOff, } from "@mui/icons-material";
 import { arrowdown, arrowup, comments, share } from "../(Components)/(Constants)/Asset";
 import { context } from "../(Components)/(Context)/ContextProvider";
 import Community from "../(Components)/(Community)/Community";
@@ -10,47 +10,17 @@ import { apicontext } from "../(Components)/(Apicontext)/Apicontextprovider";
 
 
 export default function Home() {
-  const ITEM_HEIGHT = 48;
-  const { token, theme, router, pop, popup, setpopup } = useContext(context)
-  const { post, setpost, sort, setsort, handleselect, getTimeDifference, fetchDeletePost } = useContext(apicontext)
-  const [likedCount, setlikedcount] = useState('')
-  const [dislikedCount, setdislikedcount] = useState('')
-
-  const Likepost = async (_id) => {
-    try {
-      const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/follow/${_id}`, {
-        method: 'Post',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'ProjectID': 'hlahmd78akto',
-          "Content-Type": "application/json",
-        }
-      })
-      const result = await response.json();
-      setlikedcount(result)
-      console.log(result)
+  const { theme, router, pop, popup, } = useContext(context)
+  const { post, sort, handleselect, getTimeDifference, fetchDeletePost, fetchUpdatePost, Likepost, Disikepost, likedCount, dislikedCount, } = useContext(apicontext)
+    const handlelikedcount = (val)=>{
+      if(likedCount.status==='success'){
+        return val+1;
+      }else if(dislikedCount.status==='success'){
+        return val-1;
+      }else{
+        return val;
+      }
     }
-    catch (error) {
-      console.log(error)
-    }
-  }
-  const Disikepost = async (_id) => {
-    try {
-      const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/follow/${_id}`, {
-        method: 'Delete',
-        headers: {
-          'ProjectID': 'hlahmd78akto',
-          'Authorization': `Bearer ${token}`,
-          "Content-Type": "application/json",
-        }
-      })
-      const result = await response.json();
-      console.log(result)
-    }
-    catch (error) {
-      console.log(error)
-    }
-  }
 
   return (
     <Box sx={{ height: '100vh', width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, overflowY: 'scroll', display: 'flex', justifyContent: 'center', gap: '10px' }}>
@@ -94,11 +64,11 @@ export default function Home() {
         {post && post.map((item, index) => (
           <Box key={index} sx={{ width: { xs: '100%', md: '100%' }, display: 'flex', gap: '5px', mb: '10px', borderRadius: '3px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, ":hover": { border: `${theme === 'light' ? '1px solid #808080' : '1px solid white'}` } }}>
             <Box sx={{ p: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '3px 0 0 3px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, boxSizing: 'border-box' }}>
-              <Typography onClick={() => { Likepost(item.author._id) }} sx={{ display: 'flex', alignItems: 'center', p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowup}</Typography>
-              <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>{likedCount.status === 'success' ? item.likeCount + 1 : item.likeCount - 1}</Typography>
-              <Typography onClick={() => { Disikepost(item.author._id) }} sx={{ display: 'flex', alignItems: 'center', p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowdown}</Typography>
+              <Typography onClick={() => { Likepost(item._id) }} sx={{ display: 'flex', alignItems: 'center', p: '5px', color:`${likedCount.status==='success' ? 'orangered' : '#000'}`, ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowup}</Typography>
+              <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>{handlelikedcount(item.likeCount)}</Typography>
+              <Typography onClick={() => { Disikepost(item._id) }} sx={{ display: 'flex', alignItems: 'center', color:`${dislikedCount.status==='success' ? 'blue' :'#000'}`, p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowdown}</Typography>
             </Box>
-            <Box>
+            <Box sx={{ p:'10px',}}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
                 {item.author.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} class="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.profileImage} />
                   : <img style={{ width: '1rem', borderRadius: '4px' }} src="https://preview.redd.it/me-watching-a-random-drawing-i-made-get-turned-into-a-meme-v0-xib15dbut7tb1.png?width=640&crop=smart&auto=webp&s=218dbe01ffa9c145aa5fef90aec31a21b97ffbbe" />}
@@ -107,7 +77,9 @@ export default function Home() {
               </Box>
               <Typography variant="h6" sx={{ fontSize: '22px', mb: '10px' }}>{item.content}</Typography>
               <img style={{ width: '100%', height: '400px' }} src={item.images[0]} srcset="" sizes="" alt=""></img>
-              <Box display='flex' alignItems='center' gap='10px' sx={{ p: '10px 0', height: '50px' }}>
+
+              {/* -----------------commen share delete options------------------------ */}
+              <Box display='flex' alignItems='center' gap='15px' sx={{ p: '10px 0', height: '50px', cursor:'pointer' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                   <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>{comments}</Typography>
                   <Typography variant="h6" sx={{ p: '5px', fontSize: '12px' }}>{item.commentCount} Comments</Typography>
@@ -117,15 +89,22 @@ export default function Home() {
                   <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>Share</Typography>
                 </Box>
 
-                <Box position='relative'>
-                  <MoreHoriz sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }} onClick={() => pop('delete')} />
-                  {popup['delete'] && <Box sx={{ position: 'absolute', width: '150px', p: '10px', display: 'flex', alignItems: 'center', gap: '10px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
+                {item.author.name === localStorage.getItem('name') && <Box position='relative'>
+                 <Box sx={{ display: 'flex', alignItems: 'center', }}><MoreHoriz sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }} onClick={() => pop('delete')} /></Box>
+                  {popup['delete'] && <Box sx={{ position: 'absolute',width:'200px',  p: '10px',backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
+                    <Box onClick={() => { fetchDeletePost(item._id), fetchUpdatePost(item._id), pop('delete') }} sx={{p:'10px 0 10px 20px', textWrap:'nowrap', display: 'flex', alignItems: 'center', gap: '10px',":hover":{bgcolor:'rgba(174, 174, 241, 0.558)'} }}>
                     <VisibilityOff />
-                    <Typography variant="contained" onClick={() => { fetchDeletePost(item._id), pop('delete') }}>Delete Post</Typography>
+                    <Typography variant="contained" >Delete Post</Typography>
+                    </Box>
+                    <Box  onClick={() => { router.push(`/submit/${item._id}`), pop('delete') }} sx={{p:'10px 0 10px 20px', textWrap:'nowrap', display: 'flex', alignItems: 'center', gap: '10px',":hover":{bgcolor:'rgba(174, 174, 241, 0.558)'} }}>
+                    <VisibilityOff />
+                    <Typography variant="contained">Edit Post</Typography>
+                    </Box>
                   </Box>}
-                </Box>
-
+                </Box>}
               </Box>
+              {/* -----------------commen share delete options------------------------ */}
+
             </Box>
           </Box>))}
       </Box>
@@ -150,7 +129,7 @@ export default function Home() {
             <Typography variant="" >Your personal Reddit frontpage. Come here to check in with your favorite communities.</Typography>
           </Box>
           <Box sx={{ display: 'flex', pt: '20px', flexDirection: 'column', alignItems: 'center', gap: '10px' }}>
-            <Button onClick={() => router.push('/submit')} variant='contained' sx={{ width: '90%', p: '3px', fontSize: '14px', textTransform: 'revert', borderRadius: '20px', color: `${theme === 'light' ? '#fff' : '#000'}`, bgcolor: `${theme === 'light' ? 'rgb(70, 70, 218)' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? 'rgb(70, 70, 218)' : '#fff'}` } }}>Create Post</Button>
+            <Button onClick={() => router.push(`/submit/newpost`)} variant='contained' sx={{ width: '90%', p: '3px', fontSize: '14px', textTransform: 'revert', borderRadius: '20px', color: `${theme === 'light' ? '#fff' : '#000'}`, bgcolor: `${theme === 'light' ? 'rgb(70, 70, 218)' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? 'rgb(70, 70, 218)' : '#fff'}` } }}>Create Post</Button>
             <Button onClick={() => pop('createcommunity')} variant='outlined' sx={{ width: '90%', p: '3px', fontSize: '14px', fontWeight: '700', textTransform: 'revert', color: `${theme === 'light' ? 'blue' : '#fff'}`, borderRadius: '20px', border: `1px solid ${theme === 'light' ? 'blue' : '#fff'}`, outline: 'none', ":hover": { border: `1px solid ${theme === 'light' ? 'blue' : '#fff'}` } }}>Create Community</Button>
           </Box>
         </Box>

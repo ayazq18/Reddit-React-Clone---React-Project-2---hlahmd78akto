@@ -10,22 +10,20 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Tooltip from '@mui/material/Tooltip';
-import { Close, FilterVintage, Logout, MoreHoriz, PersonAdd, Podcasts, Reddit, Settings } from '@mui/icons-material';
+import { AccountCircle, Close, FilterVintage, Logout, MoreHoriz, PersonAdd, Podcasts, Reddit, Settings, Visibility } from '@mui/icons-material';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import { Avatar, Button, Divider, FormControlLabel, MenuItem, Switch } from '@mui/material';
+import { Avatar, Button, Divider, MenuItem, Switch } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { trending, home, popular, notification, createicon, chat, advertise, scanner, shop, communitydropdown, thememode, } from '../(Constants)/Asset'
 import Login from '../(Login)/Login';
 import { context } from '../(Context)/ContextProvider';
 import SideNavBar from './SideNavBar';
 import SwitchBtn from '../(Switch)/SwitchBtn';
-import Link from 'next/link';
 import Community from '../(Community)/Community';
 import { apicontext } from '../(Apicontext)/Apicontextprovider';
-// import { FcAdvertising } from "react-icons/fc";
 
 
 
@@ -67,7 +65,6 @@ const NavBarr = ({ children }) => {
 
 
     const fetchResultSearch = async () => {
-        // e.preventDefault()
         try {
             const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/post?search={"author.name":"${inputValue}"}`, {
                 method: 'GET',
@@ -187,18 +184,19 @@ const NavBarr = ({ children }) => {
                             </Menu>
                         </Box>
                         <Reddit sx={{ display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-start', mr: 1, backgroundColor: 'orangered', borderRadius: '50px', transform: 'scale(1.1)' }} />
+
+                        {/* ---------------------Dropdownsidenav----------------- */}
                         {token &&
                             <Box sx={{ borderRadius: '3px', width: '320px', height: 'auto', top: '-15px', border: `${popup['popsidenavbar'] && '1px solid #c9c7c7'}` }}>
                                 <Box onClick={() => handleToggleDropdown()} sx={{ position: 'relative', p: '10px', width: '100%', }}>
                                     <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'space-between' }}>
                                         <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', }}>
-                                            <Typography sx={{}}>{activeTabs === 'Home' ? home : popular}</Typography>
-                                            <Typography variant='p' sx={{ fontSize: '14px', display: { xs: 'none', md: 'block' } }}>{activeTabs === 'Home' ? 'Home' : 'Popular'}</Typography>
+                                            <Typography sx={{display: 'flex', alignItems: 'center',}}>{activeTabs === 'Home' ? home : popular}</Typography>
+                                            <Typography variant='p' sx={{ fontSize: '16px', display: { xs: 'none', md: 'block' } }}>{activeTabs === 'Home' ? 'Home' : 'Popular'}</Typography>
                                         </Box>
                                         <Typography sx={{ display: 'flex', alignItems: 'center', transform: `${dropnav && 'rotate(180deg)'}`, transition: 'all .5s ease' }}>{communitydropdown}</Typography>
                                     </Box>
                                     {dropnav && <Box width='320px' position='absolute' top='50px' backgroundColor={`${theme === 'light' ? '#fff' : '#0b1416'}`} border={`.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`}>
-                                        {/* <Box sx={{}}> */}
                                         <Box className='popsidenavbar' sx={{ overflowY: 'scroll', p: '20px 5px 20px 15px', height: '70vh', borderRight: `${!token && '1px solid rgba(236, 232, 232, 0.134)'}` }}>
                                             <Box sx={{ borderBottom: '1px solid rgba(236, 232, 232, 0.134)', mb: '10px' }}>
                                                 <Box className={activeTabs === 'Home' && 'activeclass'} onClick={() => { handleTabs('Home'), `${token ? router.push('/Home') : router.push('/')}` }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, width: '100%', display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', borderRadius: '7px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px', }}>{home}</Typography><Typography variant='p' sx={{ fontSize: '14px', }}>Home</Typography></Box>
@@ -206,26 +204,31 @@ const NavBarr = ({ children }) => {
                                             </Box>
                                             {token && <Box sx={{ borderBottom: '1px solid lightgray' }}>
                                                 <Box sx={{ display: 'flex', flexDirection: 'column', }}>
-                                                    <Box onClick={() => { pop('community') }} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: '10px', borderRadius: '10px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography variant='p' sx={{ fontSize: '13px', letterSpacing: '2px', }}>COMMUNITY</Typography><Typography sx={{ display: 'flex', alignItems: 'center', transform: `${popup['community'] && 'rotate(180deg)'}`, transition: 'all .5s ease' }}>{communitydropdown}</Typography></Box>
-                                                    {!popup['community'] && <Box sx={{ width: '100%' }}>
+                                                    <Box sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: '10px', borderRadius: '10px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography variant='p' sx={{ fontSize: '13px', letterSpacing: '2px', }}>COMMUNITY</Typography><Typography sx={{ display: 'flex', alignItems: 'center', transition: 'all .5s ease' }}>{communitydropdown}</Typography></Box>
+                                                    <Box sx={{ width: '100%' }}>
                                                         <IconButton onClick={() => pop('popcommunity')} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '7px', borderRadius: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                                                             <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', }}>{createicon}</Typography>
                                                             <Typography variant='h6' sx={{ fontSize: '14px', }}>Create a community</Typography>
                                                         </IconButton>
-                                                        {channel.map((item, index) => (
-                                                            <IconButton key={index} onClick={() => pop('popcommunity')} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '7px', borderRadius: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
-                                                                <img style={{ width: '20px', flexGrow: 0, display: 'flex', alignItems: 'center', }} src={item.image} />
+
+                                                        {/* ---------------Channel mapping---------------- */}
+                                                        {channel && channel.map((item, index) => (
+                                                            <IconButton key={index} onClick={() => { route.push(`/Community/${item._id}`) }} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '7px', borderRadius: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
+                                                                {item.image ? <img style={{ width: '20px', flexGrow: 0, display: 'flex', alignItems: 'center', }} src={item.image} />
+                                                                    : <img style={{ width: '20px', }} src="https://preview.redd.it/me-watching-a-random-drawing-i-made-get-turned-into-a-meme-v0-xib15dbut7tb1.png?width=640&crop=smart&auto=webp&s=218dbe01ffa9c145aa5fef90aec31a21b97ffbbe" />}
                                                                 <Typography variant='h6' sx={{ fontSize: '14px', }}>{item.name}</Typography>
                                                             </IconButton>
                                                         ))}
-                                                    </Box>}
+                                                    </Box>
                                                 </Box>
                                             </Box>}
                                         </Box>
-                                        {/* </Box> */}
                                     </Box>}
                                 </Box>
-                            </Box>}
+                            </Box>
+                        }
+
+                        {/* -----------------SearchBar--------------------     */}
                         <Paper
                             className='inputfield'
                             component="form"
@@ -272,7 +275,7 @@ const NavBarr = ({ children }) => {
                                     <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, flexGrow: 0, display: 'flex', alignItems: 'center', gap: '5px' }}>
                                         <Tooltip title="Advertise on Reddit">
                                             <IconButton sx={{ p: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)', borderRadius: '50px' } }}>
-                                                <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, }}>{advertise}</Typography>
+                                                <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, }}>{popular}</Typography>
                                             </IconButton>
                                         </Tooltip>
                                         <Tooltip title="Open chat">
@@ -281,7 +284,7 @@ const NavBarr = ({ children }) => {
                                             </IconButton>
                                         </Tooltip>
                                         <Tooltip title="Create post">
-                                            <IconButton onClick={() => router.push('/submit')} sx={{ p: '10px', display: 'flex', alignItems: 'center', gap: '7px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
+                                            <IconButton onClick={() => router.push(`/submit/newpost`)} sx={{ p: '10px', display: 'flex', alignItems: 'center', gap: '7px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                                                 <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, }}>{createicon}</Typography>
                                             </IconButton>
                                         </Tooltip>
@@ -314,7 +317,9 @@ const NavBarr = ({ children }) => {
                                                 <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, }}><Podcasts /></Typography>
                                             </IconButton>
                                         </Tooltip>
-                                        <Tooltip title="Open profile menu">
+
+                                        {/* ------------------login buttn------------------    */}
+                                        <Tooltip title="Open profile menu" >
                                             <Box onClick={handleClick} sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '0px 10px', border: { xs: 'none', md: '1px solid rgba(236, 232, 232, 0.734)' }, borderRadius: '5px' }}>
                                                 <Box sx={{ p: 0, position: 'relative', }}>
                                                     <img className='profilelogo' style={{ width: '25px', borderRadius: '5px' }} src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_3.png" alt="User Avatar" class="max-w-full"></img>
@@ -338,6 +343,7 @@ const NavBarr = ({ children }) => {
                                             PaperProps={{
                                                 elevation: 0,
                                                 sx: {
+                                                    backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#000'}`,
                                                     overflow: 'visible',
                                                     filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
                                                     mt: 1.5,
@@ -364,38 +370,25 @@ const NavBarr = ({ children }) => {
                                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                         >
-                                            <MenuItem onClick={handleClose}>
-                                                <img className='profilelogo' style={{ position: 'relative', left: '-5px', width: '33px', borderRadius: '50px' }} src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_3.png" alt="User Avatar" class="max-w-full"></img> &nbsp;Profile
-                                                <Box sx={{ position: 'absolute', left: '38px', top: '30px', right: '0px', width: '7px', height: '7px', bgcolor: '#55bd46', borderRadius: '100%' }}></Box>
+                                            {/* <img className='profilelogo' style={{ position: 'relative', left: '-5px', width: '33px', borderRadius: '50px' }} src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_3.png" alt="User Avatar" class="max-w-full"></img> &nbsp;Profile
+                                                <Box sx={{ position: 'absolute', left: '38px', top: '30px', right: '0px', width: '7px', height: '7px', bgcolor: '#55bd46', borderRadius: '100%' }}></Box> */}
+                                            <MenuItem sx={{ color: '#808080' }}>
+                                                <Avatar /> My Stuff
                                             </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <Avatar /> My account
+                                            <MenuItem onClick={handleClose} sx={{color: `${theme === 'light' ? '#000' : '#fff'}`}}>
+                                                <Avatar sx={{ visibility: 'hidden' }} /> Profile
                                             </MenuItem>
                                             <Divider />
-                                            <MenuItem sx={{ display: 'flex', gap: '20px' }}>
-                                                <ListItemIcon sx={{ color: '#000' }}>
-                                                    {thememode} &nbsp;
-                                                    Dark mode
-                                                </ListItemIcon>
-
+                                            <MenuItem sx={{ color: '#808080' }}>
+                                                <Visibility /> &nbsp; View Options
+                                            </MenuItem>
+                                            <MenuItem sx={{ display: 'flex', gap:'20px', alignItems:'center', p:'0', color: `${theme === 'light' ? '#000' : '#fff'}` }}>
+                                                <Avatar sx={{ visibility: 'hidden' }} />
+                                                Dark mode
                                                 <SwitchBtn theme={theme} switchLight={switchLight} switchDark={switchDark} />
                                             </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <ListItemIcon>
-                                                    <PersonAdd fontSize="small" />
-                                                </ListItemIcon>
-                                                Add another account
-                                            </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <ListItemIcon>
-                                                    <Settings fontSize="small" />
-                                                </ListItemIcon>
-                                                Settings
-                                            </MenuItem>
-                                            <MenuItem onClick={() => { handleClose(), handleSignOut() }}>
-                                                <ListItemIcon>
-                                                    <Logout fontSize="small" />
-                                                </ListItemIcon>
+                                            <MenuItem onClick={() => { handleClose(), handleSignOut() }} sx={{color: `${theme === 'light' ? '#000' : '#fff'}`}}>
+                                                    <Logout fontSize="small" /> &nbsp;&nbsp;&nbsp;&nbsp;
                                                 Logout
                                             </MenuItem>
                                         </Menu>

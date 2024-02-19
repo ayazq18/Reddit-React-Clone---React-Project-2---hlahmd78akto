@@ -1,19 +1,17 @@
 'use client'
 import { Box, } from '@mui/system'
-import React, { useContext, useEffect, useState } from 'react'
-import { context } from '../(Components)/(Context)/ContextProvider'
-import { apicontext } from '../(Components)/(Apicontext)/Apicontextprovider'
+import React, { useContext, useEffect, useMemo, useState } from 'react'
+import { context } from '../../(Components)/(Context)/ContextProvider'
+import { apicontext } from '../../(Components)/(Apicontext)/Apicontextprovider'
 import { Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, Typography } from '@mui/material'
-import { communitydropdown, postingIcon, } from '../(Components)/(Constants)/Asset';
+import { communitydropdown, postingIcon, } from '../../(Components)/(Constants)/Asset';
 import { Link, Search, } from '@mui/icons-material'
-import Community from '../(Components)/(Community)/Community'
-import { postinginstruction, markdown } from '../(Components)/(Constants)/Asset';
-import { useRouter } from 'next/navigation'
+import Community from '../../(Components)/(Community)/Community'
+import { postinginstruction, markdown } from '../../(Components)/(Constants)/Asset';
 
-export default function CreatePost() {
-  const router = useRouter();
-  const { activepostTabs, postingTabs, pop, popup, token, settoken, switchDark, switchLight, theme, loginpop, setloginpop, signUpdata, setSignUpdata, handleTabs, activeTabs, setActiveTabs, } = useContext(context)
-  const {title,settitle,description,setdescription, postimage,setpostimage,fetchCreatePost} = useContext(apicontext)
+export default function CreatePost(props) {
+  const { activepostTabs, postingTabs, pop, popup, token, theme, activeTabs, } = useContext(context)
+  const { title, settitle, description, setdescription, setpostimage, fetchCreatePost } = useContext(apicontext)
   const [dropnav, setdropnav] = useState(false)
 
   const handleToggleDropdown = () => {
@@ -21,14 +19,43 @@ export default function CreatePost() {
   };
 
 
-  const handleCreatpost = ()=>{
+  const handleCreatpost = () => {
     fetchCreatePost();
-    
+
   }
 
-  const handlefilechange = (e) => {
-    setpostimage(e.target.files[0]);
-  };
+  // const handlefilechange = (e) => {
+  //   setpostimage(e.target.files[0]);
+  // };
+
+  const fetchEditPosts = async () => {
+    try {
+      const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/post/${props.params.NewPost}`, {
+        method: 'GET',
+        headers: {
+          'ProjectID': 'hlahmd78akto',
+          "Content-Type": "application/json",
+        }
+      })
+      const result = await response.json();
+      settitle(result.data.title)
+      setdescription(result.data.content)
+      setpostimage(result.data.images[0])
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    if (props.params.NewPost !== 'newpost') {
+      fetchEditPosts()
+    } else {
+      settitle('')
+      setdescription('')
+      setpostimage('')
+    }
+  }, [])
 
   return (
     <Box sx={{ height: '100vh', width: '100vw', p: '20px 0 0 0', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, overflowY: 'scroll', display: 'flex', justifyContent: 'center', gap: '10px' }}>
@@ -91,7 +118,7 @@ export default function CreatePost() {
         <Paper sx={{ pb: '50px', width: '100%', height: 'auto', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, boxSizing: 'border-box', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', width: '100%', borderBottom: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.54)'}` }}>
             {postingTabs.map((item, index) => (
-              <Box key={item.name} className={`${activepostTabs === item.name && (theme === 'light' ? 'activelightposttab' : 'activedarkposttabs')}`} onClick={() => {item.handler(item.name), pop('item')}} sx={{ boxSizing: 'border-box', borderRight: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.04)'}`, color: '#808080', width: '210px', display: 'flex', alignItems: 'center', justifyContent: 'center', p: '10px 30px' }}><Typography>{item.icon}</Typography><Typography variant='h6' sx={{ fontSize: '13px', fontWeight: '700' }}>{item.name}</Typography></Box>
+              <Box key={item.name} className={`${activepostTabs === item.name && (theme === 'light' ? 'activelightposttab' : 'activedarkposttabs')}`} onClick={() => { item.handler(item.name), pop('item') }} sx={{ boxSizing: 'border-box', borderRight: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.04)'}`, color: '#808080', width: '210px', display: 'flex', alignItems: 'center', justifyContent: 'center', p: '10px 30px' }}><Typography>{item.icon}</Typography><Typography variant='h6' sx={{ fontSize: '13px', fontWeight: '700' }}>{item.name}</Typography></Box>
             ))}
             {/* <Box className={activepostTabs === 'ImageLinkPoll' && 'activeposttab'} onClick={()=>handlepostTabs('ImageLinkPoll')} sx={{boxSizing: 'border-box' ,borderRight: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.04)'}`,color:'#808080',width:'200px',display:'flex', alignItems:'center', justifyContent:'center', p:'10px 30px'}}><Typography><Image/></Typography><Typography variant='h6' sx={{fontSize:'13px', fontWeight:'700', textWrap:'nowrap'}}>Image & Video</Typography></Box>
             <Box className={activepostTabs === 'LinkPoll' && 'activeposttab'} onClick={()=>handlepostTabs('LinkPoll')} sx={{boxSizing: 'border-box' ,borderRight: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.04)'}`,color:'#808080',width:'200px',display:'flex', alignItems:'center', justifyContent:'center', p:'10px 30px'}}><Typography><Link/></Typography><Typography variant='h6' sx={{fontSize:'13px', fontWeight:'700'}}>Link</Typography></Box>
@@ -99,14 +126,14 @@ export default function CreatePost() {
           </Box>
 
 
-          <Box className='postinginput' sx={{ m: '10px', border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`,color: `${theme === 'light' ? '#808080' : '#fff'}` }}>
+          <Box className='postinginput' sx={{ m: '10px', border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, color: `${theme === 'light' ? '#808080' : '#fff'}` }}>
             <FormControl sx={{ width: '100%', }} variant="outlined">
               <InputLabel htmlFor="outlined-adornment-password" sx={{ width: '100%', color: '#808080' }}>Title</InputLabel>
               <OutlinedInput
                 type="text"
                 value={title}
-                sx={{ color:`${theme === 'light' ? '#808080' : '#fff'}`}}
-                onChange={(e)=>settitle(e.target.value)}
+                sx={{ color: `${theme === 'light' ? '#808080' : '#fff'}` }}
+                onChange={(e) => settitle(e.target.value)}
                 endAdornment={
                   <InputAdornment position="end" >
                     <IconButton
@@ -121,35 +148,35 @@ export default function CreatePost() {
             </FormControl>
           </Box>
           {!popup['item'] ?
-          (<Box sx={{ m: '10px', }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: `${theme === 'light' ? '#000' : '#808080'}`, width: '100%', p: '5px 15px', borderRadius: '2px 2px 0 0', border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, backgroundColor: `${theme === 'light' ? '#e9ecf08c' : '#1a1a1b'}` }}>
-              {!popup['markdown'] ? (<Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', }}>
-                <Typography sx={{ fontSize: '20px', p: '5px 10px', borderRadius: '5px', width: '30px', textAlign: 'center', fontWeight: '700', ":hover": { bgcolor: `${theme === 'light' ? '#c2c8d19c' : '#c2c8d13f'}` } }}>B</Typography>
-                <Typography sx={{ fontSize: '20px', p: '5px 10px', borderRadius: '5px', width: '30px', textAlign: 'center', fontWeight: '700', fontStyle: 'italic', ":hover": { bgcolor: `${theme === 'light' ? '#c2c8d19c' : '#c2c8d13f'}` } }}>i</Typography>
-                <Typography sx={{ fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', p: '5px 20px', borderRadius: '5px', width: '30px', textAlign: 'center', fontWeight: '700', fontStyle: 'italic', ":hover": { bgcolor: `${theme === 'light' ? '#c2c8d19c' : '#c2c8d13f'}` } }}><Link /></Typography>
-              </Box>) :
-                (<Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', p: '5px 10px', }}><Typography variant='h6' sx={{ fontSize: '16px' }}>Markdown</Typography><Typography sx={{ width: '15px', display: 'flex', alignItems: 'center' }}>{markdown}</Typography></Box>)
-              }
-              <Box onClick={() => pop('markdown')} sx={{ p: '5px 30px ', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '30px', color: `${theme === 'light' ? 'rgba(51, 51, 245, .8)' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#c2c8d19c' : '#c2c8d13f'}` } }}>
-                {!popup['markdown'] ? <Typography sx={{ fontSize: '14px', textAlign: 'center', fontWeight: '700' }}>Markdown Mode</Typography>
-                  :
-                  <Typography sx={{ fontSize: '14px', textAlign: 'center', fontWeight: '700' }}>Switch to Fancy Pants Editor</Typography>}
+            (<Box sx={{ m: '10px', }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: `${theme === 'light' ? '#000' : '#808080'}`, width: '100%', p: '5px 15px', borderRadius: '2px 2px 0 0', border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, backgroundColor: `${theme === 'light' ? '#e9ecf08c' : '#1a1a1b'}` }}>
+                {!popup['markdown'] ? (<Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', }}>
+                  <Typography sx={{ fontSize: '20px', p: '5px 10px', borderRadius: '5px', width: '30px', textAlign: 'center', fontWeight: '700', ":hover": { bgcolor: `${theme === 'light' ? '#c2c8d19c' : '#c2c8d13f'}` } }}>B</Typography>
+                  <Typography sx={{ fontSize: '20px', p: '5px 10px', borderRadius: '5px', width: '30px', textAlign: 'center', fontWeight: '700', fontStyle: 'italic', ":hover": { bgcolor: `${theme === 'light' ? '#c2c8d19c' : '#c2c8d13f'}` } }}>i</Typography>
+                  <Typography sx={{ fontSize: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', p: '5px 20px', borderRadius: '5px', width: '30px', textAlign: 'center', fontWeight: '700', fontStyle: 'italic', ":hover": { bgcolor: `${theme === 'light' ? '#c2c8d19c' : '#c2c8d13f'}` } }}><Link /></Typography>
+                </Box>) :
+                  (<Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', p: '5px 10px', }}><Typography variant='h6' sx={{ fontSize: '16px' }}>Markdown</Typography><Typography sx={{ width: '15px', display: 'flex', alignItems: 'center' }}>{markdown}</Typography></Box>)
+                }
+                <Box onClick={() => pop('markdown')} sx={{ p: '5px 30px ', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: '30px', color: `${theme === 'light' ? 'rgba(51, 51, 245, .8)' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#c2c8d19c' : '#c2c8d13f'}` } }}>
+                  {!popup['markdown'] ? <Typography sx={{ fontSize: '14px', textAlign: 'center', fontWeight: '700' }}>Markdown Mode</Typography>
+                    :
+                    <Typography sx={{ fontSize: '14px', textAlign: 'center', fontWeight: '700' }}>Switch to Fancy Pants Editor</Typography>}
+                </Box>
               </Box>
+              <textarea value={description} onChange={(e) => setdescription(e.target.value)} style={{ backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, color: `${theme === 'light' ? '#000' : '#fff'}`, padding: '10px', maxWidth: '100%', minWidth: '100%', minHeight: '150px', borderRadius: '2px', }} placeholder="Text (Optional)" />
+            </Box>)
+            : <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', m: '10px', height: '200px', padding: '10px', borderRadius: '2px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.834)' : 'rgba(224, 224, 247, 0.14)'}`, color: `${theme === 'light' ? '#000' : '#fff'}` }}>
+              <Typography sx={{ color: `${theme === 'light' ? '#000' : '#808080'}`, fontSize: '18px' }}>Drag and drop image or</Typography>
+              <input style={{ padding: '10px', backgroungColor: 'blue' }} type="file" onChange={(e) => setpostimage(e.target.files[0])} />
             </Box>
-            <textarea value={description} onChange={(e) => setdescription(e.target.value)} style={{ backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, color: `${theme === 'light' ? '#000' : '#fff'}`, padding: '10px', maxWidth: '100%', minWidth: '100%', minHeight: '150px', borderRadius: '2px', }} placeholder="Text (Optional)" />
-          </Box>)
-          : <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', gap:'10px', m: '10px',height:'200px', padding: '10px', borderRadius: '2px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.834)' : 'rgba(224, 224, 247, 0.14)'}`, color: `${theme === 'light' ? '#000' : '#fff'}`}}>
-            <Typography sx={{color: `${theme === 'light' ? '#000' : '#808080'}`,fontSize:'18px'}}>Drag and drop image or</Typography>
-            <input style={{padding:'10px', backgroungColor:'blue'}} type="file" onChange={(e)=>handlefilechange(e)}/>
-          </Box>
-            }
-          <Box display='flex' justifyContent='flex-end' gap='10px' sx={{ m: '10px', p: '30px',  border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, }}>
+          }
+          <Box display='flex' justifyContent='flex-end' gap='10px' sx={{ m: '10px', p: '30px', border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, }}>
           </Box>
           <Box display='flex' justifyContent='flex-end' gap='10px' sx={{ m: '10px' }}>
             <Button variant='outlined' disabled={description.trim() == ''} sx={{ borderRadius: '50px' }}>Save Draft</Button>
-            <Button variant='contained' disabled={description.trim() == ''} onClick={()=>handleCreatpost()} sx={{ borderRadius: '50px' }}>Post</Button>
+            <Button variant='contained' disabled={description.trim() == ''} onClick={() => handleCreatpost()} sx={{ borderRadius: '50px' }}>Post</Button>
           </Box>
-          <Box display='flex' gap='10px' sx={{mb:'30px', p: '30px',color: `${theme === 'light' ? 'rgba(51, 51, 245, .8)' : '#fff'}`,border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`,backgroundColor: `${theme === 'light' ? '#e9ecf08c' : '#1a1a1b'}` }}>
+          <Box display='flex' gap='10px' sx={{ mb: '30px', p: '30px', color: `${theme === 'light' ? 'rgba(51, 51, 245, .8)' : '#fff'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, backgroundColor: `${theme === 'light' ? '#e9ecf08c' : '#1a1a1b'}` }}>
             <input
               margin="normal"
               required
@@ -158,7 +185,7 @@ export default function CreatePost() {
               name='radio'
               autoFocus
             />
-            <Typography variant='h6' sx={{fontSize:'14px'}}>Send me post reply notifications</Typography>
+            <Typography variant='h6' sx={{ fontSize: '14px' }}>Send me post reply notifications</Typography>
           </Box>
 
 

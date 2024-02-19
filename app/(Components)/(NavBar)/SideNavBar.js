@@ -23,11 +23,11 @@ export default function SideNavBar({ }) {
                     <Box className={activeTabs === 'Home' && 'activeclass'} onClick={() => { handleTabs('Home'), `${token ? router.push('/Home') : router.push('/')}` }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, width: '100%', display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', borderRadius: '7px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px', }}>{home}</Typography><Typography variant='p' sx={{ fontSize: '14px', }}>Home</Typography></Box>
                     <Box className={activeTabs === 'Popular' && 'activeclass'} onClick={() => { handleTabs('Popular'), router.push('/Popular') }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', borderRadius: '7px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px' }}>{popular}</Typography><Typography variant='p' sx={{ fontSize: '14px', }}>Popular</Typography></Box>
                 </Box>
-                {token && <Box sx={{ borderBottom: '1px solid lightgray' }}>
+                {/* {token && <Box sx={{ borderBottom: '1px solid lightgray' }}>
                     <Box sx={{ display: 'flex', flexDirection: 'column', }}>
-                        <Box onClick={() => { pop('community') }} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: '10px', borderRadius: '10px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography variant='p' sx={{ fontSize: '13px', letterSpacing: '2px', }}>COMMUNITY</Typography><Typography sx={{ display: 'flex', alignItems: 'center', transform: `${popup['community'] && 'rotate(180deg)'}`, transition: 'all .5s ease' }}>{communitydropdown}</Typography></Box>
-                        {!popup['community'] && <Box sx={{ width: '100%' }}>
-                            <IconButton onClick={() => pop('popcom')} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '7px', borderRadius: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
+                        <Box onClick={() => { pop('community') }} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: '10px', borderRadius: '10px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography variant='p' sx={{ fontSize: '13px', letterSpacing: '2px', }}>COMMUNITY</Typography><Typography sx={{ display: 'flex', alignItems: 'center', transition: 'all .5s ease' }}>{communitydropdown}</Typography></Box>
+                        <Box sx={{ width: '100%' }}>
+                            <IconButton sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '7px', borderRadius: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                                 <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', }}>{createicon}</Typography>
                                 <Typography variant='h6' sx={{ fontSize: '14px', }}>Create a community</Typography>
                             </IconButton>
@@ -37,9 +37,9 @@ export default function SideNavBar({ }) {
                                     <Typography variant='h6' sx={{ fontSize: '14px', }}>{item.name}</Typography>
                                 </IconButton>
                             ))}
-                        </Box>}
+                        </Box>
                     </Box>
-                </Box>}
+                </Box>} */}
             </Box>
         </Box>
     )

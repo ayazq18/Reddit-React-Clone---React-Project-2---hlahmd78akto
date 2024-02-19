@@ -10,13 +10,13 @@ import { apicontext } from "../../(Components)/(Apicontext)/Apicontextprovider";
 export default function page(props) {
     // console.log(props)
     const { theme, pop, popup, token } = useContext(context)
-    const { sort, handleselect, getTimeDifference, formatteddate} = useContext(apicontext)
+    const { sort, handleselect, getTimeDifference, formatDate, followbtntxt, setfollowbtntxt, Userfollow, Userunfollow, toggleuserfollow} = useContext(apicontext)
     const [userdata, setuserdata] = useState('')
     const [followuser, setfollowuser] = useState(false)
     const [popfollowuser, setpopfollowuser] = useState(false)
     const [filteredpost, setfilteredpost] = useState([])
 
-
+    
     const fetchUserProfile = useMemo(async () => {
         try {
             const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/user/${props.params.Profile}`, {
@@ -34,24 +34,24 @@ export default function page(props) {
         catch (error) {
             console.log(error)
         }
-    }, [])
+    }, [toggleuserfollow])
 
-    const fetchFollow = useMemo(async () => {
-        try {
-            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/follow/${props.params.Profile}`, {
-                method: 'Post',
-                headers: {
-                    'ProjectID': 'hlahmd78akto',
-                    'Authorization': `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                }
-            })
-            const result = await response.json();
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }, [])
+    // const fetchFollow = useMemo(async () => {
+    //     try {
+    //         const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/follow/${props.params.Profile}`, {
+    //             method: 'Post',
+    //             headers: {
+    //                 'ProjectID': 'hlahmd78akto',
+    //                 'Authorization': `Bearer ${token}`,
+    //                 "Content-Type": "application/json",
+    //             }
+    //         })
+    //         const result = await response.json();
+    //     }
+    //     catch (error) {
+    //         console.log(error)
+    //     }
+    // }, [])
 
     // ----------------fetchyourPosts---------------------
 
@@ -67,7 +67,7 @@ export default function page(props) {
             const result = await response.json();
             const filteredresult = result.data.filter((item)=>{return item.author._id == props.params.Profile})
             setfilteredpost(filteredresult)
-            // console.log(filteredresult)
+            console.log(filteredresult)
         }
         catch (error) {
             console.log(error)
@@ -78,23 +78,26 @@ export default function page(props) {
 
     useEffect(() => {
         fetchUserProfile
-        fetchFollow
         fetchyourPosts
     }, [])
 
-    const handlefollowuser = ()=>{
-        setfollowuser(!followuser)
+    const handlefollowuser = (_id)=>{
+        if(followbtntxt === 'Follow'){
+            Userunfollow(_id)
+        }else{
+            Userfollow(_id)
+        }
         setpopfollowuser(!popfollowuser)
         setTimeout(() => {
         setpopfollowuser(false)
         }, 3000);
     }
-
+    
     return (
         <Box sx={{ position: 'relative', width: '100vw', height: '100vh',overflowY:'scroll', display: 'flex', justifyContent: 'center', flexDirection: { xs: 'column', md: 'row' }, alignItems: { xs: 'center', md: 'flex-start' }, backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, }}>
             {popfollowuser && <Paper sx={{display:'flex',alignItems:'center',gap:'15px', position: 'absolute', bottom: '100px', width: '40%',height:'40px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, zIndex: '9' }}>
                     <Box display='flex' alignItems='center' justifyContent='center' borderRadius='5px 0 0 5px' bgcolor='red' height='100%' width='40px' color={`${theme === 'light' ? 'black' : '#fff'}`} sx={{":hover":{transform:'scale(1.5)', borderRadius:'50px', transition:'all 1s ease'}}} onClick={()=>setpopfollowuser(false)}><Close /></Box>
-                    {followuser ? <Box  display='flex' alignItems='center' gap='10px'><Typography sx={{width:'30px'}}>{followedicon}</Typography><Typography variant="h5" sx={{color:'green', fontSize:'15px'}}>You Followed {userdata.name}</Typography></Box>
+                    {followbtntxt !== 'Follow' ? <Box  display='flex' alignItems='center' gap='10px'><Typography sx={{width:'30px'}}>{followedicon}</Typography><Typography variant="h5" sx={{color:'green', fontSize:'15px'}}>You Followed {userdata.name}</Typography></Box>
                     : <Box  display='flex' alignItems='center' gap='10px'><Typography sx={{width:'30px'}}>{followedicon}</Typography><Typography variant="h5" sx={{color:'red', fontSize:'15px'}}>You Unfollowed {userdata.name}</Typography></Box>}
             </Paper>}
             <Box sx={{ width: { xs: '100%', md: '50%', } }}>
@@ -167,12 +170,12 @@ export default function page(props) {
                             <Typography variant="h5" sx={{ fontSize: '14px', fontWeight: '500' }}>Cake day</Typography>
                             <Box sx={{ display: 'flex', gap: '5px', alignItems: 'center', }}>
                                 <FilterVintage sx={{ fontSize: '14px', color: 'orangered' }} />
-                                <Typography variant="p" sx={{ fontSize: '12px', color: '#808080' }}>{formatteddate}</Typography>
+                                <Typography variant="p" sx={{ fontSize: '12px', color: '#808080' }}>{formatDate(userdata.createdAt)}</Typography>
                             </Box>
                         </Box>
                     </Box>
                     <Box sx={{ display: 'flex',mt:'10px', p: '15px', justifyContent: 'flex-start', alignItems: 'center', gap: '10px' }}>
-                        <Button variant='contained' sx={{ width: '40%', p: '3px', fontSize: '14px', textTransform: 'revert', borderRadius: '20px', color: `${theme === 'light' ? '#fff' : '#000'}`, bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}` } }} onClick={()=>{handlefollowuser()}}>{followuser ? 'Unfollow' : 'Follow'}</Button>
+                        <Button variant='contained' sx={{ width: '40%', p: '3px', fontSize: '14px', textTransform: 'revert', borderRadius: '20px', color: `${theme === 'light' ? '#fff' : '#000'}`, bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}` } }} onClick={()=>{handlefollowuser(props.params.Profile)}}>{followbtntxt}</Button>
                         {/* <Button variant='contained' sx={{ width: '40%', p: '3px', fontSize: '14px', textTransform: 'revert', borderRadius: '20px', color: `${theme === 'light' ? '#fff' : '#000'}`, bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}` } }}>Chat</Button> */}
                     </Box>
                     <Box sx={{ width: '100%' }}>
