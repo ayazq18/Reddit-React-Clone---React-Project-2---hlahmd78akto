@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
       <body >
         <ContextProvider>
           <Apicontextprovider>
-        <div style={{width:'100%', overflow:'hidden',position:'fixed', top:'0',}}>
+        <div style={{width:'100vw', overflowY:'scroll', height:'100%',position:'fixed', top:'0',}}>
           <NavBarr children={children}/>
         </div>
         </Apicontextprovider>

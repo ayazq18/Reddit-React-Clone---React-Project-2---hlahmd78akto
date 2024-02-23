@@ -10,8 +10,8 @@ import { apicontext } from "../(Components)/(Apicontext)/Apicontextprovider";
 
 
 export default function Home() {
-  const { theme, router, pop, popup, } = useContext(context)
-  const { post, sort, handleselect, getTimeDifference, fetchDeletePost, fetchUpdatePost, Likepost, Disikepost, likedCount, dislikedCount, } = useContext(apicontext)
+  const { theme, router, pop, popup, userprofilename } = useContext(context)
+  const { post, sort, handleselect, getTimeDifference, fetchDeletePost, fetchUpdatePost, Likepost, Disikepost, likedCount, dislikedCount, popupdelete, setpopupdelete, handledeletecomment,} = useContext(apicontext)
   const handlelikedcount = (val) => {
     if (likedCount.status === 'success') {
       return val + 1;
@@ -23,8 +23,8 @@ export default function Home() {
   }
 
   return (
-    <Box className='home' sx={{ height: '100vh', width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, overflowY: 'scroll', display: 'flex', justifyContent: 'center', gap: '10px' }}>
-      {popup['createcommunity'] && <Box sx={{ overflowY: 'scroll', position: 'absolute', top: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100vh', zIndex: '8', bgcolor: 'rgba(24, 23, 23, 0.923)' }}>
+    <Box className='home' sx={{  width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
+      {popup['createcommunity'] && <Box sx={{ position: 'absolute', top: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100vh', zIndex: '8', bgcolor: 'rgba(24, 23, 23, 0.923)' }}>
         <Box sx={{ zIndex: '9' }}><Community pop={pop} /></Box>
       </Box>}
       <Box sx={{ width: { xs: '100%', md: '50%' } }}>
@@ -71,7 +71,7 @@ export default function Home() {
             <Box sx={{ p: '10px', }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
                 {item.author.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} class="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.profileImage} />
-                  : <img style={{ width: '1rem', borderRadius: '4px' }} src="https://preview.redd.it/me-watching-a-random-drawing-i-made-get-turned-into-a-meme-v0-xib15dbut7tb1.png?width=640&crop=smart&auto=webp&s=218dbe01ffa9c145aa5fef90aec31a21b97ffbbe" />}
+                  : <Typography variant='h6' sx={{fontSize:'12px',fontWeight:'700', textTransform:'uppercase', p:'2px 7px', borderRadius:'100%',backgroundColor: '#808080'}}>{item.author.name.charAt(0)}</Typography>}
                 <Typography onClick={() => router.push(`/User/${item.author._id}`)} variant="p" sx={{ fontSize: '14px', fontWeight: '700' }}>{item.author.name} &nbsp;.</Typography>
                 <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
               </Box>
@@ -80,7 +80,7 @@ export default function Home() {
 
               {/* -----------------commen share delete options------------------------ */}
               <Box display='flex' alignItems='center' gap='15px' sx={{ p: '10px 0', height: '50px', cursor: 'pointer' }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
+                <Box onClick={()=>router.push(`/PostComments/${item.author._id}?PostId=${item._id}`)} sx={{ display: 'flex', alignItems: 'center', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                   <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>{comments}</Typography>
                   <Typography variant="h6" sx={{ p: '5px', fontSize: '12px' }}>{item.commentCount} Comments</Typography>
                 </Box>
@@ -89,9 +89,9 @@ export default function Home() {
                   <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>Share</Typography>
                 </Box>
 
-                {item.author.name === localStorage.getItem('name') && <Box position='relative'>
-                  <Box sx={{ display: 'flex', alignItems: 'center', }}><MoreHoriz sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }} onClick={() => pop('delete')} /></Box>
-                  {popup['delete'] && <Box sx={{ position: 'absolute', width: '200px', p: '10px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
+                {item.author.name === userprofilename && <Box position='relative'>
+                  <Box sx={{ display: 'flex', alignItems: 'center', }}><MoreHoriz sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }} onClick={() => handledeletecomment(item._id)} /></Box>
+                  {popupdelete == item._id && <Box sx={{ position: 'absolute', width: '200px', p: '10px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
                     <Box onClick={() => { fetchDeletePost(item._id), fetchUpdatePost(item._id), pop('delete') }} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
                       <VisibilityOff />
                       <Typography variant="contained" >Delete Post</Typography>

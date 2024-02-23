@@ -28,7 +28,7 @@ import { apicontext } from '../(Apicontext)/Apicontextprovider';
 
 
 const NavBarr = ({ children }) => {
-    const { router, pop, popup, setpopup, token, settoken, switchDark, switchLight, theme, loginpop, setloginpop, signUpdata, setSignUpdata, handleTabs, activeTabs, setActiveTabs, } = useContext(context)
+    const { router, pop, popup, setpopup, token, settoken, switchDark, switchLight, theme, loginpop, setloginpop, signUpdata, setSignUpdata, handleTabs, activeTabs, setActiveTabs,userprofilename } = useContext(context)
     const { channel } = useContext(apicontext)
     const ITEM_HEIGHT = 48;
     const route = useRouter()
@@ -259,7 +259,7 @@ const NavBarr = ({ children }) => {
                                                 <Typography variant='h6' sx={{ p: '5px 0', fontSize: '.8rem', color: '#808080', fontWeight: '400' }}>{item.content}</Typography>
                                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
                                                     {item.author.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} class="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.profileImage} />
-                                                        : <img style={{ width: '1rem', borderRadius: '4px' }} src="https://preview.redd.it/me-watching-a-random-drawing-i-made-get-turned-into-a-meme-v0-xib15dbut7tb1.png?width=640&crop=smart&auto=webp&s=218dbe01ffa9c145aa5fef90aec31a21b97ffbbe" />}
+                                                        : <Typography variant='h6' sx={{fontSize:'12px',fontWeight:'700', textTransform:'uppercase', p:'2px 7px', borderRadius:'100%',backgroundColor: '#808080'}}>{item.author.name.charAt(0)}</Typography>}
                                                     <Typography variant='h6' sx={{ fontSize: '.8rem', color: '#808080', fontWeight: '400' }}>{item.author.name}</Typography>
                                                 </Box>
                                             </Box>
@@ -311,7 +311,7 @@ const NavBarr = ({ children }) => {
                                                 </Box>
                                                 <Box sx={{ display: 'flex', width: { xs: 'none', md: '150px' }, color: '#000', justifyContent: 'space-between' }}>
                                                     <Box>
-                                                        <Typography variant='h6' sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: { xs: 'none', md: 'block' }, fontSize: '12px' }}>{localStorage.getItem('name')}</Typography>
+                                                        <Typography variant='h6' sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: { xs: 'none', md: 'block' }, fontSize: '12px' }}>{userprofilename}</Typography>
                                                         <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: { xs: 'none', md: 'flex' }, gap: '5px', alignItems: 'center' }}><Typography><FilterVintage sx={{ fontSize: '14px', color: 'orangered' }} /></Typography><Typography variant='h6' sx={{ fontSize: '12px', color: '#808080' }}>1 karma</Typography></Box>
                                                     </Box>
                                                     <Typography sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: { xs: 'block', md: 'flex' }, alignItems: 'center', }}>{communitydropdown}</Typography>
@@ -446,7 +446,7 @@ const NavBarr = ({ children }) => {
                     </Toolbar>
                 </Container>
             </AppBar>
-            <Box display='flex' gap='30px' width="100%" overflowx='hidden' sx={{ backgroundColor: `${theme === 'light' ? '#fff' : '#000'}`, }}>
+            <Box display='flex' gap='30px' width="100%" overflowx='hidden' sx={{ backgroundColor: `${theme === 'light' ? '#fff' : '#000'}`,}}>
                 {!token && <Box display={{ xs: 'none', md: 'block' }} ><SideNavBar popup={popup} pop={pop} setpopup={setpopup} token={token} /></Box>}
                 <Box width="100%" display='flex' justifyContent='center' >{children}</Box>
             </Box>

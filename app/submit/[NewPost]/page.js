@@ -10,7 +10,7 @@ import Community from '../../(Components)/(Community)/Community'
 import { postinginstruction, markdown } from '../../(Components)/(Constants)/Asset';
 
 export default function CreatePost(props) {
-  const { activepostTabs, postingTabs, pop, popup, token, theme, activeTabs, } = useContext(context)
+  const {userprofilename, activepostTabs, postingTabs, pop, popup, token, theme, activeTabs, } = useContext(context)
   const { title, settitle, description, setdescription, setpostimage, fetchCreatePost } = useContext(apicontext)
   const [dropnav, setdropnav] = useState(false)
 
@@ -58,7 +58,7 @@ export default function CreatePost(props) {
   }, [])
 
   return (
-    <Box sx={{ height: '100vh', width: '100vw', p: '20px 0 0 0', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, overflowY: 'scroll', display: 'flex', justifyContent: 'center', gap: '10px' }}>
+    <Box sx={{width: '100vw', p: '20px 0 0 0', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
       {popup['createcommunity'] && <Box sx={{ overflowY: 'scroll', position: 'absolute', top: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100vh', zIndex: '8', bgcolor: 'rgba(24, 23, 23, 0.923)' }}>
         <Box sx={{ zIndex: '9' }}><Community pop={pop} /></Box>
       </Box>}
@@ -89,7 +89,7 @@ export default function CreatePost(props) {
                 <Typography variant='h6' sx={{ fontSize: '10px', color: '#808080', textTransform: 'uppercase' }}>Your Profile</Typography>
                 <Box sx={{ width: '100%', p: '10px 0', display: 'flex', alignItems: 'center', borderBottom: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
                   <img className='profilelogo' style={{ borderRadius: '3px', position: 'relative', left: '-5px', width: '33px', }} src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_3.png" alt="User Avatar" class="max-w-full"></img>
-                  <Typography variant='h6' sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, fontSize: '12px' }}>{localStorage.getItem('name')}</Typography>
+                  <Typography variant='h6' sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, fontSize: '12px' }}>{userprofilename}</Typography>
                 </Box>
               </Box>
               <Box sx={{ borderBottom: '1px solid lightgray' }}>

@@ -10,13 +10,29 @@ export const context = createContext()
 export const ContextProvider = ({ children }) => {
     const router = useRouter();
 
-    // const storedTheme = localStorage.getItem('theme');
-    const [theme, setTheme] = useState( 'dark')
+    const [storedTheme, setstoredtheme] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('theme');
+        }
+        return 'dark'; // Default theme if localStorage is not available
+    });
+    const [theme, setTheme] = useState(storedTheme || 'dark')
 
     const [signUpdata, setSignUpdata] = useState({ name: '', email: '', password: '' })
     const [popup, setpopup] = useState({});
     const [loginpop, setloginpop] = useState(false)
-    const [token, settoken] = useState(localStorage.getItem('token'))
+    const [userprofilename,setuserprofilename] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('name');
+        }
+        return 'dark'; // Default theme if localStorage is not available
+    })
+    const [token, settoken] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.getItem('token');
+        }
+        return 'dark'; // Default theme if localStorage is not available
+    })
     const [activeTabs, setActiveTabs] = useState('Home')
     const [activepostTabs, setActivepostTabs] = useState('Post')
     
@@ -105,7 +121,7 @@ export const ContextProvider = ({ children }) => {
     }
 
     return (
-        <context.Provider value={{activepostTabs, setActivepostTabs,postingTabs,router, handleTabs,activeTabs, setActiveTabs, switchDark, switchLight, theme, signUpdata, setSignUpdata, handleSignUp, handleSubmit, popup, setpopup, pop, loginpop, setloginpop, token, settoken }}>
+        <context.Provider value={{activepostTabs, userprofilename, setActivepostTabs,postingTabs,router, handleTabs,activeTabs, setActiveTabs, switchDark, switchLight, theme, signUpdata, setSignUpdata, handleSignUp, handleSubmit, popup, setpopup, pop, loginpop, setloginpop, token, settoken }}>
             <div className={`${theme}`}>
                 {children}
             </div>

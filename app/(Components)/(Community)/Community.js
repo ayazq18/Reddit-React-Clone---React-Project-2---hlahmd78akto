@@ -84,7 +84,7 @@ export default function Community({ pop }) {
                 </Box>
                 <Box display='flex' width='100%' mt='30px' p='10px' justifyContent='flex-end' alignItems='center' gap='5px'>
                     <Button onClick={()=>pop('popcom')} variant='outlined' sx={{ borderRadius: '20px', fontSize: '12px', fontWeight:'700', p: '5px 20px', }}>Cancel</Button>
-                    <Button onClick={()=>handlecreatesubreddit()} variant='contained' sx={{ borderRadius: '30px', fontSize: '12px', fontWeight:'700', p: '5px 20px' , bgColor: `${theme === 'light' ? '#0045ac' : '#fff'}`, textTransform: 'revert' }}>Create Community</Button>
+                    <Button onClick={()=>handlecreatesubreddit()} variant='contained' disabled={subredditname == ''} sx={{ borderRadius: '30px', fontSize: '12px', fontWeight:'700', p: '5px 20px' , bgColor: `${theme === 'light' ? '#0045ac' : '#fff'}`, textTransform: 'revert' }}>Create Community</Button>
                 </Box>
             </Box>
         </Box>

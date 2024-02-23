@@ -5,7 +5,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
-    /* background-color: #dae0e691; */
+    /* background-color: rgba(190, 190, 245, 0.548); */
     /* background-image: url; */
     /* color: rgba(119, 117, 117, 0.507); */
 }
@@ -92,7 +92,10 @@ body::-webkit-scrollbar{
 .seemorecommunities::-webkit-scrollbar {
   display: flex;
 }
-.home::-webkit-scrollbar {
+/* .home::-webkit-scrollbar {
+    display: none;
+} */
+.commentsSec::-webkit-scrollbar {
     display: none;
 }
 .advertisement{
@@ -100,4 +103,9 @@ body::-webkit-scrollbar{
     height: 100px;
     background-image: url("https://preview.redd.it/8toorcixvbjc1.png?auto=webp&s=ce27589963c1965fce8cb90bdcb684836a61b0e7");
     background-size: cover;
+}
+.communitydeleted{
+    background-image: url('https://lordicon.com/icons/wired/lineal/1127-mailbox.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
 }

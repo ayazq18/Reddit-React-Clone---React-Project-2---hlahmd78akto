@@ -1,5 +1,5 @@
 'use client'
-import { Avatar, Button, Paper, Typography } from "@mui/material";
+import { Button, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Close, FilterVintage, LocalFireDepartment, NewReleasesTwoTone, Publish, Rocket, } from "@mui/icons-material";
@@ -7,76 +7,17 @@ import { arrowdown, arrowup, comments, followedicon, google, share } from "../..
 import { context } from "../../(Components)/(Context)/ContextProvider";
 import { apicontext } from "../../(Components)/(Apicontext)/Apicontextprovider";
 
-export default function page(props) {
-    // console.log(props)
-    const { theme, pop, popup, token } = useContext(context)
-    const { sort, handleselect, getTimeDifference, formatDate, followbtntxt, Userfollow, Userunfollow, toggleuserfollow} = useContext(apicontext)
-    const [userdata, setuserdata] = useState('')
-    const [popfollowuser, setpopfollowuser] = useState(false)
-    const [filteredpost, setfilteredpost] = useState([])
-
-    
-    const fetchUserProfile = useMemo(async () => {
-        try {
-            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/user/${props.params.Profile}`, {
-                method: 'GET',
-                headers: {
-                    'ProjectID': 'hlahmd78akto',
-                    'Authorization': `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                }
-            })
-            const result = await response.json();
-            setuserdata(result.data)
-            console.log(result)
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }, [toggleuserfollow])
-
-    // ----------------fetchyourPosts---------------------
-
-    const fetchyourPosts = useMemo(async () => {
-        try {
-            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/post/`, {
-                method: 'GET',
-                headers: {
-                    'ProjectID': 'hlahmd78akto',
-                    "Content-Type": "application/json",
-                }
-            })
-            const result = await response.json();
-            const filteredresult = result.data.filter((item)=>{return item.author._id == props.params.Profile})
-            setfilteredpost(filteredresult)
-            console.log(filteredresult)
-        }
-        catch (error) {
-            console.log(error)
-        }
-    },[])
-
-    // ----------------fetchyourPosts---------------------
-
+export default function UserProfile(props) {
+    const { theme, pop, popup, router} = useContext(context)
+    const { sort, handleselect, getTimeDifference, formatDate, followbtntxt, toggleuserfollow, setpopfollowuser, userdata, fetchUserProfile,filteredpost, fetchyourPosts, popfollowuser, handlefollowuser} = useContext(apicontext)
+console.log(userdata)
     useEffect(() => {
-        fetchUserProfile
-        fetchyourPosts
-    }, [])
-
-    const handlefollowuser = (_id)=>{
-        if(userdata.isFollowed===true){
-            Userunfollow(_id)
-        }else{
-            Userfollow(_id)
-        }
-        setpopfollowuser(!popfollowuser)
-        setTimeout(() => {
-        setpopfollowuser(false)
-        }, 3000);
-    }
+        fetchUserProfile(props.params.Profile)
+        fetchyourPosts(props.params.Profile)
+    }, [toggleuserfollow])
     
     return (
-        <Box sx={{ position: 'relative', width: '100vw', height: '100vh',overflowY:'scroll', display: 'flex', justifyContent: 'center', flexDirection: { xs: 'column', md: 'row' }, alignItems: { xs: 'center', md: 'flex-start' }, backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, }}>
+        <Box sx={{ position: 'relative', width: '100vw', display: 'flex', justifyContent: 'center', flexDirection: { xs: 'column', md: 'row' }, alignItems: { xs: 'center', md: 'flex-start' }, backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, }}>
 
             {/* ---------------Follow unfollow popup------------------ */}
             {popfollowuser && <Paper sx={{display:'flex',alignItems:'center',gap:'15px', position: 'absolute', bottom: '100px', width: '40%',height:'60px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, zIndex: '9' }}>
@@ -125,15 +66,17 @@ export default function page(props) {
                 </Box>
                 <Box  sx={{width:'100%',}}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
+                    {item.image ? <img style={{ width: '1rem', borderRadius: '4px' }} class="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.image} />
+                                : item.author && <Typography variant='h6' sx={{fontSize:'12px',fontWeight:'700', textTransform:'uppercase', p:'2px 7px', borderRadius:'100%',backgroundColor: '#808080'}}>{(item.author.name.charAt(0))}</Typography>}
                         <Typography variant="p" sx={{ fontSize: '12px' }}>{item.author.name} &nbsp;.</Typography>
                         <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
                     </Box>
                     <Typography variant="h6" sx={{ fontSize: '12px', mb: '10px' }}>{item.content}</Typography>
                     <img style={{width:'100%',}} src={item.images}/>
                     <Box display='flex' alignItems='center' gap='10px' sx={{ p: '10px 0', height: '50px' }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
+                        <Box onClick={()=>router.push(`/PostComments/${item.author._id}?PostId=${item._id}`)} sx={{ display: 'flex', alignItems: 'center', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                             <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>{comments}</Typography>
-                            <Typography variant="h6" sx={{ p: '5px', fontSize: '12px' }}> Comments</Typography>
+                            <Typography variant="h6" sx={{ p: '5px', fontSize: '12px' }}>{item.commentCount} Comments</Typography>
                         </Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                             <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px' }}>{share}</Typography>
@@ -157,7 +100,7 @@ export default function page(props) {
                     </Box>
                     <Box sx={{ position: 'absolute', top: '40px', left: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '4px', width: '80px', height: '80px', backgroundColor: `${theme === 'light' ? '#fff' : '#000'}` }}>
                         {userdata.profileImage ? <img style={{ width: '70px', borderRadius: '4px' }} class="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={userdata.profileImage} />
-                        : <img style={{ width: '70px', borderRadius: '4px'}} src="https://preview.redd.it/me-watching-a-random-drawing-i-made-get-turned-into-a-meme-v0-xib15dbut7tb1.png?width=640&crop=smart&auto=webp&s=218dbe01ffa9c145aa5fef90aec31a21b97ffbbe"/>}
+                        : userdata.name && <Typography variant='h6' sx={{fontSize:'50px',fontWeight:'700', textTransform:'uppercase', p:'2px 7px', borderRadius:'100%',}}>{userdata.name.charAt(0)}</Typography>}
                     </Box>
                     <Typography sx={{ m: '20px 0px 10px 15px', fontSize: '12px' }}>{userdata.name}</Typography>
                     <Box sx={{ p: '0 15px', width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
