@@ -87,7 +87,7 @@ export default function page() {
 
       {/* -----------------PopularCommunities----------------- */}
 
-      <Box className='seemorecommunities' sx={{ display: { xs: 'none', md: 'block' }, position: 'sticky', top: '20px', width: '25%', mt: '20px', height: `${popup['seemorecommunities'] ? '70vh' : '480px'}`, overflowY: 'scroll', p: '20px', backgroundColor: `${theme === 'light' ? '#dae0e62a' : '#000'}`, borderRadius: '10px', }}>
+      <Box className='seemorecommunities' sx={{ display: { xs: 'none', md: 'block' }, position: 'sticky', top: '20px', width: '25%', mt: '20px', height: `${popup['seemorecommunities'] ? '70vh' : '480px'}`, overflowY: 'scroll', p: '20px', backgroundColor: `${theme === 'light' ? '#dae0e62a' : '#000'}`, borderRadius: '10px',border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`,  }}>
         <PopularCommunities />
       </Box>
 

@@ -24,13 +24,13 @@ export const ContextProvider = ({ children }) => {
         if (typeof window !== 'undefined') {
             return localStorage.getItem('name');
         }
-        return '';
+        return null;
     })
     const [token, settoken] = useState(() => {
         if (typeof window !== 'undefined') {
             return localStorage.getItem('token');
         }
-        return 'dark';
+        return null;
     })
     const [activeTabs, setActiveTabs] = useState('Home')
     const [activepostTabs, setActivepostTabs] = useState('Post')
@@ -38,7 +38,7 @@ export const ContextProvider = ({ children }) => {
         if (typeof window !== 'undefined') {
             return localStorage.getItem('_id');
         }
-        return 'dark';
+        return null;
     })
     const [isSignup, setIsSignUp] = useState(true)
     const [homeorpopular, sethomeorpopular] = useState('Home')
