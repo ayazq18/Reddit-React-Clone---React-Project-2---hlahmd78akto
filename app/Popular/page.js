@@ -13,7 +13,7 @@ import PremiumandHomeDetails from "../(Components)/(SmallComponents)/PremiumandH
 
 export default function Home() {
   const { theme, router, pop, popup, userprofilename } = useContext(context)
-  const { handleSwitchChange, isSwitchOn, post, sort, handleselect, getTimeDifference, fetchDeletePost, fetchUpdatePost, Likepost, Disikepost, likedCount, dislikedCount, popupdelete, setpopupdelete, handledeletecomment, } = useContext(apicontext)
+  const { handleSwitchChange, isSwitchOn, post, sort, handleselect, getTimeDifference, fetchDeletePost, fetchUpdatePost, Likepost, Dislikepost, likedCount, dislikedCount, popupdelete, setpopupdelete, handledeletecomment, } = useContext(apicontext)
   const handlelikedcount = (val) => {
     if (likedCount.status === 'success') {
       return val + 1;
@@ -40,7 +40,7 @@ export default function Home() {
             <Box sx={{ p: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '3px 0 0 3px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, boxSizing: 'border-box' }}>
               <Typography onClick={() => { Likepost(item._id) }} sx={{ display: 'flex', alignItems: 'center', p: '5px', color: `${likedCount.status === 'success' ? 'orangered' : theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowup}</Typography>
               <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>{handlelikedcount(item.likeCount)}</Typography>
-              <Typography onClick={() => { Disikepost(item._id) }} sx={{ display: 'flex', alignItems: 'center', color: `${dislikedCount.status === 'success' ? 'blue' : theme === 'light' ? '#000' : '#fff'}`, p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowdown}</Typography>
+              <Typography onClick={() => { Dislikepost(item._id) }} sx={{ display: 'flex', alignItems: 'center', color: `${dislikedCount.status === 'success' ? 'blue' : theme === 'light' ? '#000' : '#fff'}`, p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowdown}</Typography>
             </Box>
             <Box sx={{ p: '10px', width: '100%' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>

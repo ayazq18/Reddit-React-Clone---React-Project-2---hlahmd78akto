@@ -4,33 +4,32 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Apple, Close, Google } from '@mui/icons-material';
+import { Apple, Close, Google, Visibility, VisibilityOff } from '@mui/icons-material';
 import { backicon, google } from '../(Constants)/Asset';
-import { Input, Paper } from '@mui/material';
+import { FormControl, IconButton, Input, InputAdornment, InputLabel, OutlinedInput, } from '@mui/material';
 import { context } from '../(Context)/ContextProvider';
 const defaultTheme = createTheme();
 
 export default function Login({ }) {
   const { isSignup, setIsSignUp, token, settoken, switchDark, switchLight, theme, signUpdata, setSignUpdata, handleSignUp, handleSubmit, popup, setpopup, pop, loginpop, setloginpop } = useContext(context)
+  const [passwordTyped, setpasswordtyped] = useState(false)
 
-  const handleemail = () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // -----Password visibility---------
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+  // -----Password visibility---------
 
-    // Check if email format is correct
-    if (emailRegex.test(signUpdata.email)) {
-      pop('continue');
-    } else {
-      // Alert user to enter a correct email
-      alert('Please enter a valid email address.');
-    }
+  const handlepassword = (e)=>{
+    setSignUpdata({ ...signUpdata, password: e.target.value })
+    setpasswordtyped(!passwordTyped)
   }
 
   return (
@@ -85,6 +84,8 @@ export default function Login({ }) {
                 <Typography className='comingsoon' variant='p' sx={{ fontSize: '13px' }}>Continue with Apple (Coming soon)</Typography>
               </Box>
             </Box>
+
+            {/* ------------------Login---------------- */}
             {isSignup && <Box component="form" noValidate sx={{ width: '350px', height: '200px' }}>
               <TextField
                 className='input'
@@ -100,20 +101,31 @@ export default function Login({ }) {
                 value={signUpdata.email}
                 onChange={(e) => setSignUpdata({ ...signUpdata, email: e.target.value })}
               />
-              <TextField
-                className='input'
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-                value={signUpdata.password}
-                inputProps={{ min: 8 }}
-                onChange={(e) => setSignUpdata({ ...signUpdata, password: e.target.value })}
-              />
+
+              <FormControl sx={{ mt: 3, width: '100%' }} variant="outlined">
+                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                <OutlinedInput
+                  type={showPassword ? 'text' : 'password'}
+                  className='input'
+                  value={signUpdata.password}
+                  inputProps={{ min: 8 }}
+                  onChange={(e)=>handlepassword(e)}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  label="Password"
+                />
+              </FormControl>
+
               <Grid >
                 <Grid item>
                   <Box variant="p" display='flex' alignItems='center' gap='5px' fontSize='12px' color={`${theme === 'light' ? '#000' : '#fff'}`} >
@@ -121,6 +133,9 @@ export default function Login({ }) {
                   </Box>
                 </Grid>
               </Grid>
+              {(passwordTyped && signUpdata.password.length < 8) && <Typography sx={{fontSize:'12px', fontWeight:'700',width:'100%', p:'10px', color: 'red',}}>
+                  Password must contain atleast 8 characters.
+              </Typography>}
               <Button
                 onClick={(e) => { handleSubmit(e) }}
                 type="submit"
@@ -131,6 +146,11 @@ export default function Login({ }) {
                 Log In
               </Button>
             </Box>}
+            {/* ------------------Login---------------- */}
+
+            {/* ------------------Signup---------------- */}
+
+
             {!isSignup &&
               <Box sx={{ width: '350px', height: '200px' }}>
                 <TextField
@@ -184,21 +204,31 @@ export default function Login({ }) {
                           value={signUpdata.name}
                           onChange={(e) => setSignUpdata({ ...signUpdata, name: e.target.value })}
                         />
-                        <TextField
-                          className='input'
-                          margin="normal"
-                          required
-                          fullWidth
-                          min={8}
-                          name="password"
-                          label="Password"
-                          type="password"
-                          id="password"
-                          autoComplete="current-password"
-                          value={signUpdata.password}
-                          inputProps={{ min: 8 }}
-                          onChange={(e) => setSignUpdata({ ...signUpdata, password: e.target.value })}
-                        />
+
+                        <FormControl sx={{ mt: 3, width: '100%' }} variant="outlined">
+                          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                          <OutlinedInput
+                            type={showPassword ? 'text' : 'password'}
+                            className='input'
+                            value={signUpdata.password}
+                            inputProps={{ min: 8 }}
+                            onChange={(e) => setSignUpdata({ ...signUpdata, password: e.target.value })}
+                            endAdornment={
+                              <InputAdornment position="end">
+                                <IconButton
+                                  aria-label="toggle password visibility"
+                                  onClick={handleClickShowPassword}
+                                  onMouseDown={handleMouseDownPassword}
+                                  edge="end"
+                                >
+                                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                              </InputAdornment>
+                            }
+                            label="Password"
+                          />
+                        </FormControl>
+
                         {signUpdata.name && signUpdata.password !== '' && <Box mt={4} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '40px', p: '5px', width: '80%', height: '80px', border: '1px solid rgba(236, 232, 232, 1)', bgcolor: 'rgba(236, 232, 232, 0.734)', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
                           <Box display='flex' alignItems='center' gap={2}>
                             <TextField
@@ -229,9 +259,11 @@ export default function Login({ }) {
                 }
               </Box>}
 
+            {/* ------------------Signup---------------- */}
+
+
           </Box>
         </Box>
-        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     </ThemeProvider>
   );

@@ -1,5 +1,5 @@
 'use client'
-import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { context } from './ContextProvider'
 import { useRouter } from 'next/navigation'
 const Base_URL = 'https://academics.newtonschool.co/api/v1/reddit'
@@ -18,8 +18,6 @@ export default function Apicontextprovider({ children }) {
     const [reddittoggle, setReddittoggle] = useState(true)
     const [createsubreddit, setcreatesubreddit] = useState('')
     const [subredditname, setsubredditname] = useState('')
-    const [likedCount, setlikedcount] = useState('')
-    const [dislikedCount, setdislikedcount] = useState('')
     const [toggleuserfollow, settoggleuserfollow] = useState(false)
     const [userdata, setuserdata] = useState('')
     const [filteredpost, setfilteredpost] = useState([])
@@ -31,6 +29,8 @@ export default function Apicontextprovider({ children }) {
     const [popupdelete, setpopupdelete] = useState(null);
     const [isSwitchOn, setIsSwitchOn] = useState(true);
     const [toggleCommunity, settogglecommunity] = useState(false)
+    const [liketoggle, setliketoggle] = useState(false)
+    const [disliketoggle, setdisliketoggle] = useState(false)
 
     // ----------------FetchPost---------------------
     const fetchPosts = useMemo(async () => {
@@ -43,17 +43,18 @@ export default function Apicontextprovider({ children }) {
                 }
             })
             const result = await response.json();
+            console.log(result)
             setpost(result.data)
         }
         catch (error) {
             console.log(error)
         }
-    }, [toggle])
+    }, [toggle, liketoggle, disliketoggle])
 
     // ----------------FetchPost---------------------
 
     // ------------------Like and dislike----------------
-    const Likepost = useCallback(async (_id) => {
+    const Likepost = async (_id) => {
         try {
             const response = await fetch(`${Base_URL}/like/${_id}`, {
                 method: 'Post',
@@ -65,15 +66,19 @@ export default function Apicontextprovider({ children }) {
             })
             const result = await response.json();
             console.log(result)
-            setlikedcount(result)
-            settoggle(!toggle)
+            if (result.status === 'success') {
+                // setlikedcount(prevCount => prevCount + 1)
+                setliketoggle(!liketoggle)
+                setdisliketoggle(false)
+            }
+
         }
         catch (error) {
             console.log(error)
         }
-    }, [])
+    }
 
-    const Disikepost = useCallback(async (_id) => {
+    const Dislikepost = async (_id) => {
         try {
             const response = await fetch(`${Base_URL}/like/${_id}`, {
                 method: 'Delete',
@@ -84,13 +89,18 @@ export default function Apicontextprovider({ children }) {
                 }
             })
             const result = await response.json();
-            setdislikedcount(result)
-            settoggle(!toggle)
+            console.log(result)
+            if (result.status === 'success') {
+                // setlikedcount(prevCount => prevCount - 1)
+                setdisliketoggle(!disliketoggle)
+                setliketoggle(false)
+            }
         }
         catch (error) {
             console.log(error)
         }
-    }, [])
+    }
+
     // ------------------Like and dislike----------------
 
     // ------------------follow and unfollow----------------
@@ -483,7 +493,7 @@ export default function Apicontextprovider({ children }) {
     };
 
     return (
-        <apicontext.Provider value={{toggleCommunity, settogglecommunity, recentChannels, isSwitchOn, handleSwitchChange, commentsPost, fetchCommentsPosts, popupdelete, setpopupdelete, handledeletecomment, usercommenttoggle, settoggleusercomments, postingComments, setpostComments, setpostingComments, fetchPostingComments, fetchDeleteComments, postcomments, fetchPostComments, popfollowuser, handlefollowuser, filteredpost, fetchyourPosts, userdata, fetchUserProfile, Userfollow, Userunfollow, settoggleuserfollow, toggleuserfollow, reddittoggle, setReddittoggle, settoggle, Likepost, Disikepost, likedCount, dislikedCount, title, settitle, description, setdescription, postimage, setpostimage, subredditname, setsubredditname, fetchCreatePost, fetchDeletePost, fetchUpdatePost, fetchCreatesubreddit, createsubreddit, setcreatesubreddit, post, setpost, sort, setsort, handleselect, getTimeDifference, channel, setChannel, formatDate }}>
+        <apicontext.Provider value={{ toggleCommunity, settogglecommunity, recentChannels, isSwitchOn, handleSwitchChange, commentsPost, fetchCommentsPosts, popupdelete, setpopupdelete, handledeletecomment, usercommenttoggle, settoggleusercomments, postingComments, setpostComments, setpostingComments, fetchPostingComments, fetchDeleteComments, postcomments, fetchPostComments, popfollowuser, handlefollowuser, filteredpost, fetchyourPosts, userdata, fetchUserProfile, Userfollow, Userunfollow, settoggleuserfollow, toggleuserfollow, reddittoggle, setReddittoggle, settoggle, Likepost, Dislikepost, liketoggle, disliketoggle, disliketoggle, title, settitle, description, setdescription, postimage, setpostimage, subredditname, setsubredditname, fetchCreatePost, fetchDeletePost, fetchUpdatePost, fetchCreatesubreddit, createsubreddit, setcreatesubreddit, post, setpost, sort, setsort, handleselect, getTimeDifference, channel, setChannel, formatDate }}>
             <div>
                 {children}
             </div>

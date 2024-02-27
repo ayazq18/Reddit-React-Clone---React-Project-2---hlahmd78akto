@@ -3,7 +3,7 @@ import { Button, MenuItem, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useContext, } from "react";
 import { LocalFireDepartment, MoreHoriz, NewReleasesTwoTone, Publish, Rocket, Security, VisibilityOff, } from "@mui/icons-material";
-import { arrowdown, arrowup, comments, share } from "../(Components)/(Constants)/Asset";
+import { arrowdown, arrowdowncliked, arrowup, arrowupclicked, comments, share } from "../(Components)/(Constants)/Asset";
 import { context } from "../(Components)/(Context)/ContextProvider";
 import Community from "../(Components)/(Community)/Community";
 import { apicontext } from "../(Components)/(Context)/Apicontextprovider";
@@ -13,16 +13,8 @@ import PremiumandHomeDetails from "../(Components)/(SmallComponents)/PremiumandH
 
 export default function Home() {
   const { theme, router, pop, popup, userprofilename } = useContext(context)
-  const {  post, getTimeDifference, fetchDeletePost, fetchUpdatePost, Likepost, Disikepost, likedCount, dislikedCount, popupdelete, handledeletecomment, } = useContext(apicontext)
-  const handlelikedcount = (val) => {
-    if (likedCount.status === 'success') {
-      return val + 1;
-    } else if (dislikedCount.status === 'success') {
-      return val - 1;
-    } else {
-      return val;
-    }
-  }
+  const {  post, getTimeDifference, fetchDeletePost, fetchUpdatePost, Likepost, Dislikepost, liketoggle, disliketoggle, popupdelete, handledeletecomment, } = useContext(apicontext)
+
 
   return (
     <Box className='home' sx={{ width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
@@ -37,10 +29,12 @@ export default function Home() {
 
         {post && post.map((item, index) => (
           <Box key={index} sx={{ width: { xs: '100%', md: '100%' }, display: 'flex', gap: '5px', mb: '10px', borderRadius: '3px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, ":hover": { border: `${theme === 'light' ? '1px solid #808080' : '1px solid white'}` } }}>
-            <Box sx={{ p: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '3px 0 0 3px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, boxSizing: 'border-box' }}>
-              <Typography className="c" onClick={() => { Likepost(item._id) }} sx={{ display: 'flex', alignItems: 'center', p: '5px', color: `${likedCount.status === 'success' ? 'orangered' : theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowup}</Typography>
-              <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>{handlelikedcount(item.likeCount)}</Typography>
-              <Typography className="c" onClick={() => { Disikepost(item._id) }} sx={{ display: 'flex', alignItems: 'center', color: `${dislikedCount.status === 'success' ? 'blue' : theme === 'light' ? '#000' : '#fff'}`, p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowdown}</Typography>
+            <Box sx={{ p: '10px',  borderRadius: '3px 0 0 3px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, boxSizing: 'border-box' }}>
+              <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: `${liketoggle ? '#d93a00' : disliketoggle && '#6a5cff'}`, p:'5px', borderRadius:'50px'}}>
+              <Typography className="c" onClick={() => { Likepost(item._id)}} sx={{ display: 'flex', alignItems: 'center', p: '5px', color: `${liketoggle? 'white' : theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}`, borderRadius:'50px' } }}>{!liketoggle ? arrowup : arrowupclicked}</Typography>
+              <Typography variant="p" sx={{ p: '5px', fontSize: '12px', fontWeight:'700', color:`${liketoggle ? '#fff' : disliketoggle && '#fff'}` }}>{item.likeCount}</Typography>
+              <Typography className="c" onClick={() => { Dislikepost(item._id) }} sx={{ display: 'flex', alignItems: 'center', color: `${disliketoggle ? 'white' : theme === 'light' ? '#fff' : '#fff'}`, p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}`, borderRadius:'50px' } }}>{!disliketoggle ? arrowdown : arrowdowncliked}</Typography>
+              </Box>
             </Box>
             <Box sx={{ p: '10px', width: '100%' }}>
               <Box className="c" sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
