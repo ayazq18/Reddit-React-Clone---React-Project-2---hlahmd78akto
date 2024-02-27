@@ -58,7 +58,7 @@ export default function page() {
         <Box width='100%' height='50px' sx={{ p: '10px', mb: '5px', borderBottom: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
         </Box>
         {post && post.map((item, index) => item.likeCount >= 10 && (
-          <Box key={index} sx={{ width: { xs: '100vw', md: '100%' }, p: '10px', borderBottom: '1px solid #2c2b2b15', borderRadius: '15px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
+          <Box key={index} sx={{ width: { xs: '100%', md: '100%' }, p: '10px', borderBottom: '1px solid #2c2b2b15', borderRadius: '15px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
               {item.author.profileImage ? <img style={{ width: '1.5rem', height: '1.5rem', borderRadius: '50px' }} src={item.author.profileImage} srcSet="" sizes="" alt="Icon for r/"></img>
                 : <img style={{ width: '1.5rem', height: '1.5rem', borderRadius: '50px' }} src='https://preview.redd.it/me-watching-a-random-drawing-i-made-get-turned-into-a-meme-v0-xib15dbut7tb1.png?width=640&crop=smart&auto=webp&s=218dbe01ffa9c145aa5fef90aec31a21b97ffbbe' srcSet="" sizes="" alt="Icon for r/"></img>}

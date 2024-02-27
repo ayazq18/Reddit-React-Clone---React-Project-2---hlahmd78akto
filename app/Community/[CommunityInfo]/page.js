@@ -8,13 +8,11 @@ import { Box } from '@mui/system'
 import React, { useContext, useEffect, useState } from 'react'
 
 export default function CommunityInfo(props) {
-    const { token, theme, router, pop, popup, setpopup, userprofilename } = useContext(context)
-    const { isSwitchOn,  sort, setsort, handleselect, getTimeDifference, fetchDeletePost, Likepost, Disikepost, likedCount, formatDate, toggle, settoggle } = useContext(apicontext)
-    const [channelid, setchannleid] = useState([])
+    const { token, theme, router, pop, popup, setpopup, userprofilename, loginInfo } = useContext(context)
+    const { settogglecommunity, toggleCommunity, isSwitchOn,  sort, setsort, handleselect, getTimeDifference, fetchDeletePost, Likepost, Disikepost, likedCount, formatDate, toggle, settoggle } = useContext(apicontext)
+    const [channelid, setchannleid] = useState()
     const [channelpost, setchannelpost] = useState([])
-    const [postchannel, setpostchannel] = useState([])
-    const [toggleCommunity, settogglecommunity] = useState(false)
-
+console.log(loginInfo)
     // const fetchPostsChannel = async () => {
     //     try {
     //         const response = await fetch('https://academics.newtonschool.co/api/v1/reddit/post', {
@@ -45,6 +43,7 @@ export default function CommunityInfo(props) {
                 },
             })
             const result = await response.json();
+            console.log(result)
             setchannleid(result.data)
         }
         catch (error) {
@@ -96,7 +95,6 @@ export default function CommunityInfo(props) {
     useEffect(() => {
         fetchChannelById();
         fetchChannelpost();
-        // fetchPostsChannel();
     }, [])
 
     return (
@@ -104,7 +102,7 @@ export default function CommunityInfo(props) {
         <Box sx={{ position: 'relative', width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}` }}>
             {popup['deleteChannel'] && <Box sx={{ zIndex: '9', position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100%', bgcolor: '#0c0b0bc0' }}>
                 <Box sx={{ top: '30%', left: '25%', width: '50%', p: '20px', backgroundColor: `${theme === 'light' ? '#fff' : '#000'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.24)'}` }}>
-                    <Typography sx={{ textAlign: 'center', fontWeight: '700', }}>You won't be able to recover the deleted Channel once deleted!</Typography>
+                    <Typography sx={{ textAlign: 'center', fontWeight: '700', }}>You won't be able to recover the Channel once deleted!</Typography>
                     <Box sx={{ mt: '10px', display: 'flex', justifyContent: 'center', gap: '20px' }}>
                         <Button onClick={() => {fetchDeletesubreddit(), pop("deleteChannel") }} variant='outlined' sx={{ width: '100px', p: '5px', borderRadius: '10px', fontSize: '16px', fontWeight: '900', textTransform: 'revert', color: `${theme === 'light' ? 'blue' : '#fff'}`, }}>Delete</Button>
                         <Button onClick={() => pop('deleteChannel')} variant='outlined' sx={{ width: '100px', p: '5px', borderRadius: '10px', fontSize: '16px', fontWeight: '900', textTransform: 'revert', color: `${theme === 'light' ? 'blue' : '#fff'}`, }}>Cancel</Button>
@@ -112,14 +110,14 @@ export default function CommunityInfo(props) {
                 </Box>
             </Box>}
             <Box sx={{ width: '100%', height: '30vh', backgroundImage: "url('https://thumbs.dreamstime.com/b/d-high-decoration-background-wallpaper-n-d-wallpaper-design-floral-photo-mural-background-d-wallpaper-background-163061267.jpg')", }}></Box>
-            {!toggleCommunity ?
+            {!toggleCommunity && channelid ?
                 (<Box>
                     <Box sx={{ width: '100%', height: '15vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, }}>
                         <Box sx={{ width: '70%', height: '15vh', }}>
                             <Box sx={{ width: '50%', height: '15vh', display: 'flex', alignItems: 'flex-start', gap: '15px' }}>
                                 {channelid.image ? <img style={{ width: '70px', borderRadius: '50px', border: '3px solid white' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={channelid.image} />
                                     : <img style={{ width: '70px', borderRadius: '50px' }} src="https://preview.redd.it/me-watching-a-random-drawing-i-made-get-turned-into-a-meme-v0-xib15dbut7tb1.png?width=640&crop=smart&auto=webp&s=218dbe01ffa9c145aa5fef90aec31a21b97ffbbe" />}
-                                <Box sx={{ display: 'flex', gap: '20px', width: '50%', height: '10vh', }}>
+                                <Box sx={{ display: 'flex', gap: '20px', width: '100%', height: '10vh'}}>
                                     <Box>
                                        {channelid && <Typography variant='h6' sx={{ fontSize: '30px', fontWeight: '900', textWrap: 'nowrap' }}>{channelid.name}</Typography>}
                                         { channelid && <Typography variant='h6' sx={{ fontSize: '15px', fontWeight: '700', color: `${theme === 'light' ? '#808080' : '#fff'}` }}>r/{channelid.name}</Typography>}
@@ -128,7 +126,8 @@ export default function CommunityInfo(props) {
                                         <Button variant='outlined' onClick={() => pop('join')} sx={{ width: '100px', p: '5px', borderRadius: '50px', fontSize: '16px', fontWeight: '900', textTransform: 'revert', color: `${theme === 'light' ? 'blue' : '#fff'}`, }}>{popup['join'] ? "Leave" : "Join"}</Button>
                                         {popup['join'] && <Box sx={{ border: '1px solid blue', borderRadius: "50%", p: '5px', display: 'flex', alignItems: 'center', }}><Notifications sx={{ color: 'blue', width: '25px', height: '25px' }} /></Box>}
                                         <Box position='relative' sx={{ cursor: 'pointer' }} >
-                                            {channelid.name==userprofilename && <MoreHoriz onClick={() => pop('deleteChannelpop')} />}
+                                        {channelid.owner._id === loginInfo && <MoreHoriz onClick={() => pop('deleteChannelpop')} />}
+                                            {/* {channelid.owner._id === loginInfo && <MoreHoriz onClick={() => pop('deleteChannelpop')} />} */}
                                             {popup['deleteChannelpop'] && <Box sx={{ position: 'absolute', top: '20px', left: '20px', width: '200px', p: '10px', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.24)'}` }}>
                                                 <Box onClick={() => { pop('deleteChannel') }} sx={{ p: '10px ', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
                                                     <Typography variant="contained" fontWeight='700'>Delete Channel</Typography>

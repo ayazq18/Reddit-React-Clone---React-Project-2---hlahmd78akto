@@ -58,11 +58,6 @@ export default function Home() {
                   <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>{comments}</Typography>
                   <Typography variant="h6" sx={{ p: '5px', fontSize: '12px' }}>{item.commentCount} Comments</Typography>
                 </Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
-                  <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px' }}>{share}</Typography>
-                  <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>Share</Typography>
-                </Box>
-
                 {item.author.name === userprofilename && <Box position='relative'>
                   <Box sx={{ display: 'flex', alignItems: 'center', }}><MoreHoriz sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }} onClick={() => handledeletecomment(item._id)} /></Box>
                   {popupdelete == item._id && <Box sx={{ position: 'absolute', width: '200px', p: '10px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>

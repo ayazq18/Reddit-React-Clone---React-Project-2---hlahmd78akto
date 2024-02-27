@@ -25,7 +25,6 @@ export default function Home() {
       })
       const result = await response.json();
       setpost(result.data)
-      console.log(result)
     }
     catch (error) {
       console.log(error)
