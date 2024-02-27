@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useMemo, useState } from "react";
 import { Close, FilterVintage, LocalFireDepartment, NewReleasesTwoTone, Publish, Rocket, } from "@mui/icons-material";
 import { arrowdown, arrowup, comments, followedicon, google, share } from "../../(Components)/(Constants)/Asset";
 import { context } from "../../(Components)/(Context)/ContextProvider";
-import { apicontext } from "../../(Components)/(Apicontext)/Apicontextprovider";
+import { apicontext } from "../../(Components)/(Context)/Apicontextprovider";
 import ParentComment from "@/app/(Components)/(ParentComment)/ParentComment";
 
 export default function Comments(props) {
@@ -69,7 +69,7 @@ export default function Comments(props) {
                     </Box>
                     <Box sx={{ width: '100%', }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
-                        {commentsPost.image ? <img style={{ width: '1rem', borderRadius: '4px' }} class="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={commentsPost.author.image} />
+                        {commentsPost.image ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={commentsPost.author.image} />
                                 : commentsPost.author && <Typography variant='h6' sx={{fontSize:'12px',fontWeight:'700', textTransform:'uppercase', p:'2px 7px', borderRadius:'100%',backgroundColor: '#808080'}}>{commentsPost.author.name.charAt(0)}</Typography>}
                             {commentsPost && <Typography onClick={() => router.push(`/User/${commentsPost.author._id}`)} variant="p" sx={{ fontSize: '12px' }}>{commentsPost.author.name} &nbsp;.</Typography>}
                             <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(commentsPost.createdAt)}</Typography>
@@ -111,7 +111,7 @@ export default function Comments(props) {
                     <Box sx={{ position: 'relative', width: '100%', height: '100px', borderRadius: '4px 4px 0 0', bgcolor: '#33a8ff', }}>
                     </Box>
                     <Box sx={{ position: 'absolute', top: '40px', left: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '4px', width: '80px', height: '80px', backgroundColor: `${theme === 'light' ? '#fff' : '#000'}` }}>
-                        {userdata.profileImage ? <img style={{ width: '70px', borderRadius: '4px' }} class="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={userdata.profileImage} />
+                        {userdata.profileImage ? <img style={{ width: '70px', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={userdata.profileImage} />
                             : <Typography variant='h6' sx={{fontSize:'50px',fontWeight:'700', textTransform:'uppercase', p:'2px 7px', borderRadius:'100%',}}>{userdata.name.charAt(0)}</Typography>}
                     </Box>
                     <Typography sx={{ m: '25px 0px 10px 15px', fontSize: '12px' }}>{userdata.name}</Typography>

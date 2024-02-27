@@ -2,7 +2,7 @@
 import { Box, } from '@mui/system'
 import React, { useContext, useEffect, useMemo, useState } from 'react'
 import { context } from '../../(Components)/(Context)/ContextProvider'
-import { apicontext } from '../../(Components)/(Apicontext)/Apicontextprovider'
+import { apicontext } from '../../(Components)/(Context)/Apicontextprovider'
 import { Button, FormControl, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, Typography } from '@mui/material'
 import { communitydropdown, postingIcon, } from '../../(Components)/(Constants)/Asset';
 import { Link, Search, } from '@mui/icons-material'
@@ -10,9 +10,10 @@ import Community from '../../(Components)/(Community)/Community'
 import { postinginstruction, markdown } from '../../(Components)/(Constants)/Asset';
 
 export default function CreatePost(props) {
-  const {userprofilename, activepostTabs, postingTabs, pop, popup, token, theme, activeTabs, } = useContext(context)
-  const { title, settitle, description, setdescription, setpostimage, fetchCreatePost } = useContext(apicontext)
+  const {router, userprofilename, activepostTabs, postingTabs, pop, popup, token, theme, activeTabs, handleTabs} = useContext(context)
+  const { title, settitle, description, setdescription, setpostimage, fetchCreatePost, postimage, fetchUpdatePost } = useContext(apicontext)
   const [dropnav, setdropnav] = useState(false)
+  const [draftcount, setDraftCount] = useState(0);
 
   const handleToggleDropdown = () => {
     setdropnav(!dropnav);
@@ -20,22 +21,21 @@ export default function CreatePost(props) {
 
 
   const handleCreatpost = () => {
-    fetchCreatePost();
-
+    if (props.params.NewPost !== 'newpost') {
+      fetchUpdatePost(props.params.NewPost);
+    } else{
+      fetchCreatePost();
+    }
   }
-
-  // const handlefilechange = (e) => {
-  //   setpostimage(e.target.files[0]);
-  // };
 
   const fetchEditPosts = async () => {
     try {
       const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/post/${props.params.NewPost}`, {
-        method: 'GET',
+        method: 'Get',
         headers: {
           'ProjectID': 'hlahmd78akto',
           "Content-Type": "application/json",
-        }
+        },
       })
       const result = await response.json();
       settitle(result.data.title)
@@ -58,8 +58,8 @@ export default function CreatePost(props) {
   }, [])
 
   return (
-    <Box sx={{width: '100vw', p: '20px 0 0 0', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
-      {popup['createcommunity'] && <Box sx={{ overflowY: 'scroll', position: 'absolute', top: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100vh', zIndex: '8', bgcolor: 'rgba(24, 23, 23, 0.923)' }}>
+    <Box sx={{ width: '100vw', height:'100%', p: '20px 0 0 0', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
+      {popup['createcommunity'] && <Box sx={{ position: 'absolute', top: '65px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100%', zIndex: '90', bgcolor: 'rgba(24, 23, 23, 0.923)' }}>
         <Box sx={{ zIndex: '9' }}><Community pop={pop} /></Box>
       </Box>}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', boxSizing: 'border-box', width: { xs: '100%', md: '55%', } }}>
@@ -67,7 +67,7 @@ export default function CreatePost(props) {
           <Typography variant='h4' sx={{ fontSize: '16px' }}>Create a post</Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px', p: '5px 10px', borderRadius: '20px', ":hover": { backgroundColor: 'rgba(51, 51, 245, 0.24)' } }}>
             <Typography variant='h5' sx={{ fontSize: '12px', fontWeight: '700', color: `${theme === 'light' ? 'rgb(51, 51, 245)' : '#fff'}`, borderRadius: '20px', letterSpacing: '1.5px' }}>DRAFTS</Typography>
-            <Typography sx={{ fontSize: '12px', backgroundColor: `${theme === 'light' ? '#808080' : '#DAE0E6'}`, color: `${theme === 'light' ? '#fff' : '#000'}`, borderRadius: '2px', p: '1px 3px 0px 3px', }}>0</Typography>
+            <Typography sx={{ fontSize: '12px', backgroundColor: `${theme === 'light' ? '#808080' : '#DAE0E6'}`, color: `${theme === 'light' ? '#fff' : '#000'}`, borderRadius: '2px', p: '1px 3px 0px 3px', }}>{draftcount}</Typography>
           </Box>
         </Box>
         <Box sx={{ position: 'relative' }}>
@@ -77,7 +77,7 @@ export default function CreatePost(props) {
                 <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', boxSizing: 'border-box' }}>
                   {dropnav ? <Search sx={{ color: '#808080' }} />
                     : <Box sx={{ width: '20px', height: '20px', boxSizing: 'border-box', border: '1px dashed #808080', borderRadius: '20px' }}></Box>}
-                  <Typography variant='p' sx={{ fontSize: '14px', display: { xs: 'none', md: 'block' } }}>{activeTabs === 'Home' ? 'Choose a community' : 'Popular'}</Typography>
+                  <Typography variant='p' sx={{ fontSize: '14px', display: { xs: 'none', md: 'block' } }}>Choose a community</Typography>
                 </Box>
                 <Typography sx={{ display: 'flex', alignItems: 'center', transform: `${dropnav && 'rotate(180deg)'}`, transition: 'all .5s ease' }}>{communitydropdown}</Typography>
               </Box>
@@ -88,7 +88,7 @@ export default function CreatePost(props) {
               <Box sx={{ borderBottom: '1px solid rgba(236, 232, 232, 0.134)', mb: '10px' }}>
                 <Typography variant='h6' sx={{ fontSize: '10px', color: '#808080', textTransform: 'uppercase' }}>Your Profile</Typography>
                 <Box sx={{ width: '100%', p: '10px 0', display: 'flex', alignItems: 'center', borderBottom: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
-                  <img className='profilelogo' style={{ borderRadius: '3px', position: 'relative', left: '-5px', width: '33px', }} src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_3.png" alt="User Avatar" class="max-w-full"></img>
+                  <img className='profilelogo' style={{ borderRadius: '3px', position: 'relative', left: '-5px', width: '33px', }} src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_3.png" alt="User Avatar" ></img>
                   <Typography variant='h6' sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, fontSize: '12px' }}>{userprofilename}</Typography>
                 </Box>
               </Box>
@@ -99,7 +99,7 @@ export default function CreatePost(props) {
                     <Typography onClick={() => pop('createcommunity')} variant='h5' sx={{ fontSize: '12px', fontWeight: '700', color: `${theme === 'light' ? 'rgb(51, 51, 245)' : '#fff'}`, borderRadius: '20px', p: '5px 10px', ":hover": { backgroundColor: 'rgba(51, 51, 245, 0.24)' } }}>Create New</Typography>
                   </Box>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%', height: '50px' }}>
-                    <img alt="Subreddit Icon" role="presentation" src="https://www.redditstatic.com/desktop2x/img/avatar_over18.png" class="_34CfAAowTqdbNDYXz5tBTW jpIFeDw811_DQwlQEqBjm " style={{ backgroundColor: "rgb(0, 121, 211)", width: '35px', borderRadius: '50px' }} />
+                    <img alt="Subreddit Icon" role="presentation" src="https://www.redditstatic.com/desktop2x/img/avatar_over18.png" className="_34CfAAowTqdbNDYXz5tBTW jpIFeDw811_DQwlQEqBjm " style={{ backgroundColor: "rgb(0, 121, 211)", width: '35px', borderRadius: '50px' }} />
                     <Box>
                       <Typography variant='h5' sx={{ fontSize: '14px', color: `${theme === 'light' ? '#000' : '#fff'}`, }}>r/abs_18</Typography>
                       <Typography variant='h5' sx={{ fontSize: '12px', color: `${theme === 'light' ? '#808080' : '#fff'}`, }}>1 member</Typography>
@@ -115,7 +115,7 @@ export default function CreatePost(props) {
 
 
 
-        <Paper sx={{ pb: '50px', width: '100%', height: 'auto', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, boxSizing: 'border-box', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
+        <Paper sx={{  width: '100%', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, boxSizing: 'border-box', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', width: '100%', borderBottom: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.54)'}` }}>
             {postingTabs.map((item, index) => (
               <Box key={item.name} className={`${activepostTabs === item.name && (theme === 'light' ? 'activelightposttab' : 'activedarkposttabs')}`} onClick={() => { item.handler(item.name), pop('item') }} sx={{ boxSizing: 'border-box', borderRight: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.04)'}`, color: '#808080', width: '210px', display: 'flex', alignItems: 'center', justifyContent: 'center', p: '10px 30px' }}><Typography>{item.icon}</Typography><Typography variant='h6' sx={{ fontSize: '13px', fontWeight: '700' }}>{item.name}</Typography></Box>
@@ -134,12 +134,13 @@ export default function CreatePost(props) {
                 value={title}
                 sx={{ color: `${theme === 'light' ? '#808080' : '#fff'}` }}
                 onChange={(e) => settitle(e.target.value)}
+                inputProps={{maxLength : '300'}}
                 endAdornment={
                   <InputAdornment position="end" >
                     <IconButton
                       aria-label="toggle password visibility"
                     >
-                      <Typography variant='h6' sx={{ fontSize: '12px', color: `${theme === 'light' ? '#000' : '#808080'}`, }}>0/300</Typography>
+                      <Typography variant='h6' sx={{ fontSize: '12px', color: `${theme === 'light' ? '#000' : '#808080'}`, }}>{title.length}/300</Typography>
                     </IconButton>
                   </InputAdornment>
                 }
@@ -170,11 +171,10 @@ export default function CreatePost(props) {
               <input style={{ padding: '10px', backgroungColor: 'blue' }} type="file" onChange={(e) => setpostimage(e.target.files[0])} />
             </Box>
           }
-          <Box display='flex' justifyContent='flex-end' gap='10px' sx={{ m: '10px', p: '30px', border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, }}>
-          </Box>
+        
           <Box display='flex' justifyContent='flex-end' gap='10px' sx={{ m: '10px' }}>
-            <Button variant='outlined' disabled={description.trim() == ''} sx={{ borderRadius: '50px' }}>Save Draft</Button>
-            <Button variant='contained' disabled={description.trim() == ''} onClick={() => handleCreatpost()} sx={{ borderRadius: '50px' }}>Post</Button>
+            <Button variant='outlined' onClick={()=>setDraftCount(draftcount+1)} disabled={description.trim() == '' || draftcount === 1 } sx={{ borderRadius: '50px' }}>Save Draft</Button>
+            <Button variant='contained' disabled={description.trim() == ''} onClick={() => handleCreatpost()} sx={{ borderRadius: '50px' }}>{props.params.NewPost !== 'newpost' ? 'Update' : 'Post'}</Button>
           </Box>
           <Box display='flex' gap='10px' sx={{ mb: '30px', p: '30px', color: `${theme === 'light' ? 'rgba(51, 51, 245, .8)' : '#fff'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, backgroundColor: `${theme === 'light' ? '#e9ecf08c' : '#1a1a1b'}` }}>
             <input

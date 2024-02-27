@@ -5,7 +5,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
-    /* background-color: rgba(190, 190, 245, 0.548); */
+    /* background-color: #dae0e62a; */
     /* background-image: url; */
     /* color: rgba(119, 117, 117, 0.507); */
 }
@@ -30,7 +30,7 @@
     text-decoration: none;
     color: #000;
 }
-.cursor{
+.c{
     cursor: pointer;
 }
 
@@ -86,6 +86,9 @@
 body::-webkit-scrollbar{
     display: block;
 }
+.scrollbar::-webkit-scrollbar{
+    display: none;
+}
 .postinginput input{
     height: 10px;
 }
@@ -108,4 +111,71 @@ body::-webkit-scrollbar{
     background-image: url('https://lordicon.com/icons/wired/lineal/1127-mailbox.svg');
     background-size: cover;
     background-repeat: no-repeat;
+}
+.comingsoon{
+    animation: scale 2s infinite linear;
+}
+@keyframes scale {
+    0%{
+        scale: 1;
+    }
+    100%{
+        scale:1.1;
+        color:red;
+    }
+}
+
+.premium{
+    width: 100vw;
+    height: 100vh;
+    background-image: url('https://www.redditstatic.com/desktop2x/img/gold/premium-marketing/premiumHero.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.premium-section{
+    width: fit-content;
+    padding: 100px 50px;
+}
+.premium-logo{
+    width: 40%;
+    padding: 10px 0;
+}
+.support{
+    color: #fff;
+    padding: 10px 0;
+}
+.btn-container{
+    display: flex;
+    gap:'20px'
+}
+.premium-btn1{
+    width: 20vw;
+   padding: 10px;
+   background-color: transparent;
+   border-radius: 20px;
+   border: 1px solid white;
+   color: #fff;
+   font-size: 13px;
+   font-weight: 600;
+}
+.premium-btn2{
+    width: 20vw;
+    padding: 10px;
+    background-color: orangered;
+    border: none;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+}
+.premium-save{
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 20px;
+    color: orangered;
+    margin-left: 10px;
+}
+.premiun-subscription{
+    color: #fff;
+    padding: 10px 0;
 }

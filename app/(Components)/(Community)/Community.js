@@ -5,7 +5,7 @@ import { Box } from '@mui/system'
 import React, { useContext, useState } from 'react'
 import { commType, } from '../(Constants)/Asset'
 import { context } from '../(Context)/ContextProvider'
-import { apicontext } from '../(Apicontext)/Apicontextprovider'
+import { apicontext } from '../(Context)/Apicontextprovider'
 
 export default function Community({ pop }) {
     const {theme,} = useContext(context)

@@ -21,21 +21,20 @@ import { trending, home, popular, notification, createicon, chat, advertise, sca
 import Login from '../(Login)/Login';
 import { context } from '../(Context)/ContextProvider';
 import SideNavBar from './SideNavBar';
-import SwitchBtn from '../(Switch)/SwitchBtn';
+import SwitchBtn from '../(SmallComponents)/SwitchBtn';
 import Community from '../(Community)/Community';
-import { apicontext } from '../(Apicontext)/Apicontextprovider';
+import { apicontext } from '../(Context)/Apicontextprovider';
 
 
 
 const NavBarr = ({ children }) => {
-    const { router, pop, popup, setpopup, token, settoken, switchDark, switchLight, theme, loginpop, setloginpop, signUpdata, setSignUpdata, handleTabs, activeTabs, setActiveTabs,userprofilename } = useContext(context)
-    const { channel } = useContext(apicontext)
+    const { sethomeorpopular, loginInfo, setuserprofilename,router, pop, popup, token, settoken, switchDark, switchLight, theme, loginpop, setloginpop, signUpdata, setSignUpdata, handleTabs, activeTabs,userprofilename } = useContext(context)
+    const { handleSwitchChange, isSwitchOn, channel, } = useContext(apicontext)
     const ITEM_HEIGHT = 48;
     const route = useRouter()
-    const [anchorElinbox, setAnchorElinbox] = useState(false);
     const [inputValue, setInputValue] = useState("")
     const [dropnav, setdropnav] = useState(false)
-    const [searchresults, setsearchresults] = useState([])
+    const [searchresults, setsearchresults] = useState("")
     const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
     const handleToggleDropdown = () => {
@@ -44,16 +43,12 @@ const NavBarr = ({ children }) => {
     const handleSignOut = () => {
         settoken('')
         setSignUpdata('')
+        setuserprofilename('')
         localStorage.removeItem('token')
+        localStorage.removeItem('name')
         router.push('/')
     }
-    const handleOpenInboxMenu = (event) => {
-        setAnchorElinbox(event.currentTarget);
-    };
-    const handleCloseInboxMenu = () => {
-        setAnchorElinbox(false);
-    };
-
+ 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -62,7 +57,6 @@ const NavBarr = ({ children }) => {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
 
     const fetchResultSearch = async () => {
         try {
@@ -87,27 +81,18 @@ const NavBarr = ({ children }) => {
 
 
     return (
-        <Box sx={{ top: '0' }}>
+        <Box sx={{}}>
             <AppBar elevation={0} sx={{ position: 'relative', backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, p: '0', zIndex: "10", border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
                 {popup['popcommunity'] && <Box sx={{ position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: { sx: '100%', md: '100vh' }, zIndex: '8', bgcolor: 'rgba(71, 58, 58, 0.758)' }}>
                     <Box sx={{ zIndex: '9' }}><Community pop={pop} /></Box>
                 </Box>}
-                {loginpop && <Box sx={{ bgcolor: '#fff', zIndex: '19' }}><Login /></Box>}
-                {loginpop && <Box onClick={() => setloginpop(false)} sx={{ width: '100vw', height: '100vh', position: 'absolute', zIndex: '18', bgcolor: 'rgba(71, 58, 58, 0.758)' }}></Box>}
-                {popup['drawer'] && <Box p={2} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, zIndex: '100', position: 'absolute', top: '55px', display: { xs: 'block', md: 'none' }, width: '280px', height: '100vh', borderRight: '1px solid #2c2b2b15', backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, }}>
-                    <Box className={activeTabs === 'Home' && 'activeclass'} onClick={() => { handleTabs('Home'), router.push('/Home') }} sx={{ width: '100%', display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px' }}>{home}</Typography><Typography variant='p' sx={{ fontSize: '14px' }}>Home</Typography></Box>
-                    <Box className={activeTabs === 'Popular' && 'activeclass'} onClick={() => { handleTabs('Popular'), router.push('/Popular') }} sx={{ display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', borderRadius: '7px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px' }}>{popular}</Typography><Typography variant='p' sx={{ fontSize: '14px' }}>Popular</Typography></Box>
-                    {token && <Box sx={{ borderBottom: '1px solid lightgray' }}>
-                        <Box sx={{ display: 'flex', flexDirection: 'column', }}>
-                            <Box onClick={() => { pop('community') }} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: '10px', borderRadius: '10px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography variant='p' sx={{ fontSize: '13px', letterSpacing: '2px', }}>COMMUNITY</Typography><Typography sx={{ display: 'flex', alignItems: 'center', transform: `${popup['community'] && 'rotate(180deg)'}`, transition: 'all .5s ease' }}>{communitydropdown}</Typography></Box>
-                            {!popup['community'] && <Box sx={{ width: '100%' }}>
-                                <IconButton onClick={() => pop('popcommunity')} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', borderRadius: '0', justifyContent: 'flex-start', gap: '7px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
-                                    <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', }}>{createicon}</Typography>
-                                    <Typography variant='h6' sx={{ fontSize: '14px' }}>Create a community</Typography>
-                                </IconButton>
-                            </Box>}
-                        </Box>
+                {loginpop && <Box sx={{ width: '100vw', height: '100vh', position: 'absolute', zIndex: '18', bgcolor: 'rgba(71, 58, 58, 0.758)' }}>
+                <Box sx={{ bgcolor: '#fff', zIndex: '19', }}><Login /></Box>
                     </Box>}
+                {popup['drawer'] && 
+                <Box p={2} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, zIndex: '100', position: 'absolute', top: '55px', display: { xs: 'block', md: 'none' }, width: '280px', height: '100vh', borderRight: '1px solid #2c2b2b15', backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, }}>
+                    <Box className={activeTabs === 'Home' && 'activeclass'} onClick={() => { handleTabs('Home'), router.push('/') }} sx={{ width: '100%', display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px' }}>{home}</Typography><Typography variant='p' sx={{ fontSize: '14px' }}>Home</Typography></Box>
+                    <Box className={activeTabs === 'Popular' && 'activeclass'} onClick={() => { handleTabs('Popular'), router.push('/PopularHome') }} sx={{ display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', borderRadius: '7px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px' }}>{popular}</Typography><Typography variant='p' sx={{ fontSize: '14px' }}>Popular</Typography></Box>
                 </Box>
                 }
                 {popup['getapp'] && <Box sx={{ display: { xs: 'none', md: 'block' }, p: '20px 10px', width: '520px', height: '500px', bgcolor: '#fff', borderRadius: '6px', position: 'absolute', left: { xs: '-24px', md: '30%' }, top: '50px', zIndex: '9' }}>
@@ -120,7 +105,7 @@ const NavBarr = ({ children }) => {
                     <Box sx={{ display: 'flex', justifyContent: 'center', mt: '10px' }}>
                         <Box sx={{ width: '60%', height: '350px', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column' }}>
                             <Typography variant='h5' sx={{ fontSize: '16px', fontWeight: '700', width: '60%', color: '#000', textAlign: 'center' }}>Scan this QR code to download the app now</Typography>
-                            <img style={{ width: '70%' }} src="https://www.redditstatic.com/shreddit/assets/shreddit-qr-code.svg" srcSet="" sizes="" alt="Shreddit QR Code"></img>
+                            <img style={{ width: '70%' }} src="./QRCode.png" srcSet="" sizes="" alt="Shreddit QR Code"></img>
                             <Typography variant='p' sx={{ fontSize: '14px', color: '#000', textAlign: 'center' }}>Or check it out in the app stores</Typography>
                             <Box sx={{ display: 'flex' }}>
                                 <img src="https://www.redditstatic.com/shreddit/assets/google-play.svg" srcSet="" sizes="" alt="Get it on Google Play" />
@@ -131,17 +116,16 @@ const NavBarr = ({ children }) => {
                 </Box>}
                 {popup['getapp'] && <Box sx={{ width: '100vw', height: '100vh', position: 'absolute', bgcolor: 'rgba(71, 58, 58, 0.758)', zIndex: '8' }}></Box>}
                 <Container maxWidth="xl" >
-                    <Toolbar disableGutters sx={{ p: '1' }}>
+                    <Toolbar className="c" disableGutters sx={{ p: '1' }}>
                         <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
                             <Reddit onClick={() => route.push('/Home')} sx={{ display: { xs: 'none', md: 'flex' }, mr: 0, backgroundColor: 'orangered', borderRadius: '50px', transform: 'scale(1.5)', }} />
                         </Box>
                         <Typography
-                            mr={token ? 0 : 20}
+                            mr={token ? 0 : 15}
                             variant="h4"
                             noWrap
                             component="a"
                             sx={{
-
                                 display: { xs: 'none', md: 'flex' },
                                 fontFamily: 'monospace',
                                 fontSize: '28px',
@@ -161,7 +145,6 @@ const NavBarr = ({ children }) => {
                                 aria-label="account of current user"
                                 aria-controls="menu-appbar"
                                 aria-haspopup="true"
-                                // color="black"
                                 onClick={() => pop('drawer')}
                             >
                                 <MenuIcon sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }} />
@@ -196,32 +179,33 @@ const NavBarr = ({ children }) => {
                                         </Box>
                                         <Typography sx={{ display: 'flex', alignItems: 'center', transform: `${dropnav && 'rotate(180deg)'}`, transition: 'all .5s ease' }}>{communitydropdown}</Typography>
                                     </Box>
-                                    {dropnav && <Box width='320px' position='absolute' top='50px' backgroundColor={`${theme === 'light' ? '#fff' : '#0b1416'}`} border={`.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`}>
+                                    {dropnav && <Box width={{xs:'200px', md:'100%'}} position='absolute' top='50px' backgroundColor={`${theme === 'light' ? '#fff' : '#0b1416'}`} border={`.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`}>
                                         <Box className='popsidenavbar' sx={{ overflowY: 'scroll', p: '20px 5px 20px 15px', height: '70vh', borderRight: `${!token && '1px solid rgba(236, 232, 232, 0.134)'}` }}>
                                             <Box sx={{ borderBottom: '1px solid rgba(236, 232, 232, 0.134)', mb: '10px' }}>
-                                                <Box className={activeTabs === 'Home' && 'activeclass'} onClick={() => { handleTabs('Home'), `${token ? router.push('/Home') : router.push('/')}` }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, width: '100%', display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', borderRadius: '7px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px', }}>{home}</Typography><Typography variant='p' sx={{ fontSize: '14px', }}>Home</Typography></Box>
-                                                <Box className={activeTabs === 'Popular' && 'activeclass'} onClick={() => { handleTabs('Popular'), router.push('Popular') }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', borderRadius: '7px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px' }}>{popular}</Typography><Typography variant='p' sx={{ fontSize: '14px', }}>Popular</Typography></Box>
+                                                <Box className={activeTabs === 'Home' && 'activeclass'} onClick={() => { handleTabs('Home'), `${token ? router.push('/Home') : router.push('/')}`, sethomeorpopular('Home') }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, width: '100%', display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', borderRadius: '7px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px', }}>{home}</Typography><Typography variant='p' sx={{ fontSize: '14px', }}>Home</Typography></Box>
+                                                <Box className={activeTabs === 'Popular' && 'activeclass'} onClick={() => { handleTabs('Popular'), `${token ? router.push('/Popular') : router.push('/PopularHome')}`, sethomeorpopular('Popular')  }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', borderRadius: '7px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px' }}>{popular}</Typography><Typography variant='p' sx={{ fontSize: '14px', }}>Popular</Typography></Box>
                                             </Box>
-                                            {token && <Box sx={{ borderBottom: '1px solid lightgray' }}>
+                                            <Box sx={{ borderBottom: '1px solid lightgray' }}>
                                                 <Box sx={{ display: 'flex', flexDirection: 'column', }}>
                                                     <Box sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: '10px', borderRadius: '10px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography variant='p' sx={{ fontSize: '13px', letterSpacing: '2px', }}>COMMUNITY</Typography><Typography sx={{ display: 'flex', alignItems: 'center', transition: 'all .5s ease' }}>{communitydropdown}</Typography></Box>
                                                     <Box sx={{ width: '100%' }}>
                                                         <IconButton onClick={() => pop('popcommunity')} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '7px', borderRadius: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                                                             <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', }}>{createicon}</Typography>
-                                                            <Typography variant='h6' sx={{ fontSize: '14px', }}>Create a community</Typography>
+                                                            <Typography variant='h6' sx={{ fontSize: '14px',textWrap:'nowrap' }}>Create a community</Typography>
                                                         </IconButton>
 
                                                         {/* ---------------Channel mapping---------------- */}
                                                         {channel && channel.map((item, index) => (
-                                                            <IconButton key={index} onClick={() => { route.push(`/Community/${item._id}`) }} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '7px', borderRadius: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
-                                                                {item.image ? <img style={{ width: '20px', flexGrow: 0, display: 'flex', alignItems: 'center', }} src={item.image} />
-                                                                    : <img style={{ width: '20px', }} src="https://preview.redd.it/me-watching-a-random-drawing-i-made-get-turned-into-a-meme-v0-xib15dbut7tb1.png?width=640&crop=smart&auto=webp&s=218dbe01ffa9c145aa5fef90aec31a21b97ffbbe" />}
-                                                                <Typography variant='h6' sx={{ fontSize: '14px', }}>{item.name}</Typography>
+                                                            <IconButton key={index} onClick={() => { route.push(`/Community/${item._id}`)}} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '7px', borderRadius: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
+                                                                {item.image ? <img style={{ width: '20px', flexGrow: 0, display: 'flex', alignItems: 'center', borderRadius: '100%', }} src={item.image} />
+                                                                    : <Box variant='h6' sx={{ width:'20px', height:'20px',textTransform: 'uppercase',borderRadius: '100%', backgroundColor: '#808080', display:'flex', alignItems:'center', justifyContent:'center' }}><Typography fontSize='14px' fontWeight='700'>{item.name.charAt(0)}</Typography></Box>}
+                                                                <Typography variant='h6' sx={{ fontSize: '14px', textWrap:'nowrap' }}>{item.name}</Typography>
                                                             </IconButton>
                                                         ))}
+                                                        {/* ---------------Channel mapping---------------- */}
                                                     </Box>
                                                 </Box>
-                                            </Box>}
+                                            </Box>
                                         </Box>
                                     </Box>}
                                 </Box>
@@ -234,7 +218,7 @@ const NavBarr = ({ children }) => {
                             component="form"
                             elevation={popup['search'] ? 1 : 0}
                             sx={{
-                                p: '0px 4px', display: 'flex', alignItems: 'center', width: `${token ? '550px' : '720px'}`, position: 'relative', backgroundColor: popup['search'] ? '#fff' : 'rgba(236, 232, 232, 0.534)', borderRadius: popup['search'] ? '20px 20px 0 0' : '50px',
+                                p: '0px 4px', display: 'flex', alignItems: 'center', width: `${token ? '550px' : '700px'}`, position: 'relative', backgroundColor: popup['search'] ? '#fff' : 'rgba(236, 232, 232, 0.534)', borderRadius: popup['search'] ? '20px 20px 0 0' : '50px',
                                 "&:hover": popup['search'] && { backgroundColor: 'rgba(236, 232, 232, 0.734)', borderRadius: '50px' }
                             }}
                             onClick={() => pop('search')}
@@ -249,7 +233,7 @@ const NavBarr = ({ children }) => {
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
                             />
-                            {popup['search'] && <Paper elevation={1} sx={{ overflowY: 'scroll', overflowX: 'hidden', backgroundColor: `${theme === 'light' ? '#fff' : '#16282cfd'}`, alignItems: 'center', borderRadius: '0 0 10px 10px', width: '100%', height: 500, position: 'absolute', top: '45px', left: '0px', zIndex: '9', }}>
+                            {popup['search'] && <Paper elevation={1} sx={{ overflowY: 'scroll', overflowX: 'hidden', backgroundColor: `${theme === 'light' ? '#fff' : '#16282cfd'}`, alignItems: 'center', borderRadius: '0 0 10px 10px', width: {xs:'200px', md:'100%'}, height: 500, position: 'absolute', top: '45px', left: '0px', zIndex: '9', }}>
                                 <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', alignItems: 'center', gap: '5px', m: '10px 10px 0 10px' }}><Typography>{trending}</Typography><Typography variant='h6' sx={{ fontSize: '13px', fontWeight: '400', textTransform: 'uppercase', }}>Trending Today</Typography></Box>
                                 {searchresults && searchresults.map((item, index) => (
                                     <Box onClick={() => { token && router.push(`/User/${item.author._id}`), setInputValue(item.author.name) }} key={index} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '95%', borderBottom: '1px solid rgba(236, 232, 232, 0.834)', m: '0px 10px', p: '20px 10px' }}>
@@ -258,7 +242,7 @@ const NavBarr = ({ children }) => {
                                             <Box>
                                                 <Typography variant='h6' sx={{ p: '5px 0', fontSize: '.8rem', color: '#808080', fontWeight: '400' }}>{item.content}</Typography>
                                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
-                                                    {item.author.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} class="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.profileImage} />
+                                                    {item.author.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.profileImage} />
                                                         : <Typography variant='h6' sx={{fontSize:'12px',fontWeight:'700', textTransform:'uppercase', p:'2px 7px', borderRadius:'100%',backgroundColor: '#808080'}}>{item.author.name.charAt(0)}</Typography>}
                                                     <Typography variant='h6' sx={{ fontSize: '.8rem', color: '#808080', fontWeight: '400' }}>{item.author.name}</Typography>
                                                 </Box>
@@ -306,8 +290,8 @@ const NavBarr = ({ children }) => {
                                         <Tooltip title="Open profile menu" >
                                             <Box onClick={handleClick} sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '0px 10px', border: { xs: 'none', md: '1px solid rgba(236, 232, 232, 0.734)' }, borderRadius: '5px' }}>
                                                 <Box sx={{ p: 0, position: 'relative', }}>
-                                                    <img className='profilelogo' style={{ width: '25px', borderRadius: '5px' }} src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_3.png" alt="User Avatar" class="max-w-full"></img>
-                                                    <Box sx={{ position: 'absolute', bottom: '3px', right: '-3px', width: '7px', height: '7px', bgcolor: '#55bd46', borderRadius: '100%' }}></Box>
+                                                    <img className='profilelogo' style={{ width: '25px', borderRadius: '5px' }} src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_3.png" alt="User Avatar"></img>
+                                                    {isSwitchOn && <Box sx={{ position: 'absolute', bottom: '3px', right: '-3px', width: '7px', height: '7px', bgcolor: '#55bd46', borderRadius: '100%' }}></Box>}
                                                 </Box>
                                                 <Box sx={{ display: 'flex', width: { xs: 'none', md: '150px' }, color: '#000', justifyContent: 'space-between' }}>
                                                     <Box>
@@ -323,7 +307,6 @@ const NavBarr = ({ children }) => {
                                             id="account-menu"
                                             open={open}
                                             onClose={handleClose}
-                                            // onClick={handleClose}
                                             PaperProps={{
                                                 elevation: 0,
                                                 sx: {
@@ -354,12 +337,13 @@ const NavBarr = ({ children }) => {
                                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                         >
-                                            {/* <img className='profilelogo' style={{ position: 'relative', left: '-5px', width: '33px', borderRadius: '50px' }} src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_3.png" alt="User Avatar" class="max-w-full"></img> &nbsp;Profile
-                                                <Box sx={{ position: 'absolute', left: '38px', top: '30px', right: '0px', width: '7px', height: '7px', bgcolor: '#55bd46', borderRadius: '100%' }}></Box> */}
                                             <MenuItem sx={{ color: '#808080' }}>
                                                 <Avatar /> My Stuff
                                             </MenuItem>
-                                            <MenuItem onClick={handleClose} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }}>
+                                            <MenuItem sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }}>
+                                                <Avatar sx={{ visibility: 'hidden' }} /> Online Status <Switch checked={isSwitchOn} onChange={handleSwitchChange}/>
+                                            </MenuItem>
+                                            <MenuItem onClick={()=>{handleClose(), router.push(`/User/${loginInfo}`)}} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }}>
                                                 <Avatar sx={{ visibility: 'hidden' }} /> Profile
                                             </MenuItem>
                                             <Divider />
@@ -446,9 +430,8 @@ const NavBarr = ({ children }) => {
                     </Toolbar>
                 </Container>
             </AppBar>
-            <Box display='flex' gap='30px' width="100%" overflowx='hidden' sx={{ backgroundColor: `${theme === 'light' ? '#fff' : '#000'}`,}}>
-                {!token && <Box display={{ xs: 'none', md: 'block' }} ><SideNavBar popup={popup} pop={pop} setpopup={setpopup} token={token} /></Box>}
-                <Box width="100%" display='flex' justifyContent='center' >{children}</Box>
+            <Box display='flex' gap='30px'  sx={{ backgroundColor: `${theme === 'light' ? '#fff' : '#000'}`,}}>
+                <Box>{children}</Box>
             </Box>
         </Box >
     );

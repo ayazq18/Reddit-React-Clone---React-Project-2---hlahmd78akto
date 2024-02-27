@@ -1,5 +1,5 @@
 'use client'
-import { apicontext } from '@/app/(Components)/(Apicontext)/Apicontextprovider'
+import { apicontext } from '@/app/(Components)/(Context)/Apicontextprovider'
 import { arrowdown, arrowup, comments, communityprofile, share } from '@/app/(Components)/(Constants)/Asset'
 import { context } from '@/app/(Components)/(Context)/ContextProvider'
 import { Cake, CircleNotificationsOutlined, LocalFireDepartment, MoreHoriz, NewReleasesTwoTone, NotificationAdd, Notifications, Publish, Rocket, VisibilityOff } from '@mui/icons-material'
@@ -9,7 +9,7 @@ import React, { useContext, useEffect, useState } from 'react'
 
 export default function CommunityInfo(props) {
     const { token, theme, router, pop, popup, setpopup, userprofilename } = useContext(context)
-    const { sort, setsort, handleselect, getTimeDifference, fetchDeletePost, Likepost, Disikepost, likedCount, formatDate, toggle, settoggle } = useContext(apicontext)
+    const { isSwitchOn,  sort, setsort, handleselect, getTimeDifference, fetchDeletePost, Likepost, Disikepost, likedCount, formatDate, toggle, settoggle } = useContext(apicontext)
     const [channelid, setchannleid] = useState([])
     const [channelpost, setchannelpost] = useState([])
     const [postchannel, setpostchannel] = useState([])
@@ -117,7 +117,7 @@ export default function CommunityInfo(props) {
                     <Box sx={{ width: '100%', height: '15vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, }}>
                         <Box sx={{ width: '70%', height: '15vh', }}>
                             <Box sx={{ width: '50%', height: '15vh', display: 'flex', alignItems: 'flex-start', gap: '15px' }}>
-                                {channelid.image ? <img style={{ width: '70px', borderRadius: '50px', border: '3px solid white' }} class="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={channelid.image} />
+                                {channelid.image ? <img style={{ width: '70px', borderRadius: '50px', border: '3px solid white' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={channelid.image} />
                                     : <img style={{ width: '70px', borderRadius: '50px' }} src="https://preview.redd.it/me-watching-a-random-drawing-i-made-get-turned-into-a-meme-v0-xib15dbut7tb1.png?width=640&crop=smart&auto=webp&s=218dbe01ffa9c145aa5fef90aec31a21b97ffbbe" />}
                                 <Box sx={{ display: 'flex', gap: '20px', width: '50%', height: '10vh', }}>
                                     <Box>
@@ -141,14 +141,14 @@ export default function CommunityInfo(props) {
                         </Box>
 
                     </Box>
-                    <Box sx={{ height: '100vh', display: 'flex', justifyContent: 'center', gap: '25px' }}>
+                    <Box sx={{ height: '100vh', display: 'flex', justifyContent: 'center',  flexDirection: { xs: 'column-reverse', md: 'row' }, gap: '25px' }}>
                         <Box sx={{ width: { xs: '100%', md: '48%' } }}>
                             <Box width='100%' sx={{ display: 'flex', m: '20px 0', borderRadius: '3px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
                                 <MenuItem >
-                                    <img style={{ position: 'relative', left: '-5px', width: '35px', borderRadius: '50px' }} src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_3.png" alt="User Avatar" class="max-w-full"></img>
-                                    <Box sx={{ position: 'absolute', left: '37px', top: '30px', width: '10px', height: '10px', bgcolor: '#55bd46', borderRadius: '100%' }}></Box>
+                                    <img style={{ position: 'relative', left: '-5px', width: '35px', borderRadius: '50px' }} src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_3.png" alt="User Avatar" className="max-w-full"></img>
+                                    {isSwitchOn && <Box sx={{ position: 'absolute', left: '37px', top: '30px', width: '10px', height: '10px', bgcolor: '#55bd46', borderRadius: '100%' }}></Box>}
                                 </MenuItem>
-                                <Typography onClick={() => router.push('/submit')} variant="h6" sx={{ width: '70%', p: '7px', m: '7px', borderRadius: '5px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}`, fontSize: '14px', color: '#808080', ":hover": { border: `${theme === 'light' ? '1px solid blue' : '1px solid white'}`, boxSizing: 'border-box' } }}>Create Post</Typography>
+                                <Typography onClick={() => router.push('/submit/newpost')} variant="h6" sx={{ width: '70%', p: '7px', m: '7px', borderRadius: '5px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}`, fontSize: '14px', color: '#808080', ":hover": { border: `${theme === 'light' ? '1px solid blue' : '1px solid white'}`, boxSizing: 'border-box' } }}>Create Post</Typography>
                             </Box>
                             <Box width='100%' sx={{ p: '10px', m: '20px 0', borderRadius: '3px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}` }}>
                                 <Box sx={{ width: '100%', borderRadius: '0', display: 'flex' }}>
@@ -210,7 +210,7 @@ export default function CommunityInfo(props) {
                                     </Box>
                                 </Box>))} */}
                         </Box>
-                        <Box sx={{ pb: '20px', mt: '20px', width: '22%', borderRadius: '4px', height: 'fit-content', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
+                        <Box sx={{ pb: '20px', mt: '20px', width: {xs:'100%', md:'22%'}, borderRadius: '4px', height: 'fit-content', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', p: '15px 10px', color: `${theme === 'light' ? '#fff' : '#808080'}`, backgroundColor: `${theme === 'light' ? '#48576b' : '#000'}` }}>
                                 <Typography variant='h6' sx={{ fontSize: '15px', fontWeight: '700', }}>About Community</Typography>
                                 <MoreHoriz />

@@ -2,7 +2,7 @@
 import NavBarr from './(Components)/(NavBar)/NavBarr'
 import './globals.css'
 import { ContextProvider } from './(Components)/(Context)/ContextProvider'
-import Apicontextprovider from './(Components)/(Apicontext)/Apicontextprovider'
+import Apicontextprovider from './(Components)/(Context)/Apicontextprovider'
 
 export default function RootLayout({ children }) {
   return (
@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
       <body >
         <ContextProvider>
           <Apicontextprovider>
-        <div style={{width:'100vw', overflowY:'scroll', height:'100%',position:'fixed', top:'0',}}>
+        <div className='scrollbar' style={{width:'100vw', position:'fixed', overflowY:'scroll', height:'100%', top:'0',}}>
           <NavBarr children={children}/>
         </div>
         </Apicontextprovider>

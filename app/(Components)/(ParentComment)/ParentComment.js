@@ -4,7 +4,7 @@ import { Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useContext, useEffect, useState } from 'react'
 import { context } from '../(Context)/ContextProvider'
-import { apicontext } from '../(Apicontext)/Apicontextprovider'
+import { apicontext } from '../(Context)/Apicontextprovider'
 import ChildComment from './ChildComment'
 
 export default function ParentComment({ itemcomment, index, }) {
@@ -42,7 +42,7 @@ export default function ParentComment({ itemcomment, index, }) {
                 <Box sx={{ width: '100%', pl: '10px', borderLeft: `.5px dashed ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            {data.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} class="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={data.profileImage} />
+                            {data.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={data.profileImage} />
                                 : <Typography variant='h6' sx={{fontSize:'12px',fontWeight:'700', textTransform:'uppercase', p:'2px 7px', borderRadius:'100%',backgroundColor: '#808080'}}>{data.name.charAt(0)}</Typography>}
                             <Typography variant="h6" sx={{ fontSize: '12px' }}>{data.name}</Typography>
                             <Typography variant="h4" sx={{ fontSize: '12px', color: '#808080' }}>.&nbsp;&nbsp;{getTimeDifference(itemcomment.createdAt)}</Typography>

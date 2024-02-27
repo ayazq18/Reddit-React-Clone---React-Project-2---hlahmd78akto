@@ -1,7 +1,9 @@
 'use client'
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
-import { context } from '../(Context)/ContextProvider'
+import { context } from './ContextProvider'
 import { useRouter } from 'next/navigation'
+const Base_URL = 'https://academics.newtonschool.co/api/v1/reddit'
+const Project_ID = 'hlahmd78akto'
 
 export const apicontext = createContext()
 export default function Apicontextprovider({ children }) {
@@ -26,14 +28,16 @@ export default function Apicontextprovider({ children }) {
     const [postingComments, setpostingComments] = useState([])
     const [usercommenttoggle, settoggleusercomments] = useState(false)
     const [commentsPost, setCommentsPost] = useState()
+    const [popupdelete, setpopupdelete] = useState(null);
+    const [isSwitchOn, setIsSwitchOn] = useState(true);
 
     // ----------------FetchPost---------------------
     const fetchPosts = useMemo(async () => {
         try {
-            const response = await fetch('https://academics.newtonschool.co/api/v1/reddit/post?limit=500', {
+            const response = await fetch(`${Base_URL}/post?limit=500`, {
                 method: 'GET',
                 headers: {
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     "Content-Type": "application/json",
                 }
             })
@@ -44,20 +48,22 @@ export default function Apicontextprovider({ children }) {
             console.log(error)
         }
     }, [toggle])
+
     // ----------------FetchPost---------------------
 
     // ------------------Like and dislike----------------
     const Likepost = useCallback(async (_id) => {
         try {
-            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/like/${_id}`, {
+            const response = await fetch(`${Base_URL}/like/${_id}`, {
                 method: 'Post',
                 headers: {
                     'Authorization': `Bearer ${token}`,
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     "Content-Type": "application/json",
                 }
             })
             const result = await response.json();
+            console.log(result)
             setlikedcount(result)
             settoggle(!toggle)
         }
@@ -65,12 +71,13 @@ export default function Apicontextprovider({ children }) {
             console.log(error)
         }
     }, [])
+
     const Disikepost = useCallback(async (_id) => {
         try {
-            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/like/${_id}`, {
+            const response = await fetch(`${Base_URL}/like/${_id}`, {
                 method: 'Delete',
                 headers: {
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     'Authorization': `Bearer ${token}`,
                     "Content-Type": "application/json",
                 }
@@ -88,11 +95,11 @@ export default function Apicontextprovider({ children }) {
     // ------------------follow and unfollow----------------
     const Userfollow = async (_id) => {
         try {
-            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/follow/${_id}`, {
+            const response = await fetch(`${Base_URL}/follow/${_id}`, {
                 method: 'Post',
                 headers: {
                     'Authorization': `Bearer ${token}`,
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     "Content-Type": "application/json",
                 }
             })
@@ -107,10 +114,10 @@ export default function Apicontextprovider({ children }) {
     }
     const Userunfollow = async (_id) => {
         try {
-            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/follow/${_id}`, {
+            const response = await fetch(`${Base_URL}/follow/${_id}`, {
                 method: 'Delete',
                 headers: {
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     'Authorization': `Bearer ${token}`,
                     "Content-Type": "application/json",
                 }
@@ -130,10 +137,10 @@ export default function Apicontextprovider({ children }) {
 
     const fetchChannel = useMemo(async () => {
         try {
-            const response = await fetch('https://academics.newtonschool.co/api/v1/reddit/channel?limit=100', {
+            const response = await fetch(`${Base_URL}/channel?limit=100`, {
                 method: 'GET',
                 headers: {
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     "Content-Type": "application/json",
                 },
             })
@@ -145,16 +152,19 @@ export default function Apicontextprovider({ children }) {
         }
     }, [toggle])
 
+
     const fetchCreatePost = async () => {
         try {
             const formData = new FormData();
             formData.append('title', title);
             formData.append('content', description);
-            formData.append('images', postimage);
-            const response = await fetch('https://academics.newtonschool.co/api/v1/reddit/post/', {
+            if (postimage) {
+                formData.append('images', postimage);
+            }
+            const response = await fetch(`${Base_URL}/post/`, {
                 method: 'Post',
                 headers: {
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     'Authorization': `Bearer ${token}`,
                 },
                 body: formData
@@ -174,15 +184,17 @@ export default function Apicontextprovider({ children }) {
             formData.append('title', title);
             formData.append('content', description);
             formData.append('images', postimage);
-            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/post/${val}`, {
-                method: 'Patch',
+            const response = await fetch(`${Base_URL}/post/${val}`, {
+                method: 'PATCH',
                 headers: {
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     'Authorization': `Bearer ${token}`,
                 },
                 body: formData
             })
             const result = await response.json();
+            settoggle(!toggle)
+            router.push('/Home')
         }
         catch (error) {
             console.log(error)
@@ -192,10 +204,10 @@ export default function Apicontextprovider({ children }) {
     // --------------------deletepost--------------------
     const fetchDeletePost = async (val) => {
         try {
-            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/post/${val}`, {
+            const response = await fetch(`${Base_URL}/post/${val}`, {
                 method: 'Delete',
                 headers: {
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     'Authorization': `Bearer ${token}`,
                 },
             })
@@ -214,10 +226,10 @@ export default function Apicontextprovider({ children }) {
             formData.append('name', subredditname);
             formData.append('content', description);
             formData.append('images', postimage);
-            const response = await fetch('https://academics.newtonschool.co/api/v1/reddit/channel/', {
+            const response = await fetch(`${Base_URL}/channel/`, {
                 method: 'Post',
                 headers: {
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     'Authorization': `Bearer ${token}`,
                 },
                 body: formData
@@ -236,10 +248,10 @@ export default function Apicontextprovider({ children }) {
 
     const fetchUserProfile = async (val) => {
         try {
-            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/user/${val}`, {
+            const response = await fetch(`${Base_URL}/user/${val}`, {
                 method: 'GET',
                 headers: {
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     'Authorization': `Bearer ${token}`,
                     "Content-Type": "application/json",
                 }
@@ -258,10 +270,10 @@ export default function Apicontextprovider({ children }) {
 
     const fetchyourPosts = async (val) => {
         try {
-            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/post/`, {
+            const response = await fetch(`${Base_URL}/post/`, {
                 method: 'GET',
                 headers: {
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     'Authorization': `Bearer ${token}`,
                     "Content-Type": "application/json",
                 }
@@ -284,7 +296,7 @@ export default function Apicontextprovider({ children }) {
             const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/post/${val}`, {
                 method: 'GET',
                 headers: {
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     "Content-Type": "application/json",
                 }
             })
@@ -304,10 +316,10 @@ export default function Apicontextprovider({ children }) {
 
     const fetchPostComments = async (val) => {
         try {
-            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/post/${val}/comments`, {
+            const response = await fetch(`${Base_URL}/post/${val}/comments`, {
                 method: 'GET',
                 headers: {
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     'Authorization': `Bearer ${token}`,
                     "Content-Type": "application/json",
                 }
@@ -322,10 +334,10 @@ export default function Apicontextprovider({ children }) {
 
     const fetchPostingComments = async (val) => {
         try {
-            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/comment/${val}`, {
+            const response = await fetch(`${Base_URL}/comment/${val}`, {
                 method: 'POST',
                 headers: {
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     'Authorization': `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
@@ -345,10 +357,10 @@ export default function Apicontextprovider({ children }) {
 
     const fetchDeleteComments = async (val) => {
         try {
-            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/comment/${val}`, {
+            const response = await fetch(`${Base_URL}/comment/${val}`, {
                 method: 'DELETE',
                 headers: {
-                    'ProjectID': 'hlahmd78akto',
+                    'ProjectID': Project_ID,
                     'Authorization': `Bearer ${token}`,
                     "Content-Type": "application/json",
                 },
@@ -362,15 +374,11 @@ export default function Apicontextprovider({ children }) {
 
     // ----------------Fetch Comments---------------------
 
-    
-
 
     useEffect(() => {
         fetchChannel
         fetchPosts
     }, [])
-
-
 
 
     // ---------------------Functions------------------------------
@@ -438,6 +446,14 @@ export default function Apicontextprovider({ children }) {
         }
     };
 
+    const recentChannels = channel.filter(item => {
+        const currentDate = new Date();
+        const channelDate = new Date(item.createdAt);
+        const timeDifference = currentDate.getTime() - channelDate.getTime();
+        const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+        return daysDifference <= 7;
+    });
+
 
     const formatDate = (dateStr) => {
         const options = { month: 'short', day: 'numeric', year: 'numeric' };
@@ -456,14 +472,17 @@ export default function Apicontextprovider({ children }) {
         }, 3000);
     }
 
-    
-    const [popupdelete, setpopupdelete] = useState(null);
+
     const handledeletecomment = (index) => {
         setpopupdelete(index === popupdelete ? null : index);
     }
 
+    const handleSwitchChange = () => {
+        setIsSwitchOn(prevState => !prevState);
+    };
+
     return (
-        <apicontext.Provider value={{ commentsPost, fetchCommentsPosts, popupdelete, setpopupdelete, handledeletecomment, usercommenttoggle, settoggleusercomments, postingComments, setpostComments, setpostingComments, fetchPostingComments, fetchDeleteComments, postcomments, fetchPostComments, popfollowuser, handlefollowuser, filteredpost, fetchyourPosts, userdata, fetchUserProfile, Userfollow, Userunfollow, settoggleuserfollow, toggleuserfollow, reddittoggle, setReddittoggle, settoggle, Likepost, Disikepost, likedCount, dislikedCount, title, settitle, description, setdescription, postimage, setpostimage, subredditname, setsubredditname, fetchCreatePost, fetchDeletePost, fetchUpdatePost, fetchCreatesubreddit, createsubreddit, setcreatesubreddit, post, setpost, sort, setsort, handleselect, getTimeDifference, channel, setChannel, formatDate }}>
+        <apicontext.Provider value={{ recentChannels, isSwitchOn, handleSwitchChange, commentsPost, fetchCommentsPosts, popupdelete, setpopupdelete, handledeletecomment, usercommenttoggle, settoggleusercomments, postingComments, setpostComments, setpostingComments, fetchPostingComments, fetchDeleteComments, postcomments, fetchPostComments, popfollowuser, handlefollowuser, filteredpost, fetchyourPosts, userdata, fetchUserProfile, Userfollow, Userunfollow, settoggleuserfollow, toggleuserfollow, reddittoggle, setReddittoggle, settoggle, Likepost, Disikepost, likedCount, dislikedCount, title, settitle, description, setdescription, postimage, setpostimage, subredditname, setsubredditname, fetchCreatePost, fetchDeletePost, fetchUpdatePost, fetchCreatesubreddit, createsubreddit, setcreatesubreddit, post, setpost, sort, setsort, handleselect, getTimeDifference, channel, setChannel, formatDate }}>
             <div>
                 {children}
             </div>
