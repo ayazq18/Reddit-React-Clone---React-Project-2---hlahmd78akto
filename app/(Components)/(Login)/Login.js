@@ -73,7 +73,7 @@ export default function Login({ }) {
                     <img style={{ width: '1rem', height: '1rem', borderRadius: '50px' }} src="https://styles.redditmedia.com/t5_3is08/styles/communityIcon_i0bub98epp4a1.png" srcSet="" sizes="" alt="Icon for r/"></img>
                     <Box display='flex' flexDirection='column'>
                       <Typography variant='p' sx={{ fontSize: '10px' }}>Continue with Google</Typography>
-                      <Typography className='comingsoon' variant='p' sx={{ fontSize: '10px' }}>Feature coming soon</Typography>
+                      <Typography variant='p' sx={{ fontSize: '10px', color:'red' }}>Feature coming soon</Typography>
                     </Box>
                   </Box>
                   <Box sx={{ width: '1rem', display: 'flex', alignItems: 'center' }}>{google}</Box>
@@ -81,7 +81,7 @@ export default function Login({ }) {
               </Box>
               <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', alignItems: 'center', gap: '80px', p: '5px', width: '100%', border: '3px solid rgba(236, 232, 232, 0.334)', borderRadius: '20px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
                 <Apple />
-                <Typography className='comingsoon' variant='p' sx={{ fontSize: '13px' }}>Continue with Apple (Coming soon)</Typography>
+                <Typography variant='p' sx={{ fontSize: '13px',color:'red' }}>Continue with Apple (Coming soon)</Typography>
               </Box>
             </Box>
 

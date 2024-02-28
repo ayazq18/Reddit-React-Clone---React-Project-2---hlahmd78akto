@@ -1,15 +1,16 @@
 'use client'
 import { Button, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, } from "react";
 import { Close, FilterVintage, LocalFireDepartment, NewReleasesTwoTone, Publish, Rocket, } from "@mui/icons-material";
-import { arrowdown, arrowup, comments, followedicon, google, share } from "../../(Components)/(Constants)/Asset";
+import { comments, followedicon, share } from "../../(Components)/(Constants)/Asset";
 import { context } from "../../(Components)/(Context)/ContextProvider";
 import { apicontext } from "../../(Components)/(Context)/Apicontextprovider";
+import LikeDislike from "@/app/(Components)/(SmallComponents)/LikeDislike";
 
 export default function UserProfile(props) {
     const { userprofilename, theme, pop, popup, router } = useContext(context)
-    const { sort, handleselect, getTimeDifference, formatDate, followbtntxt, toggleuserfollow, setpopfollowuser, userdata, fetchUserProfile, filteredpost, fetchyourPosts, popfollowuser, handlefollowuser } = useContext(apicontext)
+    const { sort, handleselect, getTimeDifference, formatDate, toggleuserfollow, setpopfollowuser, userdata, fetchUserProfile, filteredpost, fetchyourPosts, popfollowuser, handlefollowuser, } = useContext(apicontext)
     console.log(userdata)
     useEffect(() => {
         fetchUserProfile(props.params.Profile)
@@ -57,11 +58,11 @@ export default function UserProfile(props) {
                 {/* ---------------Post section------------------ */}
 
                 {filteredpost && filteredpost.map((item, index) => (
-                    <Box sx={{ width: { xs: '100%', md: '100%' }, display: 'flex', gap: '5px', mb: '10px', borderRadius: '3px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, ":hover": { border: `${theme === 'light' ? '1px solid #808080' : '1px solid white'}` } }}>
-                        <Box sx={{ p: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '3px 0 0 3px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, boxSizing: 'border-box' }}>
-                            <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowup}</Typography>
-                            <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>{item.likeCount}</Typography>
-                            <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowdown}</Typography>
+                    <Box key={index} sx={{ width: { xs: '100%', md: '100%' }, display: 'flex', gap: '5px', mb: '10px', borderRadius: '3px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, ":hover": { border: `${theme === 'light' ? '1px solid #808080' : '1px solid white'}` } }}>
+                        <Box sx={{ p: '10px', borderRadius: '3px 0 0 3px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, boxSizing: 'border-box' }}>
+                            {/* -------Like Dislike Component---------- */}
+                            <LikeDislike item={item} />
+                            {/* -------Like Dislike Component---------- */}
                         </Box>
                         <Box sx={{ width: '100%', }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
@@ -76,10 +77,6 @@ export default function UserProfile(props) {
                                 <Box onClick={() => router.push(`/PostComments/${item.author._id}?PostId=${item._id}`)} sx={{ display: 'flex', alignItems: 'center', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                                     <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>{comments}</Typography>
                                     <Typography variant="h6" sx={{ p: '5px', fontSize: '12px' }}>{item.commentCount} Comments</Typography>
-                                </Box>
-                                <Box sx={{ display: 'flex', alignItems: 'center', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
-                                    <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px' }}>{share}</Typography>
-                                    <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>Share</Typography>
                                 </Box>
                             </Box>
                         </Box>
@@ -119,11 +116,11 @@ export default function UserProfile(props) {
                         </Box>
                     </Box>
                     <Box sx={{ display: 'flex', mt: '10px', p: '15px', justifyContent: 'flex-start', alignItems: 'center', gap: '10px' }}>
-                        {userprofilename !== userdata.name ? 
-                        <Button variant='contained' sx={{ width: '40%', p: '3px', fontSize: '14px', textTransform: 'revert', borderRadius: '20px', color: `${theme === 'light' ? '#fff' : '#000'}`, bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}` } }} onClick={() => { handlefollowuser(props.params.Profile) }}>{userdata.isFollowed === true ? 'Unfollow' : 'Follow'}</Button>
-                         : 
-                         <Typography sx={{ width: '40%', p: '3px', fontSize: '14px', textTransform: 'uppercase', textAlign:'center', color: `${theme === 'light' ? '#fff' : '#000'}`, bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}` } }}>My Profile</Typography>
-                         }
+                        {userprofilename !== userdata.name ?
+                            <Button variant='contained' sx={{ width: '40%', p: '3px', fontSize: '14px', textTransform: 'revert', borderRadius: '20px', color: `${theme === 'light' ? '#fff' : '#000'}`, bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}` } }} onClick={() => { handlefollowuser(props.params.Profile) }}>{userdata.isFollowed === true ? 'Unfollow' : 'Follow'}</Button>
+                            :
+                            <Typography sx={{ width: '40%', p: '3px', fontSize: '14px', textTransform: 'uppercase', textAlign: 'center', color: `${theme === 'light' ? '#fff' : '#000'}`, bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}` } }}>My Profile</Typography>
+                        }
                     </Box>
                     <Box sx={{ width: '100%' }}>
                         <Typography className="c" onClick={() => pop('moreoptions')} variant="h5" sx={{ fontSize: '15px', fontWeight: '700', color: '#177ac5', textAlign: 'end', p: '0 10px' }}>{popup['moreoptions'] ? 'Fewer options' : 'More Options'}</Typography>

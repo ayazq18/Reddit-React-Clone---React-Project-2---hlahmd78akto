@@ -58,7 +58,7 @@ export default function CreatePost(props) {
   }, [])
 
   return (
-    <Box sx={{ width: '100vw', height:'100%', p: '20px 0 0 0', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
+    <Box sx={{ width: '100vw', height:'100%', p: '20px 0 0 0', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#091113'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
       {popup['createcommunity'] && <Box sx={{ position: 'absolute', top: '65px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100%', zIndex: '90', bgcolor: 'rgba(24, 23, 23, 0.923)' }}>
         <Box sx={{ zIndex: '9' }}><Community pop={pop} /></Box>
       </Box>}
@@ -71,7 +71,7 @@ export default function CreatePost(props) {
           </Box>
         </Box>
         <Box sx={{ position: 'relative' }}>
-          <Box sx={{ borderRadius: '3px', width: '280px', p: '5px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
+          <Box className='c' sx={{ borderRadius: '3px', width: '280px', p: '5px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
             <Box onClick={() => handleToggleDropdown()} sx={{ p: '5px', width: '100%', }}>
               <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', boxSizing: 'border-box' }}>
@@ -83,7 +83,7 @@ export default function CreatePost(props) {
               </Box>
             </Box>
           </Box>
-          {dropnav && <Box position='absolute' zIndex='9' backgroundColor={`${theme === 'light' ? '#fff' : '#1a1a1b'}`}>
+          {dropnav && <Box className='c' position='absolute' zIndex='9' backgroundColor={`${theme === 'light' ? '#fff' : '#1a1a1b'}`}>
             <Box sx={{ overflowY: 'scroll', width: '280px', p: '20px 5px 20px 15px', borderRight: `${!token && '1px solid rgba(236, 232, 232, 0.134)'}` }}>
               <Box sx={{ borderBottom: '1px solid rgba(236, 232, 232, 0.134)', mb: '10px' }}>
                 <Typography variant='h6' sx={{ fontSize: '10px', color: '#808080', textTransform: 'uppercase' }}>Your Profile</Typography>
@@ -118,11 +118,8 @@ export default function CreatePost(props) {
         <Paper sx={{  width: '100%', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, boxSizing: 'border-box', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', width: '100%', borderBottom: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.54)'}` }}>
             {postingTabs.map((item, index) => (
-              <Box key={item.name} className={`${activepostTabs === item.name && (theme === 'light' ? 'activelightposttab' : 'activedarkposttabs')}`} onClick={() => { item.handler(item.name), pop('item') }} sx={{ boxSizing: 'border-box', borderRight: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.04)'}`, color: '#808080', width: '210px', display: 'flex', alignItems: 'center', justifyContent: 'center', p: '10px 30px' }}><Typography>{item.icon}</Typography><Typography variant='h6' sx={{ fontSize: '13px', fontWeight: '700' }}>{item.name}</Typography></Box>
+              <Box key={item.name} className={`c ${activepostTabs === item.name && (theme === 'light' ? 'activelightposttab' : 'activedarkposttabs')}`} onClick={() => { item.handler(item.name), pop('item') }} sx={{ boxSizing: 'border-box', borderRight: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.04)'}`, color: '#808080', width: '210px', display: 'flex', alignItems: 'center', justifyContent: 'center', p: '10px 30px' }}><Typography>{item.icon}</Typography><Typography variant='h6' sx={{ fontSize: '13px', fontWeight: '700' }}>{item.name}</Typography></Box>
             ))}
-            {/* <Box className={activepostTabs === 'ImageLinkPoll' && 'activeposttab'} onClick={()=>handlepostTabs('ImageLinkPoll')} sx={{boxSizing: 'border-box' ,borderRight: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.04)'}`,color:'#808080',width:'200px',display:'flex', alignItems:'center', justifyContent:'center', p:'10px 30px'}}><Typography><Image/></Typography><Typography variant='h6' sx={{fontSize:'13px', fontWeight:'700', textWrap:'nowrap'}}>Image & Video</Typography></Box>
-            <Box className={activepostTabs === 'LinkPoll' && 'activeposttab'} onClick={()=>handlepostTabs('LinkPoll')} sx={{boxSizing: 'border-box' ,borderRight: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.04)'}`,color:'#808080',width:'200px',display:'flex', alignItems:'center', justifyContent:'center', p:'10px 30px'}}><Typography><Link/></Typography><Typography variant='h6' sx={{fontSize:'13px', fontWeight:'700'}}>Link</Typography></Box>
-            <Box className={activepostTabs === 'Poll' && 'activeposttab'} onClick={()=>handlepostTabs('Poll')} sx={{boxSizing: 'border-box',color:'#808080',width:'200px',display:'flex', alignItems:'center', justifyContent:'center', p:'10px 30px'}}><Typography><Poll/></Typography><Typography variant='h6' sx={{fontSize:'13px', fontWeight:'700'}}>Poll</Typography></Box> */}
           </Box>
 
 
@@ -137,11 +134,7 @@ export default function CreatePost(props) {
                 inputProps={{maxLength : '300'}}
                 endAdornment={
                   <InputAdornment position="end" >
-                    <IconButton
-                      aria-label="toggle password visibility"
-                    >
                       <Typography variant='h6' sx={{ fontSize: '12px', color: `${theme === 'light' ? '#000' : '#808080'}`, }}>{title.length}/300</Typography>
-                    </IconButton>
                   </InputAdornment>
                 }
                 label="Title"
@@ -173,11 +166,12 @@ export default function CreatePost(props) {
           }
         
           <Box display='flex' justifyContent='flex-end' gap='10px' sx={{ m: '10px' }}>
-            <Button variant='outlined' onClick={()=>setDraftCount(draftcount+1)} disabled={description.trim() == '' || draftcount === 1 } sx={{ borderRadius: '50px' }}>Save Draft</Button>
-            <Button variant='contained' disabled={description.trim() == ''} onClick={() => handleCreatpost()} sx={{ borderRadius: '50px' }}>{props.params.NewPost !== 'newpost' ? 'Update' : 'Post'}</Button>
+            <Button variant='outlined' onClick={()=>setDraftCount(draftcount+1)} disabled={description.trim() == '' || draftcount === 1 } sx={{ borderRadius: '50px', }}>Save Draft</Button>
+            <Button variant='contained' disabled={description.trim() == ''} onClick={() => handleCreatpost()} sx={{ borderRadius: '50px', }}>{props.params.NewPost !== 'newpost' ? 'Update' : 'Post'}</Button>
           </Box>
-          <Box display='flex' gap='10px' sx={{ mb: '30px', p: '30px', color: `${theme === 'light' ? 'rgba(51, 51, 245, .8)' : '#fff'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, backgroundColor: `${theme === 'light' ? '#e9ecf08c' : '#1a1a1b'}` }}>
+          <Box display='flex' alignItems='center' gap='10px' sx={{ mb: '30px', p: '30px', color: `${theme === 'light' ? 'rgba(51, 51, 245, .8)' : '#fff'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, backgroundColor: `${theme === 'light' ? '#e9ecf08c' : '#1a1a1b'}` }}>
             <input
+            className='c'
               margin="normal"
               required
               type='checkbox'

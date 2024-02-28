@@ -310,7 +310,7 @@ const NavBarr = ({ children }) => {
                                             PaperProps={{
                                                 elevation: 0,
                                                 sx: {
-                                                    backgroundColor: `${theme === 'light' ? '#fff' : '#000'}`,
+                                                    backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`,
                                                     overflow: 'visible',
                                                     filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
                                                     mt: 1.5,
@@ -337,25 +337,26 @@ const NavBarr = ({ children }) => {
                                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                         >
-                                            <MenuItem sx={{ color: '#808080' }}>
+                                            <MenuItem sx={{ color: '#808080', ":hover":{bgcolor:'#16282c7a'} }}>
                                                 <Avatar /> My Stuff
                                             </MenuItem>
-                                            <MenuItem sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }}>
+                                            <MenuItem sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover":{bgcolor:'#16282c7a'} }}>
                                                 <Avatar sx={{ visibility: 'hidden' }} /> Online Status <Switch checked={isSwitchOn} onChange={handleSwitchChange}/>
                                             </MenuItem>
-                                            <MenuItem onClick={()=>{handleClose(), router.push(`/User/${loginInfo}`)}} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }}>
+                                            <MenuItem onClick={()=>{handleClose(), router.push(`/User/${loginInfo}`)}} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover":{bgcolor:'#16282c7a'} }}>
                                                 <Avatar sx={{ visibility: 'hidden' }} /> Profile
                                             </MenuItem>
                                             <Divider />
-                                            <MenuItem sx={{ color: '#808080' }}>
+                                            <MenuItem sx={{ color: '#808080', ":hover":{bgcolor:'#16282c7a'} }}>
                                                 <Visibility /> &nbsp; View Options
                                             </MenuItem>
-                                            <MenuItem sx={{ display: 'flex', gap: '20px', alignItems: 'center', p: '0', color: `${theme === 'light' ? '#000' : '#fff'}` }}>
+                                            <MenuItem sx={{ display: 'flex', gap: '20px', alignItems: 'center', p: '0', color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover":{bgcolor:'#16282c7a'} }}>
                                                 <Avatar sx={{ visibility: 'hidden' }} />
                                                 Dark mode
                                                 <SwitchBtn theme={theme} switchLight={switchLight} switchDark={switchDark} />
                                             </MenuItem>
-                                            <MenuItem onClick={() => { handleClose(), handleSignOut() }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }}>
+                                            <MenuItem onClick={() => { handleClose(), handleSignOut() }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover":{bgcolor:'#16282c7a'} }}>
+                                            <Avatar sx={{ visibility: 'hidden' }} />
                                                 <Logout fontSize="small" /> &nbsp;&nbsp;&nbsp;&nbsp;
                                                 Logout
                                             </MenuItem>
@@ -430,7 +431,7 @@ const NavBarr = ({ children }) => {
                     </Toolbar>
                 </Container>
             </AppBar>
-            <Box display='flex' gap='30px'  sx={{ backgroundColor: `${theme === 'light' ? '#fff' : '#000'}`,}}>
+            <Box display='flex' gap='30px' sx={{ backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`,}}>
                 <Box>{children}</Box>
             </Box>
         </Box >

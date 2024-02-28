@@ -22,7 +22,7 @@ export default function Community({ pop }) {
 
     return (
         <Box sx={{ m: { xs: '0', md: '10px' }, display: 'flex', justifyContent: 'center', alignItems: 'center', }}>
-            <Box className='community' sx={{backgroundColor: `${theme === 'light' ? '#fff' : 'rgb(26,26,27)'}`,border:`1px solid ${theme === 'light' ? '#fff' : '#303031'}`, p: '15px', width: { xs: '100%', md: '37vw' }, height: { xs: '100vh', md: '85vh' },borderRadius: { xs: '0', md: '5px' } }}>
+            <Box className='community' sx={{backgroundColor: `${theme === 'light' ? '#fff' : '#091113'}`,border:`1px solid ${theme === 'light' ? '#fff' : '#303031'}`, p: '15px', width: { xs: '100%', md: '37vw' }, height: { xs: '100vh', md: '85vh' },borderRadius: { xs: '0', md: '5px' } }}>
                 <Box sx={{ mb: '10px', position: 'relative', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Box sx={{ pb: '10px', width: '100%', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: `1px solid ${theme === 'light' ? 'rgba(24, 23, 23, 0.26)' : '#303031'}`   }}>
                         <Typography variant='h5' sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, textWrap: 'nowrap', fontSize: { xs: '20px', md: '15px' } }}>Create a community</Typography>

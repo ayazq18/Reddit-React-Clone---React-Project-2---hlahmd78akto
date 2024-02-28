@@ -1,31 +1,23 @@
 'use client'
-import { Button, Hidden, IconButton, ListItemIcon, Menu, MenuItem, Paper, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useContext, useState } from "react";
-import { ArrowUpwardOutlined, LocalFireDepartment, MoreHoriz, NewReleasesTwoTone, Publish, Rocket, Security, VisibilityOff, } from "@mui/icons-material";
-import { arrowdown, arrowup, comments, share } from "../(Components)/(Constants)/Asset";
+import { MoreHoriz, VisibilityOff, } from "@mui/icons-material";
+import { comments, share } from "../(Components)/(Constants)/Asset";
 import { context } from "../(Components)/(Context)/ContextProvider";
 import Community from "../(Components)/(Community)/Community";
 import { apicontext } from "../(Components)/(Context)/Apicontextprovider";
 import FilterandCreatePost from "../(Components)/(SmallComponents)/FilterandCreatePost";
 import PremiumandHomeDetails from "../(Components)/(SmallComponents)/PremiumandHomeDetails";
+import LikeDislike from "../(Components)/(SmallComponents)/LikeDislike";
 
 
 export default function Home() {
   const { theme, router, pop, popup, userprofilename } = useContext(context)
-  const { handleSwitchChange, isSwitchOn, post, sort, handleselect, getTimeDifference, fetchDeletePost, fetchUpdatePost, Likepost, Dislikepost, likedCount, dislikedCount, popupdelete, setpopupdelete, handledeletecomment, } = useContext(apicontext)
-  const handlelikedcount = (val) => {
-    if (likedCount.status === 'success') {
-      return val + 1;
-    } else if (dislikedCount.status === 'success') {
-      return val - 1;
-    } else {
-      return val;
-    }
-  }
+  const {  post, getTimeDifference, fetchDeletePost, fetchUpdatePost, popupdelete, handledeletecomment, } = useContext(apicontext)
 
   return (
-    <Box className='home' sx={{ width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
+    <Box className='home' sx={{ width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#091113'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
       {popup['createcommunity'] && <Box sx={{ position: 'absolute', top: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%', zIndex: '8', bgcolor: 'rgba(24, 23, 23, 0.923)' }}>
         <Box sx={{ zIndex: '9' }}><Community pop={pop} /></Box>
       </Box>}
@@ -36,11 +28,11 @@ export default function Home() {
 
 
         {post && post.map((item, index) => item.likeCount >= 10 && (
-          <Box key={index} sx={{ width: { xs: '100%', md: '100%' }, display: 'flex', gap: '5px', mb: '10px', borderRadius: '3px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, ":hover": { border: `${theme === 'light' ? '1px solid #808080' : '1px solid white'}` } }}>
-            <Box sx={{ p: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '3px 0 0 3px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, boxSizing: 'border-box' }}>
-              <Typography onClick={() => { Likepost(item._id) }} sx={{ display: 'flex', alignItems: 'center', p: '5px', color: `${likedCount.status === 'success' ? 'orangered' : theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowup}</Typography>
-              <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>{handlelikedcount(item.likeCount)}</Typography>
-              <Typography onClick={() => { Dislikepost(item._id) }} sx={{ display: 'flex', alignItems: 'center', color: `${dislikedCount.status === 'success' ? 'blue' : theme === 'light' ? '#000' : '#fff'}`, p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowdown}</Typography>
+          <Box key={index} sx={{ width: { xs: '100%', md: '100%' }, display: 'flex', gap: '5px', mb: '10px', borderRadius: '3px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, backgroundColor: `${theme === 'light' ? '#fff' : '#091113'}`, ":hover": { border: `${theme === 'light' ? '1px solid #808080' : '1px solid white'}` } }}>
+            <Box sx={{ p: '10px',  borderRadius: '3px 0 0 3px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, boxSizing: 'border-box' }}>
+              {/* -------Like Dislike Component---------- */}
+              <LikeDislike item={item}/>
+              {/* -------Like Dislike Component---------- */}
             </Box>
             <Box sx={{ p: '10px', width: '100%' }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>

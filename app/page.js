@@ -53,7 +53,7 @@ export default function Home() {
 
         {/* ------------------------Post Section---------------------------- */}
         {post && post.map((item, index) => (
-          <Box sx={{ width: { xs: '100%', md: '100%' }, p: '10px', borderBottom: '1px solid #2c2b2b15', borderRadius: '15px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
+          <Box sx={{ width: { xs: '100%', md: '100%' }, p: '10px', borderBottom: '1px solid #2c2b2b15', borderRadius: '15px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.134)' } }}>
             <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
               {item.author.profileImage ? <img style={{ width: '1.5rem', height: '1.5rem', borderRadius: '50px' }} src={item.author.profileImage} srcSet="" sizes="" alt="Icon for r/"></img>
                 : <img style={{ width: '1.5rem', height: '1.5rem', borderRadius: '50px' }} src='https://preview.redd.it/me-watching-a-random-drawing-i-made-get-turned-into-a-meme-v0-xib15dbut7tb1.png?width=640&crop=smart&auto=webp&s=218dbe01ffa9c145aa5fef90aec31a21b97ffbbe' srcSet="" sizes="" alt="Icon for r/"></img>}
@@ -64,16 +64,16 @@ export default function Home() {
             <Typography variant="h6" sx={{ fontSize: '18px', mb: '10px', overflowX: 'hidden', textWrap: 'noWrap', textOverflow: 'ellipsis' }}>{item.content}</Typography>
             <img style={{ borderRadius: '15px', width: '100%', height: '400px' }} src={item.images[0]} srcSet="" sizes="" alt=""></img>
             <Box display='flex' alignItems='center' gap='10px' sx={{ p: '10px 0', height: '50px' }}>
-              <Box sx={{ p: '5px 0', display: 'flex', alignItems: 'center', borderRadius: '50px', bgcolor: 'rgba(236, 232, 232, 0.734)' }}>
+              <Box sx={{ p: '5px 0', display: 'flex', alignItems: 'center', borderRadius: '50px', bgcolor: 'rgba(236, 232, 232, 0.134)' }}>
                 <Typography onClick={() => setloginpop(true)} sx={{ display: 'flex', alignItems: 'center', p: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>{arrowup}</Typography>
-                <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>{item.likeCount - item.dislikeCount}</Typography>
+                <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>{item.likeCount}</Typography>
                 <Typography onClick={() => setloginpop(true)} sx={{ display: 'flex', alignItems: 'center', p: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>{arrowdown}</Typography>
               </Box>
-              <Box onClick={() => setloginpop(true)} sx={{ display: 'flex', alignItems: 'center', borderRadius: '50px', bgcolor: 'rgba(236, 232, 232, 0.734)' }}>
+              <Box onClick={() => setloginpop(true)} sx={{ display: 'flex', alignItems: 'center', borderRadius: '50px', bgcolor: 'rgba(236, 232, 232, 0.134)' }}>
                 <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>{comments}</Typography>
                 <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>{item.commentCount}</Typography>
               </Box>
-              <Box onClick={() => setloginpop(true)} sx={{ display: 'flex', alignItems: 'center', borderRadius: '50px', bgcolor: 'rgba(236, 232, 232, 0.734)' }}>
+              <Box onClick={() => setloginpop(true)} sx={{ display: 'flex', alignItems: 'center', borderRadius: '50px', bgcolor: 'rgba(236, 232, 232, 0.134)' }}>
                 <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>{share}</Typography>
                 <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>Share</Typography>
               </Box>
@@ -82,10 +82,10 @@ export default function Home() {
         {/* ------------------------Post Section---------------------------- */}
       </Box>
 
-      <Box className='seemorecommunities' sx={{ display: { xs: 'none', md: 'block' }, position: 'sticky', top: '20px', width: '25%', mt: '20px', height: `${popup['seemorecommunities'] ? '70vh' : '480px'}`, overflowY: 'scroll', p: '20px', backgroundColor: `${theme === 'light' ? '#dae0e62a' : '#000'}`, borderRadius: '10px',border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`,  }}>
+      <Box className='seemorecommunities' sx={{ display: { xs: 'none', md: 'block' }, position: 'sticky', top: '20px', width: '25%', mt: '20px', height: `${popup['seemorecommunities'] ? '80vh' : '480px'}`, overflowY: 'scroll', p: '20px', backgroundColor: `${theme === 'light' ? '#dae0e62a' : '#091113'}`, borderRadius: '10px',border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`,  }}>
         {/* -----------------PopularCommunities----------------- */}
 
-          <PopularCommunities />
+          <PopularCommunities popup={popup} pop={pop}/>
 
         {/* -----------------PopularCommunities----------------- */}
       </Box>

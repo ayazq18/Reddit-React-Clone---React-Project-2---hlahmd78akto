@@ -5,7 +5,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
-    /* background-color: #dae0e62a; */
+    /* background-color: #040808; */
     /* background-image: url; */
     /* color: rgba(119, 117, 117, 0.507); */
 }
@@ -13,7 +13,6 @@
 .activeclass{
     background-color: rgba(169, 169, 236, 0.486);
     overflow-x: hidden;
-    color: blue;
 }
 .activelightposttab{
     border-bottom: 2px solid blue;

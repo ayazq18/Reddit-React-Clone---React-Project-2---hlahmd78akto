@@ -1,23 +1,25 @@
 'use client'
-import { Button, MenuItem, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useContext, } from "react";
-import { LocalFireDepartment, MoreHoriz, NewReleasesTwoTone, Publish, Rocket, Security, VisibilityOff, } from "@mui/icons-material";
-import { arrowdown, arrowdowncliked, arrowup, arrowupclicked, comments, share } from "../(Components)/(Constants)/Asset";
+import { Delete, MoreHoriz, VisibilityOff, } from "@mui/icons-material";
+import CreateIcon from '@mui/icons-material/Create';
+import { comments, share } from "../(Components)/(Constants)/Asset";
 import { context } from "../(Components)/(Context)/ContextProvider";
 import Community from "../(Components)/(Community)/Community";
 import { apicontext } from "../(Components)/(Context)/Apicontextprovider";
 import FilterandCreatePost from "../(Components)/(SmallComponents)/FilterandCreatePost";
 import PremiumandHomeDetails from "../(Components)/(SmallComponents)/PremiumandHomeDetails";
+import LikeDislike from "../(Components)/(SmallComponents)/LikeDislike";
 
 
 export default function Home() {
   const { theme, router, pop, popup, userprofilename } = useContext(context)
-  const {  post, getTimeDifference, fetchDeletePost, fetchUpdatePost, Likepost, Dislikepost, liketoggle, disliketoggle, popupdelete, handledeletecomment, } = useContext(apicontext)
+  const { post, getTimeDifference, fetchDeletePost, fetchUpdatePost, popupdelete, handledeletecomment, } = useContext(apicontext)
 
 
   return (
-    <Box className='home' sx={{ width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
+    <Box className='home' sx={{ width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#0b1416'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
       {popup['createcommunity'] && <Box sx={{ position: 'absolute', top: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%', zIndex: '8', bgcolor: 'rgba(24, 23, 23, 0.923)' }}>
         <Box sx={{ zIndex: '9' }}><Community pop={pop} /></Box>
       </Box>}
@@ -28,13 +30,11 @@ export default function Home() {
         {/* --------Create post and Filters------------- */}
 
         {post && post.map((item, index) => (
-          <Box key={index} sx={{ width: { xs: '100%', md: '100%' }, display: 'flex', gap: '5px', mb: '10px', borderRadius: '3px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, ":hover": { border: `${theme === 'light' ? '1px solid #808080' : '1px solid white'}` } }}>
-            <Box sx={{ p: '10px',  borderRadius: '3px 0 0 3px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, boxSizing: 'border-box' }}>
-              <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: `${liketoggle ? '#d93a00' : disliketoggle && '#6a5cff'}`, p:'5px', borderRadius:'50px'}}>
-              <Typography className="c" onClick={() => { Likepost(item._id)}} sx={{ display: 'flex', alignItems: 'center', p: '5px', color: `${liketoggle? 'white' : theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}`, borderRadius:'50px' } }}>{!liketoggle ? arrowup : arrowupclicked}</Typography>
-              <Typography variant="p" sx={{ p: '5px', fontSize: '12px', fontWeight:'700', color:`${liketoggle ? '#fff' : disliketoggle && '#fff'}` }}>{item.likeCount}</Typography>
-              <Typography className="c" onClick={() => { Dislikepost(item._id) }} sx={{ display: 'flex', alignItems: 'center', color: `${disliketoggle ? 'white' : theme === 'light' ? '#fff' : '#fff'}`, p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}`, borderRadius:'50px' } }}>{!disliketoggle ? arrowdown : arrowdowncliked}</Typography>
-              </Box>
+          <Box key={index} sx={{ width: { xs: '100%', md: '100%' }, display: 'flex', gap: '5px', mb: '10px', borderRadius: '3px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, backgroundColor: `${theme === 'light' ? '#fff' : '#091113'}`, ":hover": { border: `${theme === 'light' ? '1px solid #808080' : '1px solid white'}` } }}>
+            <Box sx={{ p: '10px', borderRadius: '3px 0 0 3px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, boxSizing: 'border-box' }}>
+              {/* -------Like Dislike Component---------- */}
+              <LikeDislike item={item} />
+              {/* -------Like Dislike Component---------- */}
             </Box>
             <Box sx={{ p: '10px', width: '100%' }}>
               <Box className="c" sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
@@ -55,13 +55,13 @@ export default function Home() {
 
                 {item.author.name === userprofilename && <Box position='relative'>
                   <Box sx={{ display: 'flex', alignItems: 'center', }}><MoreHoriz sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }} onClick={() => handledeletecomment(item._id)} /></Box>
-                  {popupdelete == item._id && <Box sx={{ position: 'absolute', width: '200px', p: '10px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
+                  {popupdelete == item._id && <Box sx={{ position: 'absolute', width: '200px', p: '10px', borderRadius:'10px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
                     <Box onClick={() => { fetchDeletePost(item._id), fetchUpdatePost(item._id), pop('delete') }} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
-                      <VisibilityOff />
+                      <Delete />
                       <Typography variant="contained" >Delete Post</Typography>
                     </Box>
                     <Box onClick={() => { router.push(`/submit/${item._id}`), pop('delete') }} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
-                      <VisibilityOff />
+                      <CreateIcon />
                       <Typography variant="contained">Edit Post</Typography>
                     </Box>
                   </Box>}

@@ -4,10 +4,9 @@ import React, { useContext } from 'react'
 import { context } from '../(Context)/ContextProvider'
 import { apicontext } from '../(Context)/Apicontextprovider'
 
-export default function PopularCommunities() {
-    const { theme, setloginpop, popup, } = useContext(context)
+export default function PopularCommunities({pop, popup}) {
+    const { theme, setloginpop, } = useContext(context)
   const { channel, getTimeDifference, } = useContext(apicontext)
-  console.log(theme)
 
   return (
     <div>
