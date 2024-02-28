@@ -76,7 +76,7 @@ export default function CreatePost(props) {
           </Box>
         </Box>
         <Box sx={{ position: 'relative' }}>
-          <Box className='c' sx={{ borderRadius: '3px', width: '280px', p: '5px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
+          <Box className='c' sx={{ borderRadius: '3px', width: '280px', p: '10px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
             <Box onClick={() => handleToggleDropdown()} sx={{ width: '100%', }}>
               <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', boxSizing: 'border-box' }}>
@@ -94,7 +94,7 @@ export default function CreatePost(props) {
                 <Typography variant='h6' sx={{ fontSize: '10px', color: '#808080', textTransform: 'uppercase' }}>Your Profile</Typography>
                 <Box onClick={() => handleCommunityInput(userprofilename)} sx={{ width: '100%', p: '10px 0', display: 'flex', alignItems: 'center', gap: '10px', borderBottom: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
                   <Box variant='h6' sx={{ width: '30px', height: '30px', textTransform: 'uppercase', borderRadius: '100%', backgroundColor: '#808080', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Typography fontSize='14px' fontWeight='700'>{userprofilename.charAt(0)}</Typography></Box>
-                  <Typography variant='h6' sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, fontSize: '12px' }}>{userprofilename}</Typography>
+                  <Typography variant='h6' sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, fontSize: '14px' }}>{userprofilename}</Typography>
                 </Box>
               </Box>
               <Box sx={{ borderBottom: '1px solid lightgray' }}>
@@ -107,7 +107,7 @@ export default function CreatePost(props) {
                     <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: '10px', width: '100%', height: '50px' }}>
                       <Box variant='h6' sx={{ width: '30px', height: '30px', textTransform: 'uppercase', borderRadius: '100%', backgroundColor: '#808080', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Typography fontSize='14px' fontWeight='700'>{item.name.charAt(0)}</Typography></Box>
                       <Box>
-                        <Typography onClick={() => handleCommunityInput(item.name)} variant='h5' sx={{ fontSize: '14px', color: `${theme === 'light' ? '#000' : '#fff'}`, }}>r/{item.name}</Typography>
+                        <Typography onClick={() => handleCommunityInput(item.name)} variant='h6' sx={{ fontSize: '14px', color: `${theme === 'light' ? '#000' : '#fff'}`, }}>r/{item.name}</Typography>
                       </Box>
                     </Box>
                   ))}
