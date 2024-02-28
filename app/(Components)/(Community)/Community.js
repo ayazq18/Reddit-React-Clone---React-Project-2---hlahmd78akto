@@ -17,6 +17,7 @@ export default function Community({ pop }) {
 
     const handlecreatesubreddit = ()=>{
         fetchCreatesubreddit();
+        setsubredditname('')
         pop('popcom')
     }
 
