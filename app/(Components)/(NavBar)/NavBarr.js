@@ -28,7 +28,7 @@ import { apicontext } from '../(Context)/Apicontextprovider';
 
 
 const NavBarr = ({ children }) => {
-    const { sethomeorpopular, loginInfo, setuserprofilename,router, pop, popup, token, settoken, switchDark, switchLight, theme, loginpop, setloginpop, signUpdata, setSignUpdata, handleTabs, activeTabs,userprofilename } = useContext(context)
+    const { sethomeorpopular, loginInfo, setuserprofilename, router, pop, popup, token, settoken, switchDark, switchLight, theme, loginpop, setloginpop, signUpdata, setSignUpdata, handleTabs, activeTabs, userprofilename } = useContext(context)
     const { handleSwitchChange, isSwitchOn, channel, } = useContext(apicontext)
     const ITEM_HEIGHT = 48;
     const route = useRouter()
@@ -48,7 +48,7 @@ const NavBarr = ({ children }) => {
         localStorage.removeItem('name')
         router.push('/')
     }
- 
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -87,13 +87,13 @@ const NavBarr = ({ children }) => {
                     <Box sx={{ zIndex: '9' }}><Community pop={pop} /></Box>
                 </Box>}
                 {loginpop && <Box sx={{ width: '100vw', height: '100vh', position: 'absolute', zIndex: '18', bgcolor: 'rgba(71, 58, 58, 0.758)' }}>
-                <Box sx={{ bgcolor: '#fff', zIndex: '19', }}><Login /></Box>
-                    </Box>}
-                {popup['drawer'] && 
-                <Box p={2} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, zIndex: '100', position: 'absolute', top: '55px', display: { xs: 'block', md: 'none' }, width: '280px', height: '100vh', borderRight: '1px solid #2c2b2b15', backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, }}>
-                    <Box className={activeTabs === 'Home' && 'activeclass'} onClick={() => { handleTabs('Home'), router.push('/') }} sx={{ width: '100%', display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px' }}>{home}</Typography><Typography variant='p' sx={{ fontSize: '14px' }}>Home</Typography></Box>
-                    <Box className={activeTabs === 'Popular' && 'activeclass'} onClick={() => { handleTabs('Popular'), router.push('/PopularHome') }} sx={{ display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', borderRadius: '7px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px' }}>{popular}</Typography><Typography variant='p' sx={{ fontSize: '14px' }}>Popular</Typography></Box>
-                </Box>
+                    <Login />
+                </Box>}
+                {popup['drawer'] &&
+                    <Box p={2} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, zIndex: '100', position: 'absolute', top: '55px', display: { xs: 'block', md: 'none' }, width: '280px', height: '100vh', borderRight: '1px solid #2c2b2b15', backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, }}>
+                        <Box className={activeTabs === 'Home' && 'activeclass'} onClick={() => { handleTabs('Home'), router.push('/') }} sx={{ width: '100%', display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px' }}>{home}</Typography><Typography variant='p' sx={{ fontSize: '14px' }}>Home</Typography></Box>
+                        <Box className={activeTabs === 'Popular' && 'activeclass'} onClick={() => { handleTabs('Popular'), router.push('/PopularHome') }} sx={{ display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', borderRadius: '7px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px' }}>{popular}</Typography><Typography variant='p' sx={{ fontSize: '14px' }}>Popular</Typography></Box>
+                    </Box>
                 }
                 {popup['getapp'] && <Box sx={{ display: { xs: 'none', md: 'block' }, p: '20px 10px', width: '520px', height: '500px', bgcolor: '#fff', borderRadius: '6px', position: 'absolute', left: { xs: '-24px', md: '30%' }, top: '50px', zIndex: '9' }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', p: '10px' }}>
@@ -179,11 +179,11 @@ const NavBarr = ({ children }) => {
                                         </Box>
                                         <Typography sx={{ display: 'flex', alignItems: 'center', transform: `${dropnav && 'rotate(180deg)'}`, transition: 'all .5s ease' }}>{communitydropdown}</Typography>
                                     </Box>
-                                    {dropnav && <Box width={{xs:'200px', md:'100%'}} position='absolute' top='50px' backgroundColor={`${theme === 'light' ? '#fff' : '#0b1416'}`} border={`.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`}>
+                                    {dropnav && <Box width={{ xs: '200px', md: '100%' }} position='absolute' top='50px' backgroundColor={`${theme === 'light' ? '#fff' : '#0b1416'}`} border={`.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`}>
                                         <Box className='popsidenavbar' sx={{ overflowY: 'scroll', p: '20px 5px 20px 15px', height: '70vh', borderRight: `${!token && '1px solid rgba(236, 232, 232, 0.134)'}` }}>
                                             <Box sx={{ borderBottom: '1px solid rgba(236, 232, 232, 0.134)', mb: '10px' }}>
                                                 <Box className={activeTabs === 'Home' && 'activeclass'} onClick={() => { handleTabs('Home'), `${token ? router.push('/Home') : router.push('/')}`, sethomeorpopular('Home') }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, width: '100%', display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', borderRadius: '7px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px', }}>{home}</Typography><Typography variant='p' sx={{ fontSize: '14px', }}>Home</Typography></Box>
-                                                <Box className={activeTabs === 'Popular' && 'activeclass'} onClick={() => { handleTabs('Popular'), `${token ? router.push('/Popular') : router.push('/PopularHome')}`, sethomeorpopular('Popular')  }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', borderRadius: '7px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px' }}>{popular}</Typography><Typography variant='p' sx={{ fontSize: '14px', }}>Popular</Typography></Box>
+                                                <Box className={activeTabs === 'Popular' && 'activeclass'} onClick={() => { handleTabs('Popular'), `${token ? router.push('/Popular') : router.push('/PopularHome')}`, sethomeorpopular('Popular') }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', borderRadius: '7px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px' }}>{popular}</Typography><Typography variant='p' sx={{ fontSize: '14px', }}>Popular</Typography></Box>
                                             </Box>
                                             <Box sx={{ borderBottom: '1px solid lightgray' }}>
                                                 <Box sx={{ display: 'flex', flexDirection: 'column', }}>
@@ -191,15 +191,15 @@ const NavBarr = ({ children }) => {
                                                     <Box sx={{ width: '100%' }}>
                                                         <IconButton onClick={() => pop('popcommunity')} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '7px', borderRadius: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                                                             <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', }}>{createicon}</Typography>
-                                                            <Typography variant='h6' sx={{ fontSize: '14px',textWrap:'nowrap' }}>Create a community</Typography>
+                                                            <Typography variant='h6' sx={{ fontSize: '14px', textWrap: 'nowrap' }}>Create a community</Typography>
                                                         </IconButton>
 
                                                         {/* ---------------Channel mapping---------------- */}
                                                         {channel && channel.map((item, index) => (
-                                                            <IconButton key={index} onClick={() => { route.push(`/Community/${item._id}`)}} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '7px', borderRadius: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
+                                                            <IconButton key={index} onClick={() => { route.push(`/Community/${item._id}`) }} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '7px', borderRadius: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                                                                 {item.image ? <img style={{ width: '20px', flexGrow: 0, display: 'flex', alignItems: 'center', borderRadius: '100%', }} src={item.image} />
-                                                                    : <Box variant='h6' sx={{ width:'20px', height:'20px',textTransform: 'uppercase',borderRadius: '100%', backgroundColor: '#808080', display:'flex', alignItems:'center', justifyContent:'center' }}><Typography fontSize='14px' fontWeight='700'>{item.name.charAt(0)}</Typography></Box>}
-                                                                <Typography variant='h6' sx={{ fontSize: '14px', textWrap:'nowrap' }}>{item.name}</Typography>
+                                                                    : <Box variant='h6' sx={{ width: '20px', height: '20px', textTransform: 'uppercase', borderRadius: '100%', backgroundColor: '#808080', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Typography fontSize='14px' fontWeight='700'>{item.name.charAt(0)}</Typography></Box>}
+                                                                <Typography variant='h6' sx={{ fontSize: '14px', textWrap: 'nowrap' }}>{item.name}</Typography>
                                                             </IconButton>
                                                         ))}
                                                         {/* ---------------Channel mapping---------------- */}
@@ -233,7 +233,7 @@ const NavBarr = ({ children }) => {
                                 value={inputValue}
                                 onChange={(e) => setInputValue(e.target.value)}
                             />
-                            {popup['search'] && <Paper elevation={1} sx={{ overflowY: 'scroll', overflowX: 'hidden', backgroundColor: `${theme === 'light' ? '#fff' : '#16282cfd'}`, alignItems: 'center', borderRadius: '0 0 10px 10px', width: {xs:'200px', md:'100%'}, height: 500, position: 'absolute', top: '45px', left: '0px', zIndex: '9', }}>
+                            {popup['search'] && <Paper elevation={1} sx={{ overflowY: 'scroll', overflowX: 'hidden', backgroundColor: `${theme === 'light' ? '#fff' : '#16282cfd'}`, alignItems: 'center', borderRadius: '0 0 10px 10px', width: { xs: '200px', md: '100%' }, height: 500, position: 'absolute', top: '45px', left: '0px', zIndex: '9', }}>
                                 <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', alignItems: 'center', gap: '5px', m: '10px 10px 0 10px' }}><Typography>{trending}</Typography><Typography variant='h6' sx={{ fontSize: '13px', fontWeight: '400', textTransform: 'uppercase', }}>Trending Today</Typography></Box>
                                 {searchresults && searchresults.map((item, index) => (
                                     <Box onClick={() => { token && router.push(`/User/${item.author._id}`), setInputValue(item.author.name) }} key={index} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '95%', borderBottom: '1px solid rgba(236, 232, 232, 0.834)', m: '0px 10px', p: '20px 10px' }}>
@@ -243,7 +243,7 @@ const NavBarr = ({ children }) => {
                                                 <Typography variant='h6' sx={{ p: '5px 0', fontSize: '.8rem', color: '#808080', fontWeight: '400' }}>{item.content}</Typography>
                                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '2px' }}>
                                                     {item.author.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.profileImage} />
-                                                        : <Typography variant='h6' sx={{fontSize:'12px',fontWeight:'700', textTransform:'uppercase', p:'2px 7px', borderRadius:'100%',backgroundColor: '#808080'}}>{item.author.name.charAt(0)}</Typography>}
+                                                        : <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{item.author.name.charAt(0)}</Typography>}
                                                     <Typography variant='h6' sx={{ fontSize: '.8rem', color: '#808080', fontWeight: '400' }}>{item.author.name}</Typography>
                                                 </Box>
                                             </Box>
@@ -258,12 +258,12 @@ const NavBarr = ({ children }) => {
                                 (
                                     <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, flexGrow: 0, display: 'flex', alignItems: 'center', gap: '5px' }}>
                                         <Tooltip title="Popular">
-                                            <IconButton onClick={()=>router.push('/Popular')} sx={{ p: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)', borderRadius: '50px' } }}>
+                                            <IconButton onClick={() => router.push('/Popular')} sx={{ p: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)', borderRadius: '50px' } }}>
                                                 <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, }}>{popular}</Typography>
                                             </IconButton>
                                         </Tooltip>
                                         <Tooltip title="Open chat">
-                                            <IconButton onClick={() => pop('chat')} sx={{display:{xs:'none', md:'block'}, position: 'relative', p: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)', borderRadius: '50px' } }}>
+                                            <IconButton onClick={() => pop('chat')} sx={{ display: { xs: 'none', md: 'block' }, position: 'relative', p: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)', borderRadius: '50px' } }}>
                                                 <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, }}>{chat}</Typography>
                                                 {popup['chat'] && <Box className='chat' sx={{ position: 'absolute', top: '60px', right: '0px', width: '650px', height: '350px', }}></Box>}
                                             </IconButton>
@@ -274,13 +274,13 @@ const NavBarr = ({ children }) => {
                                             </IconButton>
                                         </Tooltip>
                                         <Tooltip title="Open inbox">
-                                            <IconButton onClick={() => pop('notification')} sx={{display:{xs:'none', md:'block'}, position: 'relative', p: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
+                                            <IconButton onClick={() => pop('notification')} sx={{ display: { xs: 'none', md: 'block' }, position: 'relative', p: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                                                 <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, }}>{notification}</Typography>
                                                 {popup['notification'] && <Box className='notification' sx={{ position: 'absolute', top: '60px', right: '0px', width: '650px', height: '350px', }}></Box>}
                                             </IconButton>
                                         </Tooltip>
                                         <Tooltip title="Advertise">
-                                            <IconButton onClick={() => pop('advertise')} sx={{position: 'relative', p: '5px', mr:'10px', display: 'flex', alignItems: 'center', gap: '7px', borderRadius: '50px', bgcolor: 'rgba(236, 232, 232, 0.734)' }}>
+                                            <IconButton onClick={() => pop('advertise')} sx={{ position: 'relative', p: '5px', mr: '10px', display: 'flex', alignItems: 'center', gap: '7px', borderRadius: '50px', bgcolor: 'rgba(236, 232, 232, 0.734)' }}>
                                                 <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, }}><Podcasts /></Typography>
                                                 {popup['advertise'] && <Box className='notification' sx={{ position: 'absolute', top: '60px', right: '0px', width: '650px', height: '350px', }}></Box>}
                                             </IconButton>
@@ -337,26 +337,26 @@ const NavBarr = ({ children }) => {
                                             transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                                             anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
                                         >
-                                            <MenuItem sx={{ color: '#808080', ":hover":{bgcolor:'#16282c7a'} }}>
+                                            <MenuItem sx={{ color: '#808080', ":hover": { bgcolor: '#16282c7a' } }}>
                                                 <Avatar /> My Stuff
                                             </MenuItem>
-                                            <MenuItem sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover":{bgcolor:'#16282c7a'} }}>
-                                                <Avatar sx={{ visibility: 'hidden' }} /> Online Status <Switch checked={isSwitchOn} onChange={handleSwitchChange}/>
+                                            <MenuItem sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: '#16282c7a' } }}>
+                                                <Avatar sx={{ visibility: 'hidden' }} /> Online Status <Switch checked={isSwitchOn} onChange={handleSwitchChange} />
                                             </MenuItem>
-                                            <MenuItem onClick={()=>{handleClose(), router.push(`/User/${loginInfo}`)}} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover":{bgcolor:'#16282c7a'} }}>
+                                            <MenuItem onClick={() => { handleClose(), router.push(`/User/${loginInfo}`) }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: '#16282c7a' } }}>
                                                 <Avatar sx={{ visibility: 'hidden' }} /> Profile
                                             </MenuItem>
                                             <Divider />
-                                            <MenuItem sx={{ color: '#808080', ":hover":{bgcolor:'#16282c7a'} }}>
+                                            <MenuItem sx={{ color: '#808080', ":hover": { bgcolor: '#16282c7a' } }}>
                                                 <Visibility /> &nbsp; View Options
                                             </MenuItem>
-                                            <MenuItem sx={{ display: 'flex', gap: '20px', alignItems: 'center', p: '0', color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover":{bgcolor:'#16282c7a'} }}>
+                                            <MenuItem sx={{ display: 'flex', gap: '20px', alignItems: 'center', p: '0', color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: '#16282c7a' } }}>
                                                 <Avatar sx={{ visibility: 'hidden' }} />
                                                 Dark mode
                                                 <SwitchBtn theme={theme} switchLight={switchLight} switchDark={switchDark} />
                                             </MenuItem>
-                                            <MenuItem onClick={() => { handleClose(), handleSignOut() }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover":{bgcolor:'#16282c7a'} }}>
-                                            <Avatar sx={{ visibility: 'hidden' }} />
+                                            <MenuItem onClick={() => { handleClose(), handleSignOut() }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: '#16282c7a' } }}>
+                                                <Avatar sx={{ visibility: 'hidden' }} />
                                                 <Logout fontSize="small" /> &nbsp;&nbsp;&nbsp;&nbsp;
                                                 Logout
                                             </MenuItem>
@@ -431,7 +431,7 @@ const NavBarr = ({ children }) => {
                     </Toolbar>
                 </Container>
             </AppBar>
-            <Box display='flex' gap='30px' sx={{ backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`,}}>
+            <Box display='flex' gap='30px' sx={{ backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, }}>
                 <Box>{children}</Box>
             </Box>
         </Box >

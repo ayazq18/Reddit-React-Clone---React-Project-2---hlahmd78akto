@@ -12,7 +12,7 @@ export default function CommunityInfo(props) {
     const { settogglecommunity, toggleCommunity, isSwitchOn,  sort, setsort, handleselect, getTimeDifference, fetchDeletePost, Likepost, Disikepost, likedCount, formatDate, toggle, settoggle } = useContext(apicontext)
     const [channelid, setchannleid] = useState()
     const [channelpost, setchannelpost] = useState([])
-console.log(loginInfo)
+// console.log(props.params.CommunityInfo)
     // const fetchPostsChannel = async () => {
     //     try {
     //         const response = await fetch('https://academics.newtonschool.co/api/v1/reddit/post', {
@@ -62,6 +62,7 @@ console.log(loginInfo)
             })
             const result = await response.json();
             setchannelpost(result.data)
+            console.log(result)
         }
         catch (error) {
             console.log(error)
@@ -115,7 +116,7 @@ console.log(loginInfo)
                     <Box sx={{ width: '100%', height: '15vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, }}>
                         <Box sx={{ width: '70%', height: '15vh', }}>
                             <Box sx={{ width: '50%', height: '15vh', display: 'flex', alignItems: 'flex-start', gap: '15px' }}>
-                                {channelid.image ? <img style={{ width: '70px', borderRadius: '50px', border: '3px solid white' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={channelid.image} />
+                                {channelid.image ? <img style={{ width: '70px', borderRadius: '50px', border: '3px solid white' }} src={channelid.image} />
                                     : <img style={{ width: '70px', borderRadius: '50px' }} src="https://preview.redd.it/me-watching-a-random-drawing-i-made-get-turned-into-a-meme-v0-xib15dbut7tb1.png?width=640&crop=smart&auto=webp&s=218dbe01ffa9c145aa5fef90aec31a21b97ffbbe" />}
                                 <Box sx={{ display: 'flex', gap: '20px', width: '100%', height: '10vh'}}>
                                     <Box>

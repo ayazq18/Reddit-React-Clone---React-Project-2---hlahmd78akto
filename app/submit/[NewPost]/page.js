@@ -81,8 +81,8 @@ export default function CreatePost(props) {
               <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', boxSizing: 'border-box' }}>
                   {dropnav ? <Search sx={{ color: '#808080' }} />
-                    : <Box sx={{ width: '20px', height: '20px', boxSizing: 'border-box', border: '1px dashed #808080', borderRadius: '20px' }}></Box>}
-                  <input value={communityInput} onChange={(e) => setcommunityInput(e.target.value)} style={{ fontSize: '14px', outline: 'none', border: 'none', }} placeholder={dropnav ? 'Search Communities' : 'Choose a community'} />
+                    : <Box sx={{ width: '20px', height: '20px', boxSizing: 'border-box', border: '1px dashed #808080', borderRadius: '20px',}}></Box>}
+                  <input value={communityInput} onChange={(e) => setcommunityInput(e.target.value)} style={{ fontSize: '14px', outline: 'none', border: 'none', color: `${theme==='light' ? '#000' : '#fff'}`,  backgroundColor:'transparent' }} placeholder={dropnav ? 'Search Communities' : 'Choose a community'} />
                 </Box>
                 <Typography sx={{ display: 'flex', alignItems: 'center', transform: `${dropnav && 'rotate(180deg)'}`, transition: 'all .5s ease' }}>{communitydropdown}</Typography>
               </Box>

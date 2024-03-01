@@ -3,19 +3,18 @@ import { Button, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useContext, useEffect, } from "react";
 import { Close, FilterVintage, LocalFireDepartment, NewReleasesTwoTone, Publish, Rocket, } from "@mui/icons-material";
-import { comments, followedicon, share } from "../../(Components)/(Constants)/Asset";
+import { arrowdown, arrowdowncliked, arrowup, arrowupclicked, comments, followedicon, share } from "../../(Components)/(Constants)/Asset";
 import { context } from "../../(Components)/(Context)/ContextProvider";
 import { apicontext } from "../../(Components)/(Context)/Apicontextprovider";
 import LikeDislike from "@/app/(Components)/(SmallComponents)/LikeDislike";
 
 export default function UserProfile(props) {
     const { userprofilename, theme, pop, popup, router } = useContext(context)
-    const { sort, handleselect, getTimeDifference, formatDate, toggleuserfollow, setpopfollowuser, userdata, fetchUserProfile, filteredpost, fetchyourPosts, popfollowuser, handlefollowuser, } = useContext(apicontext)
-    console.log(userdata)
+    const { sort, handleselect, getTimeDifference, formatDate, toggleuserfollow, setpopfollowuser, userdata, fetchUserProfile, filteredpost, fetchyourPosts, popfollowuser, handlefollowuser,Likepost, Dislikepost, liketoggle, disliketoggle } = useContext(apicontext)
     useEffect(() => {
         fetchUserProfile(props.params.Profile)
         fetchyourPosts(props.params.Profile)
-    }, [toggleuserfollow])
+    }, [toggleuserfollow,  liketoggle, disliketoggle,])
 
     return (
         <Box sx={{ position: 'relative', width: '100vw', display: 'flex', justifyContent: 'center', flexDirection: { xs: 'column-reverse', md: 'row' }, alignItems: { xs: 'center', md: 'flex-start' }, backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, }}>

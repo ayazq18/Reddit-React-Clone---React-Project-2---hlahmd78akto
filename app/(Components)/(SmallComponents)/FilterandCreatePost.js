@@ -7,7 +7,15 @@ import { apicontext } from '../(Context)/Apicontextprovider'
 
 export default function FilterandCreatePost() {
   const { theme, router} = useContext(context)
-  const {  isSwitchOn, sort, handleselect } = useContext(apicontext)
+  const {  isSwitchOn, sort, sortval, setsortval} = useContext(apicontext)
+
+  function sortingcriteria (val){
+    if(val === sortval){
+      setsortval("")
+    }else{
+      setsortval(val)
+    }
+  }
 
   return (
     <div>
@@ -20,19 +28,19 @@ export default function FilterandCreatePost() {
       </Box>
       <Box width='100%' sx={{ p: '10px', m: '20px 0', borderRadius: '3px', backgroundColor: `${theme === 'light' ? '#fff' : '#091113'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}` }}>
         <Box sx={{ width: '100%', borderRadius: '0', display: 'flex' }}>
-          <Box onClick={() => handleselect('Best')} className={`c ${sort === 'Best' && 'activeclass'}`} sx={{ color: `${theme === 'dark' && '#fff'}`, p: '0 10px', display: 'flex', alignItems: 'center', gap: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
+          <Box onClick={() => sortingcriteria('best')} className={`c ${sortval === 'best' && 'activeclass'}`} sx={{ color: `${theme === 'dark' && '#fff'}`, p: '0 10px', display: 'flex', alignItems: 'center', gap: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
             <Rocket color='#808080' />
             <Typography variant="h5" sx={{ fontSize: '13px', fontWeight: '700', textAlign: 'center' }}>Best</Typography>
           </Box>
-          <Box onClick={() => handleselect('Hot')} className={`c ${sort === 'Hot' && 'activeclass'}`} sx={{ color: `${theme === 'dark' && '#fff'}`, p: '0 10px', display: 'flex', alignItems: 'center', gap: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
+          <Box onClick={() => sortingcriteria('hot')} className={`c ${sortval === 'hot' && 'activeclass'}`} sx={{ color: `${theme === 'dark' && '#fff'}`, p: '0 10px', display: 'flex', alignItems: 'center', gap: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
             <LocalFireDepartment color='#808080' />
             <Typography variant="h6" sx={{ fontSize: '13px', fontWeight: '700', textAlign: 'center', p: '5px 0' }}>Hot</Typography>
           </Box>
-          <Box onClick={() => handleselect('New')} className={`c ${sort === 'New' && 'activeclass'}`} sx={{ color: `${theme === 'dark' && '#fff'}`, p: '0 10px', display: 'flex', alignItems: 'center', gap: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
+          <Box onClick={() => sortingcriteria('new')} className={`c ${sortval === 'new' && 'activeclass'}`} sx={{ color: `${theme === 'dark' && '#fff'}`, p: '0 10px', display: 'flex', alignItems: 'center', gap: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
             <NewReleasesTwoTone color='#808080' />
             <Typography variant="h6" sx={{ fontSize: '13px', fontWeight: '700', textAlign: 'center', p: '5px 0' }}>New</Typography>
           </Box>
-          <Box onClick={() => handleselect('Top')} className={`c ${sort === 'Top' && 'activeclass'}`} sx={{ color: `${theme === 'dark' && '#fff'}`, p: '0 10px', display: 'flex', alignItems: 'center', gap: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
+          <Box onClick={() => sortingcriteria('top')} className={`c ${sortval === 'top' && 'activeclass'}`} sx={{ color: `${theme === 'dark' && '#fff'}`, p: '0 10px', display: 'flex', alignItems: 'center', gap: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
             <Publish color='#808080' />
             <Typography variant="h6" sx={{ fontSize: '13px', fontWeight: '700', textAlign: 'center', p: '5px 0' }}>Top</Typography>
           </Box>

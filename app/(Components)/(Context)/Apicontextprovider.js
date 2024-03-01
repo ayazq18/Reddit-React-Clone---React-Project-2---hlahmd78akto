@@ -32,7 +32,30 @@ export default function Apicontextprovider({ children }) {
     const [liketoggle, setliketoggle] = useState(false)
     const [disliketoggle, setdisliketoggle] = useState(false)
 
+    const [sortval, setsortval] = useState('best')
+
     // ----------------FetchPost---------------------
+    function sorting(value) {
+        if (sortval == "best") {
+            return value.sort((a, b) => {
+               return  (a.likeCount / a.dislikeCount)-(b.likeCount / b.dislikeCount);
+            });
+        }
+        else if (sortval == "hot") {
+            return value.sort((a, b) => {
+                const ratioA = Math.abs(a.likeCount / a.dislikeCount );
+                const ratioB = Math.abs(b.likeCount / b.dislikeCount );
+                return ratioA - ratioB;
+            });
+        } else if (sortval == "new") {
+            return value.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+        } else if (sortval == "top") {
+            return value.sort((a, b) => b.likeCount - a.likeCount)
+        } else {
+            return value;
+        }
+    }
+
     const fetchPosts = useMemo(async () => {
         try {
             const response = await fetch(`${Base_URL}/post?limit=500`, {
@@ -43,13 +66,12 @@ export default function Apicontextprovider({ children }) {
                 }
             })
             const result = await response.json();
-            console.log(result)
-            setpost(result.data)
+            setpost(sorting(result.data))
         }
         catch (error) {
             console.log(error)
         }
-    }, [toggle, liketoggle, disliketoggle])
+    }, [toggle, liketoggle, disliketoggle, sortval])
 
     // ----------------FetchPost---------------------
 
@@ -65,9 +87,7 @@ export default function Apicontextprovider({ children }) {
                 }
             })
             const result = await response.json();
-            console.log(result)
             if (result.status === 'success') {
-                // setlikedcount(prevCount => prevCount + 1)
                 setliketoggle(!liketoggle)
                 setdisliketoggle(false)
             }
@@ -89,9 +109,7 @@ export default function Apicontextprovider({ children }) {
                 }
             })
             const result = await response.json();
-            console.log(result)
             if (result.status === 'success') {
-                // setlikedcount(prevCount => prevCount - 1)
                 setdisliketoggle(!disliketoggle)
                 setliketoggle(false)
             }
@@ -389,7 +407,7 @@ export default function Apicontextprovider({ children }) {
     useEffect(() => {
         fetchChannel
         fetchPosts
-    }, [])
+    }, [sortval])
 
 
     // ---------------------Functions------------------------------
@@ -400,15 +418,15 @@ export default function Apicontextprovider({ children }) {
 
         if (criteria === 'Best') {
             const sortedPost = post.sort((a, b) => {
-                const ratioA = a.likeCount / (a.likeCount + a.dislikeCount);
-                const ratioB = b.likeCount / (b.likeCount + b.dislikeCount);
-                return ratioA - ratioB;
+                const ratioA = (a.likeCount) / (a.dislikeCount);
+                const ratioB = (b.likeCount) / (b.dislikeCount);
+                return ratioB - ratioA;
             });
             setpost(sortedPost);
         } else if (criteria === 'Hot') {
             const sortedPost = post.sort((a, b) => {
-                const diffA = Math.abs((a.likeCount / (a.likeCount + a.dislikeCount)) - 1);
-                const diffB = Math.abs((b.likeCount / (b.likeCount + b.dislikeCount)) - 1);
+                const diffA = Math.abs((a.likeCount / (a.likeCount + a.dislikeCount)));
+                const diffB = Math.abs((b.likeCount / (b.likeCount + b.dislikeCount)));
                 return diffA - diffB;
             });
             setpost(sortedPost);
@@ -493,7 +511,7 @@ export default function Apicontextprovider({ children }) {
     };
 
     return (
-        <apicontext.Provider value={{ toggleCommunity, settogglecommunity, recentChannels, isSwitchOn, handleSwitchChange, commentsPost, fetchCommentsPosts, popupdelete, setpopupdelete, handledeletecomment, usercommenttoggle, settoggleusercomments, postingComments, setpostComments, setpostingComments, fetchPostingComments, fetchDeleteComments, postcomments, fetchPostComments, popfollowuser, handlefollowuser, filteredpost, fetchyourPosts, userdata, fetchUserProfile, Userfollow, Userunfollow, settoggleuserfollow, toggleuserfollow, reddittoggle, setReddittoggle, settoggle, Likepost, Dislikepost, liketoggle, disliketoggle, disliketoggle, title, settitle, description, setdescription, postimage, setpostimage, subredditname, setsubredditname, fetchCreatePost, fetchDeletePost, fetchUpdatePost, fetchCreatesubreddit, createsubreddit, setcreatesubreddit, post, setpost, sort, setsort, handleselect, getTimeDifference, channel, setChannel, formatDate }}>
+        <apicontext.Provider value={{ sortval, setsortval, toggleCommunity, settogglecommunity, recentChannels, isSwitchOn, handleSwitchChange, commentsPost, fetchCommentsPosts, popupdelete, setpopupdelete, handledeletecomment, usercommenttoggle, settoggleusercomments, postingComments, setpostComments, setpostingComments, fetchPostingComments, fetchDeleteComments, postcomments, fetchPostComments, popfollowuser, handlefollowuser, filteredpost, fetchyourPosts, userdata, fetchUserProfile, Userfollow, Userunfollow, settoggleuserfollow, toggleuserfollow, reddittoggle, setReddittoggle, settoggle, Likepost, Dislikepost, liketoggle, disliketoggle, disliketoggle, title, settitle, description, setdescription, postimage, setpostimage, subredditname, setsubredditname, fetchCreatePost, fetchDeletePost, fetchUpdatePost, fetchCreatesubreddit, createsubreddit, setcreatesubreddit, post, setpost, sort, setsort, handleselect, getTimeDifference, channel, setChannel, formatDate }}>
             <div>
                 {children}
             </div>
