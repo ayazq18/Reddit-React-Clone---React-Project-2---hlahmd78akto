@@ -15,7 +15,7 @@ import LikeDislike from "../(Components)/(SmallComponents)/LikeDislike";
 
 export default function Home() {
   const { theme, router, pop, popup, userprofilename } = useContext(context)
-  const { post, getTimeDifference, fetchDeletePost, fetchUpdatePost, popupdelete, handledeletecomment, } = useContext(apicontext)
+  const { post, getTimeDifference, fetchDeletePost, fetchUpdatePost, popupdelete, handledeletecomment, setpopupdelete} = useContext(apicontext)
 
   return (
     <Box className='home' sx={{ width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#0b1416'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
@@ -55,11 +55,11 @@ export default function Home() {
                 {item.author.name === userprofilename && <Box position='relative'>
                   <Box sx={{ display: 'flex', alignItems: 'center', }}><MoreHoriz sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }} onClick={() => handledeletecomment(item._id)} /></Box>
                   {popupdelete == item._id && <Box sx={{ position: 'absolute', width: '200px', p: '10px', borderRadius:'10px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
-                    <Box onClick={() => { fetchDeletePost(item._id), fetchUpdatePost(item._id), pop('delete') }} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
+                    <Box onClick={() => { fetchDeletePost(item._id)}} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
                       <Delete />
                       <Typography variant="contained" >Delete Post</Typography>
                     </Box>
-                    <Box onClick={() => { router.push(`/submit/${item._id}`), pop('delete') }} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
+                    <Box onClick={() => { router.push(`/submit/${item._id}`)}} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
                       <CreateIcon />
                       <Typography variant="contained">Edit Post</Typography>
                     </Box>
