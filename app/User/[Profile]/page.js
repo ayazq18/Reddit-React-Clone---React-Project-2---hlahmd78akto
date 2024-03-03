@@ -1,5 +1,5 @@
 'use client'
-import { Button, Paper, Typography } from "@mui/material";
+import { Button, MenuItem, Paper, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useContext, useEffect, } from "react";
 import { Close, FilterVintage, LocalFireDepartment, NewReleasesTwoTone, Publish, Rocket, } from "@mui/icons-material";
@@ -7,14 +7,15 @@ import { arrowdown, arrowdowncliked, arrowup, arrowupclicked, comments, followed
 import { context } from "../../(Components)/(Context)/ContextProvider";
 import { apicontext } from "../../(Components)/(Context)/Apicontextprovider";
 import LikeDislike from "@/app/(Components)/(SmallComponents)/LikeDislike";
+import FilterandCreatePost from "@/app/(Components)/(SmallComponents)/FilterandCreatePost";
 
 export default function UserProfile(props) {
     const { userprofilename, theme, pop, popup, router } = useContext(context)
-    const { sort, handleselect, getTimeDifference, formatDate, toggleuserfollow, setpopfollowuser, userdata, fetchUserProfile, filteredpost, fetchyourPosts, popfollowuser, handlefollowuser,Likepost, Dislikepost, liketoggle, disliketoggle } = useContext(apicontext)
+    const { sort, handleselect, isSwitchOn, getTimeDifference, formatDate, toggleuserfollow, setpopfollowuser, userdata, fetchUserProfile, filteredpost, fetchyourPosts, popfollowuser, handlefollowuser, Likepost, Dislikepost, liketoggle, disliketoggle } = useContext(apicontext)
     useEffect(() => {
         fetchUserProfile(props.params.Profile)
         fetchyourPosts(props.params.Profile)
-    }, [toggleuserfollow,  liketoggle, disliketoggle,])
+    }, [toggleuserfollow, liketoggle, disliketoggle,])
 
     return (
         <Box sx={{ position: 'relative', width: '100vw', display: 'flex', justifyContent: 'center', flexDirection: { xs: 'column-reverse', md: 'row' }, alignItems: { xs: 'center', md: 'flex-start' }, backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, }}>
@@ -29,30 +30,17 @@ export default function UserProfile(props) {
 
             <Box sx={{ width: { xs: '100%', md: '50%', } }}>
 
-                {/* ---------------Filter section------------------ */}
-
-                <Box width='100%' sx={{ p: '10px', m: '20px 0', borderRadius: '3px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}` }}>
-                    <Box sx={{ width: '100%', borderRadius: '0', display: 'flex' }}>
-                        <Box onClick={() => handleselect('Best')} className={sort === 'Best' && 'activeclass'} sx={{ color: `${theme === 'dark' && '#fff'}`, p: '0 10px', display: 'flex', alignItems: 'center', gap: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
-                            <Rocket color='#808080' />
-                            <Typography variant="h5" sx={{ fontSize: '13px', fontWeight: '700', textAlign: 'center' }}>Best</Typography>
-                        </Box>
-                        <Box onClick={() => handleselect('Hot')} className={sort === 'Hot' && 'activeclass'} sx={{ color: `${theme === 'dark' && '#fff'}`, p: '0 10px', display: 'flex', alignItems: 'center', gap: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
-                            <LocalFireDepartment color='#808080' />
-                            <Typography variant="h6" sx={{ fontSize: '13px', fontWeight: '700', textAlign: 'center', p: '5px 0' }}>Hot</Typography>
-                        </Box>
-                        <Box onClick={() => handleselect('New')} className={sort === 'New' && 'activeclass'} sx={{ color: `${theme === 'dark' && '#fff'}`, p: '0 10px', display: 'flex', alignItems: 'center', gap: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
-                            <NewReleasesTwoTone color='#808080' />
-                            <Typography variant="h6" sx={{ fontSize: '13px', fontWeight: '700', textAlign: 'center', p: '5px 0' }}>New</Typography>
-                        </Box>
-                        <Box onClick={() => handleselect('Top')} className={sort === 'Top' && 'activeclass'} sx={{ color: `${theme === 'dark' && '#fff'}`, p: '0 10px', display: 'flex', alignItems: 'center', gap: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
-                            <Publish color='#808080' />
-                            <Typography variant="h6" sx={{ fontSize: '13px', fontWeight: '700', textAlign: 'center', p: '5px 0' }}>Top</Typography>
-                        </Box>
-                    </Box>
+                {/* ---------------Create post section------------------ */}
+                <Box width='100%' sx={{ display: 'flex', m: '20px 0', borderRadius: '3px', backgroundColor: `${theme === 'light' ? '#fff' : '#091113'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
+                    <MenuItem >
+                        <img style={{ position: 'relative', left: '-5px', width: '35px', borderRadius: '50px' }} src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_3.png" alt="User Avatar" className="max-w-full"></img>
+                        {isSwitchOn && <Box sx={{ position: 'absolute', left: '37px', top: '30px', width: '10px', height: '10px', bgcolor: '#55bd46', borderRadius: '100%' }}></Box>}
+                    </MenuItem>
+                    <Typography className="c" onClick={() => router.push('/submit/newpost')} variant="h6" sx={{ width: '70%', p: '7px', m: '7px', borderRadius: '5px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}`, fontSize: '14px', color: '#808080', ":hover": { border: `${theme === 'light' ? '1px solid blue' : '1px solid white'}`, boxSizing: 'border-box' } }}>Create Post</Typography>
                 </Box>
 
-                {/* ---------------Filter section------------------ */}
+                {/* ---------------Create post section------------------ */}
+
 
                 {/* ---------------Post section------------------ */}
 
@@ -65,7 +53,7 @@ export default function UserProfile(props) {
                         </Box>
                         <Box sx={{ width: '100%', }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
-                                {item.image ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.image} />
+                                {item ? <img style={{ width: '1rem', borderRadius: '4px' }} src={item.author.profileImage} />
                                     : item.author && <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{(item.author.name.charAt(0))}</Typography>}
                                 <Typography variant="p" sx={{ fontSize: '12px' }}>{item.author.name} &nbsp;.</Typography>
                                 <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
@@ -95,7 +83,7 @@ export default function UserProfile(props) {
                     </Box>
                     <Box sx={{ position: 'absolute', top: '40px', left: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '4px', width: '80px', height: '80px', backgroundColor: `${theme === 'light' ? '#fff' : '#000'}` }}>
                         {userdata.profileImage ? <img style={{ width: '70px', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={userdata.profileImage} />
-                            : userdata.name && <Typography variant='h6' sx={{ fontSize: '50px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', }}>{userdata.name.charAt(0)}</Typography>}
+                            : userdata.name && <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{userdata.name.charAt(0)}</Typography>}
                     </Box>
                     <Typography sx={{ m: '20px 0px 10px 15px', fontSize: '12px' }}>{userdata.name}</Typography>
                     <Box sx={{ p: '0 15px', width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>

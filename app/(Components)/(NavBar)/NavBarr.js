@@ -356,7 +356,6 @@ const NavBarr = ({ children }) => {
                                                 <SwitchBtn theme={theme} switchLight={switchLight} switchDark={switchDark} />
                                             </MenuItem>
                                             <MenuItem onClick={() => { handleClose(), handleSignOut() }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: '#16282c7a' } }}>
-                                                <Avatar sx={{ visibility: 'hidden' }} />
                                                 <Logout fontSize="small" /> &nbsp;&nbsp;&nbsp;&nbsp;
                                                 Logout
                                             </MenuItem>
@@ -410,18 +409,6 @@ const NavBarr = ({ children }) => {
                                                     <Logout fontSize="small" />
                                                 </ListItemIcon>
                                                 Log In / Sign Up
-                                            </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <ListItemIcon>
-                                                    {advertise}
-                                                </ListItemIcon>
-                                                Advertise on Reddit
-                                            </MenuItem>
-                                            <MenuItem onClick={handleClose}>
-                                                <ListItemIcon>
-                                                    {shop}
-                                                </ListItemIcon>
-                                                Shop Collectible Avatars
                                             </MenuItem>
                                         </Menu>
                                     </div>

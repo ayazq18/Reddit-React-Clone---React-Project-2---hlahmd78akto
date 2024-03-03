@@ -178,7 +178,7 @@ export default function Login({ }) {
                   fullWidth
                   variant="contained"
                   sx={{ mt: 15, mb: 2, p: '10px 0', bgcolor: '#d93a00', borderRadius: '20px' }}
-                  onClick={() => handleemail()}
+                  onClick={() => pop('continue')}
                 >
                   Continue
                 </Button>
