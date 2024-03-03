@@ -125,7 +125,7 @@ export default function CommunityInfo(props) {
                                     </Box>
                                     <Box sx={{ width: '100%', height: '10vh', display: 'flex', alignItems: 'center', gap: '10px' }}>
                                         <Button variant='outlined' onClick={() => pop('join')} sx={{ width: '100px', p: '5px', borderRadius: '50px', fontSize: '16px', fontWeight: '900', textTransform: 'revert', color: `${theme === 'light' ? 'blue' : '#fff'}`, }}>{popup['join'] ? "Leave" : "Join"}</Button>
-                                        {popup['join'] && <Box sx={{ border: '1px solid blue', borderRadius: "50%", p: '5px', display: 'flex', alignItems: 'center', }}><Notifications sx={{ color: 'blue', width: '25px', height: '25px' }} /></Box>}
+                                        {popup['join'] && <Box sx={{ border: '1px solid blue', borderRadius: "50%", p: '5px', display: 'flex', alignItems: 'center', }}><Tooltip title='Option coming soon'><Notifications sx={{ color: 'blue', width: '25px', height: '25px' }} /></Tooltip></Box>}
                                         <Box position='relative' sx={{ cursor: 'pointer' }} >
                                         {channelid.owner._id === loginInfo && <MoreHoriz onClick={() => pop('deleteChannelpop')} />}
                                             {/* {channelid.owner._id === loginInfo && <MoreHoriz onClick={() => pop('deleteChannelpop')} />} */}
