@@ -38,7 +38,7 @@ export default function Apicontextprovider({ children }) {
     function sorting(value) {
         if (sortval == "best") {
             return value.sort((a, b) => {
-               return  (a.likeCount / a.dislikeCount)-(b.likeCount / b.dislikeCount);
+               return  (a.likeCount / a.dislikeCount)/(b.likeCount / b.dislikeCount);
             });
         }
         else if (sortval == "hot") {

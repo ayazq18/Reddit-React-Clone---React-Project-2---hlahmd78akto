@@ -59,7 +59,7 @@ export default function Home() {
                       <Delete />
                       <Typography variant="contained" >Delete Post</Typography>
                     </Box>
-                    <Box onClick={() => { router.push(`/submit/${item._id}`)}} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
+                    <Box onClick={() => { router.push(`/submit/${item._id}`), setpopupdelete(null)}} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
                       <CreateIcon />
                       <Typography variant="contained">Edit Post</Typography>
                     </Box>
