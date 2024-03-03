@@ -11,6 +11,7 @@ export default function CommunityInfo(props) {
     const { token, theme, router, pop, popup, setpopup, userprofilename, loginInfo } = useContext(context)
     const { settogglecommunity, toggleCommunity, isSwitchOn,  sort, setsort, handleselect, getTimeDifference, fetchDeletePost, Likepost, Disikepost, likedCount, formatDate, toggle, settoggle } = useContext(apicontext)
     const [channelid, setchannleid] = useState()
+    const [join, setjoin] = useState(false)
     const [channelpost, setchannelpost] = useState([])
 // console.log(props.params.CommunityInfo)
     // const fetchPostsChannel = async () => {
@@ -124,8 +125,8 @@ export default function CommunityInfo(props) {
                                         { channelid && <Typography variant='h6' sx={{ fontSize: '15px', fontWeight: '700', color: `${theme === 'light' ? '#808080' : '#fff'}` }}>r/{channelid.name}</Typography>}
                                     </Box>
                                     <Box sx={{ width: '100%', height: '10vh', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                        <Button variant='outlined' onClick={() => pop('join')} sx={{ width: '100px', p: '5px', borderRadius: '50px', fontSize: '16px', fontWeight: '900', textTransform: 'revert', color: `${theme === 'light' ? 'blue' : '#fff'}`, }}>{popup['join'] ? "Leave" : "Join"}</Button>
-                                        {popup['join'] && <Box sx={{ border: '1px solid blue', borderRadius: "50%", p: '5px', display: 'flex', alignItems: 'center', }}><Tooltip title='Option coming soon'><Notifications sx={{ color: 'blue', width: '25px', height: '25px' }} /></Tooltip></Box>}
+                                        <Button variant='outlined' onClick={() => setjoin(!join)} sx={{ width: '100px', p: '5px', borderRadius: '50px', fontSize: '16px', fontWeight: '900', textTransform: 'revert', color: `${theme === 'light' ? 'blue' : '#fff'}`, }}>{join ? "Leave" : "Join"}</Button>
+                                        {join && <Box sx={{ border: '1px solid blue', borderRadius: "50%", p: '5px', display: 'flex', alignItems: 'center', }}><Tooltip title='Option coming soon'><Notifications sx={{ color: 'blue', width: '25px', height: '25px' }} /></Tooltip></Box>}
                                         <Box position='relative' sx={{ cursor: 'pointer' }} >
                                         {channelid.owner._id === loginInfo && <MoreHoriz onClick={() => pop('deleteChannelpop')} />}
                                             {/* {channelid.owner._id === loginInfo && <MoreHoriz onClick={() => pop('deleteChannelpop')} />} */}
