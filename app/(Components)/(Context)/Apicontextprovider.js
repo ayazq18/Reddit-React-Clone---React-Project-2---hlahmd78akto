@@ -13,7 +13,7 @@ export default function Apicontextprovider({ children }) {
     const [channel, setChannel] = useState([])
     const [title, settitle] = useState('')
     const [description, setdescription] = useState('')
-    const [postimage, setpostimage] = useState(null)
+    const [postimage, setpostimage] = useState([])
     const [toggle, settoggle] = useState(true)
     const [reddittoggle, setReddittoggle] = useState(true)
     const [createsubreddit, setcreatesubreddit] = useState('')
@@ -38,13 +38,13 @@ export default function Apicontextprovider({ children }) {
     function sorting(value) {
         if (sortval == "best") {
             return value.sort((a, b) => {
-               return  (a.likeCount / a.dislikeCount)/(b.likeCount / b.dislikeCount);
+                return (a.likeCount / a.dislikeCount) / (b.likeCount / b.dislikeCount);
             });
         }
         else if (sortval == "hot") {
             return value.sort((a, b) => {
-                const ratioA = Math.abs(a.likeCount / a.dislikeCount );
-                const ratioB = Math.abs(b.likeCount / b.dislikeCount );
+                const ratioA = Math.abs(a.likeCount / a.dislikeCount);
+                const ratioB = Math.abs(b.likeCount / b.dislikeCount);
                 return ratioA - ratioB;
             });
         } else if (sortval == "new") {
@@ -66,6 +66,7 @@ export default function Apicontextprovider({ children }) {
                 }
             })
             const result = await response.json();
+            console.log(result)
             setpost(sorting(result.data))
         }
         catch (error) {
@@ -187,9 +188,7 @@ export default function Apicontextprovider({ children }) {
             const formData = new FormData();
             formData.append('title', title);
             formData.append('content', description);
-            if (postimage) {
-                formData.append('images', postimage);
-            }
+            formData.append('images', postimage);
             const response = await fetch(`${Base_URL}/post/`, {
                 method: 'Post',
                 headers: {
@@ -376,6 +375,7 @@ export default function Apicontextprovider({ children }) {
             const result = await response.json();
             settoggleusercomments(!usercommenttoggle)
             setpostingComments('')
+            settoggle(!toggle)
         }
         catch (error) {
             console.log(error)

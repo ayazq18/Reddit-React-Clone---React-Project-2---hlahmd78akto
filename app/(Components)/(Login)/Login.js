@@ -13,11 +13,11 @@ import { Apple, Close, Google, Visibility, VisibilityOff } from '@mui/icons-mate
 import { backicon, google } from '../(Constants)/Asset';
 import { FormControl, IconButton, Input, InputAdornment, InputLabel, OutlinedInput, } from '@mui/material';
 import { context } from '../(Context)/ContextProvider';
+import { typography } from '@mui/system';
 const defaultTheme = createTheme();
 
 export default function Login({ }) {
   const { isSignup, setIsSignUp, token, settoken, switchDark, switchLight, theme, signUpdata, setSignUpdata, handleSignUp, handleSubmit, popup, setpopup, pop, loginpop, setloginpop } = useContext(context)
-  const [passwordTyped, setpasswordtyped] = useState(false)
 
   // -----Password visibility---------
   const [showPassword, setShowPassword] = React.useState(false);
@@ -29,7 +29,6 @@ export default function Login({ }) {
 
   const handlepassword = (e)=>{
     setSignUpdata({ ...signUpdata, password: e.target.value })
-    setpasswordtyped(!passwordTyped)
   }
 
   return (
@@ -69,17 +68,16 @@ export default function Login({ }) {
             <Box sx={{ width: '350px', p: '20px 0', m: '0', }}>
               <Box mb={1} sx={{ width: '100%', p: '5px', color: `${theme === 'light' ? '#000' : '#fff'}`, borderTop: '3px solid rgba(236, 232, 232, 0.334)', borderBottom: '3px solid rgba(236, 232, 232, 0.334)', borderRadius: '15px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
                 <Box display='flex' justifyContent='space-between' p='0 5px'>
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', }}>
                     <img style={{ width: '1rem', height: '1rem', borderRadius: '50px' }} src="https://styles.redditmedia.com/t5_3is08/styles/communityIcon_i0bub98epp4a1.png" srcSet="" sizes="" alt="Icon for r/"></img>
-                    <Box display='flex' flexDirection='column'>
-                      <Typography variant='p' sx={{ fontSize: '10px' }}>Continue with Google</Typography>
-                      <Typography variant='p' sx={{ fontSize: '10px', color:'red' }}>Feature coming soon</Typography>
+                    <Box >
+                      <Typography variant='p' sx={{ fontSize: '13px',color:'red'}}>Continue with Google (Feature coming soon)</Typography>
                     </Box>
                   </Box>
                   <Box sx={{ width: '1rem', display: 'flex', alignItems: 'center' }}>{google}</Box>
                 </Box>
               </Box>
-              <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', alignItems: 'center', gap: '80px', p: '5px', width: '100%', border: '3px solid rgba(236, 232, 232, 0.334)', borderRadius: '20px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
+              <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', alignItems: 'center', gap: '10px', p: '5px', width: '100%', border: '3px solid rgba(236, 232, 232, 0.334)', borderRadius: '20px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
                 <Apple />
                 <Typography variant='p' sx={{ fontSize: '13px',color:'red' }}>Continue with Apple (Coming soon)</Typography>
               </Box>
@@ -128,14 +126,11 @@ export default function Login({ }) {
 
               <Grid >
                 <Grid item>
-                  <Box variant="p" display='flex' alignItems='center' gap='5px' fontSize='12px' color={`${theme === 'light' ? '#000' : '#fff'}`} >
-                    New to Reddit? <Typography fontSize='12px' color='blue' onClick={() => { setIsSignUp(false), setSignUpdata({ name: '', email: '', password: '' }) }}>Sign Up</Typography>
+                  <Box variant="p" mt='10px' display='flex' alignItems='center' gap='5px' fontSize='12px' color={`${theme === 'light' ? '#000' : '#fff'}`} >
+                    New to Reddit? <Typography fontSize='12px' color={`${theme=='light' ? 'blue' : 'green'}`} onClick={() => { setIsSignUp(false), setSignUpdata({ name: '', email: '', password: '' }) }}>Sign Up</Typography>
                   </Box>
                 </Grid>
               </Grid>
-              {(passwordTyped && signUpdata.password.length < 8) && <Typography sx={{fontSize:'12px', fontWeight:'700',width:'100%', p:'10px', color: 'red',}}>
-                  Password must contain atleast 8 characters.
-              </Typography>}
               <Button
                 onClick={(e) => { handleSubmit(e) }}
                 type="submit"
@@ -182,6 +177,7 @@ export default function Login({ }) {
                 >
                   Continue
                 </Button>
+                {/* {!signUpdata.email.includes('@') && <Typography bgcolor='red'>invalid email</Typography>} */}
                 {popup['continue'] &&
                   <Box sx={{ p: '50px', position: 'absolute', top: '0', left: '0px', width: { xs: '100vw', md: '520px' }, height: '100%', backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, borderRadius: { xs: 'none', md: '15px' }, zIndex: '2' }}>
                     <Typography onClick={() => pop('continue')} sx={{ position: 'absolute', top: '20px', left: '20px', width: '40px', height: '40px', p: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#fff'}`, borderRadius: '100%' } }}>{backicon}</Typography>

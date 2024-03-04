@@ -85,7 +85,7 @@ export default function Comments(props) {
                             </Box>
 
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', ml: '10px' }}><Typography sx={{ fontSize: '12px' }}>Comment as</Typography><Typography sx={{ fontSize: '12px', fontWeight: '700', color: 'red' }}> {userprofilename}</Typography></Box>
-                            <textarea value={postingComments} onChange={(e) => setpostingComments(e.target.value)} style={{ backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, color: `${theme === 'light' ? '#000' : '#fff'}`, padding: '10px', maxWidth: '100%', minWidth: '98%', minHeight: '150px', borderRadius: '2px', }} placeholder="What are your thaughts?" />
+                            <textarea value={postingComments} onChange={(e) => setpostingComments(e.target.value)} style={{ backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, color: `${theme === 'light' ? '#000' : '#fff'}`, padding: '10px', maxWidth: '100%', minWidth: '98%', minHeight: '150px', borderRadius: '2px', }} placeholder="What are your thoughts?" />
                             <Box sx={{ width: '98%', backgroundColor: `${theme === 'light' ? 'rgba(190, 190, 245, 0.148)' : '#1a1a1b'}`, textAlign: 'end', p: '10px' }}>
                                 <Button onClick={() => fetchPostingComments(props.searchParams.PostId)} disabled={postingComments == ''} variant='contained' sx={{ fontSize: '12px', borderRadius: '50px', bgcolor: 'rgb(240, 11, 49)', p: '5px 20px' }}>Comment</Button>
                             </Box>

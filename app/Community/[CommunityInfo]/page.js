@@ -82,7 +82,7 @@ export default function CommunityInfo(props) {
             if(response.ok){
                 setTimeout(() => {
                     settoggle(!toggle)
-                    settogglecommunity(true)
+                    settogglecommunity(!toggleCommunity)
                     router.push('/Home')
                 }, 500);
             }
@@ -112,7 +112,7 @@ export default function CommunityInfo(props) {
                 </Box>
             </Box>}
             <Box sx={{ width: '100%', height: '30vh', backgroundImage: "url('https://thumbs.dreamstime.com/b/d-high-decoration-background-wallpaper-n-d-wallpaper-design-floral-photo-mural-background-d-wallpaper-background-163061267.jpg')", }}></Box>
-            {!toggleCommunity && channelid ?
+            {channelid ?
                 (<Box>
                     <Box sx={{ width: '100%', height: '15vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, }}>
                         <Box sx={{ width: '70%', height: '15vh', }}>

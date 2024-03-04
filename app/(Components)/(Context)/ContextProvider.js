@@ -63,7 +63,7 @@ export const ContextProvider = ({ children }) => {
 
     const handleSignUp = async (e) => {
         e.preventDefault()
-        if (signUpdata.password.length >= 8 && signUpdata.isChecked === true) {
+        if (signUpdata.isChecked) {
             try {
                 const response = await fetch('https://academics.newtonschool.co/api/v1/user/signup', {
                     method: 'POST',
@@ -79,14 +79,15 @@ export const ContextProvider = ({ children }) => {
                     })
                 })
                 const result = await response.json()
-                if (response.ok) {
+                if (result.status==='success') {
                     localStorage.setItem('token', result.token)
-                    localStorage.setItem('name', result.data.user.name)
                     localStorage.setItem('_id', result.data._id)
+                    localStorage.setItem('name', result.data.user.name)
                     setuserprofilename(result.data.user.name)
                     setloginpop(false)
                     setIsSignUp(false)
                     settoken(result.token)
+                    setloginInfo(result.data._id)
                     setSignUpdata({ name: '', email: '', password: '' })
                     setTimeout(() => {
                         router.push('/Home')
@@ -94,50 +95,53 @@ export const ContextProvider = ({ children }) => {
                 } else if (result.message === "User already exists") {
                     alert("User already exists")
                     setIsSignUp(true)
+                } else if (result.message === 'Invalid input data. Please provide a valid email') {
+                    alert("Please enter correct email")
                 }
             } catch (error) {
                 alert(error)
             }
-        } else if (signUpdata.password.length < 8) {
-            alert("Password should be of atleaset 8 characters")
-        } else if (signUpdata.isChecked !== true) {
+        }
+        else if (!signUpdata.isChecked) {
             alert("Please Verify!")
         }
+
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-            try {
-                const response = await fetch('https://academics.newtonschool.co/api/v1/user/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'projectID': Project_ID,
-                    },
-                    body: JSON.stringify({
-                        email: signUpdata.email,
-                        password: signUpdata.password,
-                        appType: 'reddit'
-                    })
+        try {
+            const response = await fetch('https://academics.newtonschool.co/api/v1/user/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'projectID': Project_ID,
+                },
+                body: JSON.stringify({
+                    email: signUpdata.email,
+                    password: signUpdata.password,
+                    appType: 'reddit'
                 })
-                const result = await response.json()
-                if (result.status === "success") {
-                    localStorage.setItem('token', result.token)
-                    localStorage.setItem('name', result.data.name)
-                    localStorage.setItem('_id', result.data._id)
-                    settoken(result.token)
-                    setuserprofilename(result.data.name)
-                    setloginpop(false)
-                    setTimeout(() => {
-                        router.push('/Home')
-                    }, 20);
-                    setSignUpdata({ name: '', email: '', password: '' })
-                } else if (result.status === 'fail') {
-                    alert("Incorrect Email or Password")
-                }
-            } catch (error) {
-                console.log('Enter Correct details')
+            })
+            const result = await response.json()
+            if (result.status === "success") {
+                localStorage.setItem('token', result.token)
+                localStorage.setItem('_id', result.data._id)
+                localStorage.setItem('name', result.data.name)
+                settoken(result.token)
+                setuserprofilename(result.data.name)
+                setloginInfo(result.data._id)
+                setloginpop(false)
+                setTimeout(() => {
+                    router.push('/Home')
+                }, 20);
+                setSignUpdata({ name: '', email: '', password: '' })
+            } else if (result.status === 'fail') {
+                alert("Incorrect Email or Password")
             }
+        } catch (error) {
+            console.log('Enter Correct details')
+        }
     };
 
     const switchDark = () => {
@@ -150,7 +154,7 @@ export const ContextProvider = ({ children }) => {
     }
 
     return (
-        <context.Provider value={{ homeorpopular, sethomeorpopular, setIsSignUp, isSignup, loginInfo, activepostTabs, setuserprofilename, userprofilename, setActivepostTabs, postingTabs, router, handleTabs, activeTabs, setActiveTabs, switchDark, switchLight, theme, signUpdata, setSignUpdata, handleSignUp, handleSubmit, popup, setpopup, pop, loginpop, setloginpop, token, settoken }}>
+        <context.Provider value={{ homeorpopular, sethomeorpopular, setIsSignUp, isSignup, loginInfo, setloginInfo, activepostTabs, setuserprofilename, userprofilename, setActivepostTabs, postingTabs, router, handleTabs, activeTabs, setActiveTabs, switchDark, switchLight, theme, signUpdata, setSignUpdata, handleSignUp, handleSubmit, popup, setpopup, pop, loginpop, setloginpop, token, settoken }}>
             <div className={`${theme}`}>
                 {children}
             </div>

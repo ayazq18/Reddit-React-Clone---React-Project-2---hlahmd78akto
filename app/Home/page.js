@@ -14,7 +14,7 @@ import LikeDislike from "../(Components)/(SmallComponents)/LikeDislike";
 
 
 export default function Home() {
-  const { theme, router, pop, popup, userprofilename } = useContext(context)
+  const { theme, router, pop, popup, loginInfo } = useContext(context)
   const { post, getTimeDifference, fetchDeletePost, fetchUpdatePost, popupdelete, handledeletecomment, setpopupdelete} = useContext(apicontext)
 
   return (
@@ -43,7 +43,7 @@ export default function Home() {
                 <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
               </Box>
               <Typography variant="h6" sx={{ fontSize: '18px', mb: '10px' }}>{item.content}</Typography>
-              <img style={{ width: '100%', height: '400px' }} src={item.images[0]} srcSet="" sizes="" alt=""></img>
+              <img style={{ width: '100%',}} src={item.images[0]}/>
 
               {/* -----------------comment share delete options------------------------ */}
               <Box display='flex' alignItems='center' gap='15px' sx={{ p: '10px 0', height: '50px', cursor: 'pointer' }}>
@@ -52,7 +52,7 @@ export default function Home() {
                   <Typography variant="h6" sx={{ p: '5px', fontSize: '12px' }}>{item.commentCount} Comments</Typography>
                 </Box>
 
-                {item.author.name === userprofilename && <Box position='relative'>
+                {item.author._id === loginInfo && <Box position='relative'>
                   <Box sx={{ display: 'flex', alignItems: 'center', }}><MoreHoriz sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }} onClick={() => handledeletecomment(item._id)} /></Box>
                   {popupdelete == item._id && <Box sx={{ position: 'absolute', width: '200px', p: '10px', borderRadius:'10px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
                     <Box onClick={() => { fetchDeletePost(item._id)}} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>

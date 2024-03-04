@@ -28,7 +28,7 @@ import { apicontext } from '../(Context)/Apicontextprovider';
 
 
 const NavBarr = ({ children }) => {
-    const { sethomeorpopular, loginInfo, setuserprofilename, router, pop, popup, token, settoken, switchDark, switchLight, theme, loginpop, setloginpop, signUpdata, setSignUpdata, handleTabs, activeTabs, userprofilename } = useContext(context)
+    const { sethomeorpopular, loginInfo, setuserprofilename, router, pop, popup, token, settoken, switchDark, switchLight, theme, loginpop, setloginpop, signUpdata, setSignUpdata, setloginInfo, handleTabs, activeTabs, userprofilename } = useContext(context)
     const { handleSwitchChange, isSwitchOn, channel, } = useContext(apicontext)
     const ITEM_HEIGHT = 48;
     const route = useRouter()
@@ -44,8 +44,10 @@ const NavBarr = ({ children }) => {
         settoken('')
         setSignUpdata('')
         setuserprofilename('')
+        setloginInfo('')
         localStorage.removeItem('token')
         localStorage.removeItem('name')
+        localStorage.removeItem('_id')
         router.push('/')
     }
 
