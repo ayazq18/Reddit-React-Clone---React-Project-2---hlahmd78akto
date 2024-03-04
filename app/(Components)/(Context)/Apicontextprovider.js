@@ -19,7 +19,7 @@ export default function Apicontextprovider({ children }) {
     const [createsubreddit, setcreatesubreddit] = useState('')
     const [subredditname, setsubredditname] = useState('')
     const [toggleuserfollow, settoggleuserfollow] = useState(false)
-    const [userdata, setuserdata] = useState('')
+    const [userdata, setuserdata] = useState([])
     const [filteredpost, setfilteredpost] = useState([])
     const [popfollowuser, setpopfollowuser] = useState(false)
     const [postcomments, setpostComments] = useState([])
@@ -331,7 +331,6 @@ export default function Apicontextprovider({ children }) {
             })
             const result = await response.json();
             setCommentsPost(result.data)
-            // console.log(result)
         }
         catch (error) {
             console.log(error)
@@ -375,7 +374,6 @@ export default function Apicontextprovider({ children }) {
                 })
             })
             const result = await response.json();
-            console.log(result)
             settoggleusercomments(!usercommenttoggle)
             setpostingComments('')
         }

@@ -105,7 +105,7 @@ const NavBarr = ({ children }) => {
                     <Box sx={{ display: 'flex', justifyContent: 'center', mt: '10px' }}>
                         <Box sx={{ width: '60%', height: '350px', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column' }}>
                             <Typography variant='h5' sx={{ fontSize: '16px', fontWeight: '700', width: '60%', color: '#000', textAlign: 'center' }}>Scan this QR code to download the app now</Typography>
-                            <img style={{ width: '70%' }} src="./QRCode.png" srcSet="" sizes="" alt="Shreddit QR Code"></img>
+                            <img style={{ width: '70%' }} src="/QRCode.png" srcSet="" sizes="" alt="Shreddit QR Code"></img>
                             <Typography variant='p' sx={{ fontSize: '14px', color: '#000', textAlign: 'center' }}>Or check it out in the app stores</Typography>
                             <Box sx={{ display: 'flex' }}>
                                 <img src="https://www.redditstatic.com/shreddit/assets/google-play.svg" srcSet="" sizes="" alt="Get it on Google Play" />

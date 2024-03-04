@@ -8,7 +8,7 @@ import { apicontext } from '../(Context)/Apicontextprovider'
 import ChildComment from './ChildComment'
 
 export default function ParentComment({ itemcomment, index, }) {
-    const { theme, token, userprofilename } = useContext(context)
+    const { theme, token, userprofilename, router } = useContext(context)
     const { popupdelete, handledeletecomment, fetchDeleteComments, getTimeDifference} = useContext(apicontext)
     const [data, setdata] = useState()
     // -------------------Fetch Userdata for comments section------------------
@@ -25,7 +25,6 @@ export default function ParentComment({ itemcomment, index, }) {
             })
             const result = await response.json();
             setdata(result.data)
-            console.log(result.data)
         }
         catch (error) {
             console.log(error)
@@ -41,10 +40,10 @@ export default function ParentComment({ itemcomment, index, }) {
             {data && <Box key={index} sx={{ width: '100%', border: `1px solid ${theme === 'light' ? '#fff' : '#000'}`, ":hover": { border: `1px solid ${theme === 'light' ? '#000' : '#fff'}` }, p: '10px', }}>
                 <Box sx={{ width: '100%', pl: '10px', borderLeft: `.5px dashed ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <Box className='c' sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                             {data.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={data.profileImage} />
                                 : <Typography variant='h6' sx={{fontSize:'12px',fontWeight:'700', textTransform:'uppercase', p:'2px 7px', borderRadius:'100%',backgroundColor: '#808080'}}>{data.name.charAt(0)}</Typography>}
-                            <Typography variant="h6" sx={{ fontSize: '12px' }}>{data.name}</Typography>
+                            <Typography onClick={() => router.push(`/User/${data._id}`)} variant="h6" sx={{ fontSize: '12px' }}>{data.name}</Typography>
                             <Typography variant="h4" sx={{ fontSize: '12px', color: '#808080' }}>.&nbsp;&nbsp;{getTimeDifference(itemcomment.createdAt)}</Typography>
                         </Box>
                         <Box position='relative'>

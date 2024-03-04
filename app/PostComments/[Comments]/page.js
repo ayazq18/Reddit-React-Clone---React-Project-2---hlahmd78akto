@@ -35,7 +35,7 @@ export default function Comments(props) {
 
                     {/* ---------------Filter section------------------ */}
 
-                    <Box width='100%' sx={{ p: '10px', m: '20px 0', borderRadius: '3px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}` }}>
+                    {/* <Box width='100%' sx={{ p: '10px', m: '20px 0', borderRadius: '3px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}` }}>
                         <Box sx={{ width: '100%', borderRadius: '0', display: 'flex' }}>
                             <Box onClick={() => handleselect('Best')} className={sort === 'Best' && 'activeclass'} sx={{ color: `${theme === 'dark' && '#fff'}`, p: '0 10px', display: 'flex', alignItems: 'center', gap: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
                                 <Rocket color='#808080' />
@@ -54,13 +54,13 @@ export default function Comments(props) {
                                 <Typography variant="h6" sx={{ fontSize: '13px', fontWeight: '700', textAlign: 'center', p: '5px 0' }}>Top</Typography>
                             </Box>
                         </Box>
-                    </Box>
+                    </Box> */}
 
                     {/* ---------------Filter section------------------ */}
 
                     {/* ---------------Post section------------------ */}
 
-                    <Box sx={{ width: { xs: '100%', md: '100%' }, display: 'flex', gap: '5px', mb: '10px', borderRadius: '3px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, ":hover": { border: `${theme === 'light' ? '1px solid #808080' : '1px solid white'}` } }}>
+                    <Box sx={{ width: { xs: '100%', md: '100%' }, display: 'flex', gap: '5px', m: '20px 0', borderRadius: '3px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, ":hover": { border: `${theme === 'light' ? '1px solid #808080' : '1px solid white'}` } }}>
                         <Box sx={{ p: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '3px 0 0 3px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, boxSizing: 'border-box' }}>
                             <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowup}</Typography>
                             <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>{commentsPost.likeCount}</Typography>
@@ -73,7 +73,7 @@ export default function Comments(props) {
                                 {commentsPost && <Typography onClick={() => router.push(`/User/${commentsPost.author._id}`)} variant="p" sx={{ fontSize: '12px' }}>{commentsPost.author.name} &nbsp;.</Typography>}
                                 <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(commentsPost.createdAt)}</Typography>
                             </Box>
-                            <Typography variant="h6" sx={{ fontSize: '12px', mb: '10px' }}>{commentsPost.content}</Typography>
+                            <Typography variant="h6" sx={{ fontSize: '12px', m: '10px' }}>{commentsPost.content}</Typography>
                             <img style={{ width: '100%', }} src={commentsPost.images} />
                             <Box display='flex' alignItems='center' gap='10px' sx={{ p: '10px 0', height: '50px' }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
@@ -106,7 +106,7 @@ export default function Comments(props) {
                         <Box sx={{ position: 'relative', width: '100%', height: '100px', borderRadius: '4px 4px 0 0', bgcolor: '#33a8ff', }}>
                         </Box>
                         <Box sx={{ position: 'absolute', top: '40px', left: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '4px', width: '80px', height: '80px', backgroundColor: `${theme === 'light' ? '#fff' : '#000'}` }}>
-                            {userdata.profileImage ? <img style={{ width: '70px', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={userdata.profileImage} />
+                            {userdata ? <img style={{ width: '70px', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={userdata.profileImage} />
                                 : <Typography variant='h6' sx={{ fontSize: '50px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', }}>{userdata.name.charAt(0)}</Typography>}
                         </Box>
                         <Typography sx={{ m: '25px 0px 10px 15px', fontSize: '12px' }}>{userdata.name}</Typography>
