@@ -7,20 +7,21 @@ import { arrowdown, arrowup, comments, followedicon, google, share } from "../..
 import { context } from "../../(Components)/(Context)/ContextProvider";
 import { apicontext } from "../../(Components)/(Context)/Apicontextprovider";
 import ParentComment from "@/app/(Components)/(ParentComment)/ParentComment";
+import LikeDislike from "@/app/(Components)/(SmallComponents)/LikeDislike";
 
 export default function Comments(props) {
     const { theme, pop, popup, token, router, userprofilename } = useContext(context)
-    const { sort, handleselect, getTimeDifference, formatDate, followbtntxt, commentsPost, setCommentsPost, fetchCommentsPosts, userdata, setpopfollowuser, toggleuserfollow, fetchUserProfile, toggle, postingComments, setpostingComments, usercommenttoggle, popfollowuser, handlefollowuser, postcomments, fetchPostComments, fetchPostingComments, } = useContext(apicontext)
+    const { sort, handleselect, getTimeDifference, formatDate, followbtntxt, item, liketoggle, disliketoggle, setCommentsPost, fetchCommentsPosts, userdata, setpopfollowuser, toggleuserfollow, fetchUserProfile, toggle, postingComments, setpostingComments, usercommenttoggle, popfollowuser, handlefollowuser, postcomments, fetchPostComments, fetchPostingComments, } = useContext(apicontext)
 
     useEffect(() => {
         fetchUserProfile(props.params.Comments)
         fetchCommentsPosts(props.searchParams.PostId)
         fetchPostComments(props.searchParams.PostId)
-    }, [usercommenttoggle, toggle, toggleuserfollow])
+    }, [usercommenttoggle, toggle, toggleuserfollow, liketoggle, disliketoggle])
 
     return (
         <>
-            {commentsPost && <Box sx={{ width: '100vw', height: '100%', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '10px', flexDirection:{xs:'column-Reverse', md:'row'}}}>
+            {item && <Box sx={{ width: '100vw', height: '100%', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '10px', flexDirection:{xs:'column-Reverse', md:'row'}}}>
 
                 {/* ---------------Follow unfollow popup------------------ */}
                 {popfollowuser && <Paper sx={{ display: 'flex', alignItems: 'center', gap: '15px', position: 'absolute', bottom: '100px', width: '40%', height: '60px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, zIndex: '9' }}>
@@ -62,23 +63,24 @@ export default function Comments(props) {
 
                     <Box sx={{ width: { xs: '100%', md: '100%' }, display: 'flex', gap: '5px', m: '20px 0', borderRadius: '3px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, ":hover": { border: `${theme === 'light' ? '1px solid #808080' : '1px solid white'}` } }}>
                         <Box sx={{ p: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '3px 0 0 3px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, boxSizing: 'border-box' }}>
-                            <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowup}</Typography>
-                            <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>{commentsPost.likeCount}</Typography>
-                            <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowdown}</Typography>
+                            {/* <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowup}</Typography>
+                            <Typography variant="p" sx={{ p: '5px', fontSize: '12px' }}>{item.likeCount}</Typography>
+                            <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px', ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#323235'}` } }}>{arrowdown}</Typography> */}
+                        <LikeDislike item={item}/>
                         </Box>
                         <Box sx={{ width: '100%', }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
-                                {commentsPost.image ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={commentsPost.author.image} />
-                                    : commentsPost.author && <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{commentsPost.author.name.charAt(0)}</Typography>}
-                                {commentsPost && <Typography onClick={() => router.push(`/User/${commentsPost.author._id}`)} variant="p" sx={{ fontSize: '12px' }}>{commentsPost.author.name} &nbsp;.</Typography>}
-                                <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(commentsPost.createdAt)}</Typography>
+                                {item.image ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.image} />
+                                    : item.author && <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{item.author.name.charAt(0)}</Typography>}
+                                {item && <Typography onClick={() => router.push(`/User/${item.author._id}`)} variant="p" sx={{ fontSize: '12px' }}>{item.author.name} &nbsp;.</Typography>}
+                                <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
                             </Box>
-                            <Typography variant="h6" sx={{ fontSize: '12px', m: '10px' }}>{commentsPost.content}</Typography>
-                            <img style={{ width: '100%', }} src={commentsPost.images} />
+                            <Typography variant="h6" sx={{ fontSize: '12px', m: '10px' }}>{item.content}</Typography>
+                            <img style={{ width: '100%', }} src={item.images} />
                             <Box display='flex' alignItems='center' gap='10px' sx={{ p: '10px 0', height: '50px' }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                                     <Typography sx={{ display: 'flex', alignItems: 'center', p: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>{comments}</Typography>
-                                    <Typography variant="h6" sx={{ p: '5px', fontSize: '12px' }}>{commentsPost.commentCount} Comments</Typography>
+                                    <Typography variant="h6" sx={{ p: '5px', fontSize: '12px' }}>{item.commentCount} Comments</Typography>
                                 </Box>
                             </Box>
 

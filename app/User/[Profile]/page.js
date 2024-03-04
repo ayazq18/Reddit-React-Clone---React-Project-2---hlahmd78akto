@@ -77,8 +77,8 @@ export default function UserProfile(props) {
 
             {/* ---------------UserDetails sec------------------ */}
 
-            <Box sx={{ p: '19px 10px', height: { xs: 'fit-content', md: '100vh' }, display: 'block' }}>
-                <Box sx={{ position: 'relative', pb: '20px', mt: '0px', width: '300px', height: `${popup['moreoptions'] ? 'fit-content' : '320px'}`, borderRadius: '4px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
+            <Box sx={{ p: '19px 10px', height: { xs: 'fit-content', md: '100vh' }, display: 'block',  width: { xs: '100%', md: '300px' }, }}>
+                <Box sx={{ position: 'relative', pb: '20px', mt: '0px', height: `${popup['moreoptions'] ? 'fit-content' : '320px'}`, borderRadius: '4px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
                     <Box sx={{ position: 'relative', width: '100%', height: '100px', borderRadius: '4px 4px 0 0', bgcolor: '#33a8ff', }}>
                     </Box>
                     <Box sx={{ position: 'absolute', top: '40px', left: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '4px', width: '80px', height: '80px', backgroundColor: `${theme === 'light' ? '#fff' : '#000'}` }}>
