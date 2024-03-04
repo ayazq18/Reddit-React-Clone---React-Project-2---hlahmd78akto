@@ -56,7 +56,7 @@ export const ContextProvider = ({ children }) => {
 
     const postingTabs = [
         { name: 'Post', icon: <PostAdd />, handler: handlepostTabs },
-        { name: 'Image', icon: <Image />, handler: handlepostTabs },
+        { name: 'Image & Video', icon: <Image />, handler: handlepostTabs },
         // { name: 'Link', icon: <Link />, handler: handlepostTabs },
         // { name: 'Poll', icon: <Poll />, handler: handlepostTabs },
     ]

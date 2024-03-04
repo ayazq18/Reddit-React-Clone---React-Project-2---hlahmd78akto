@@ -5,7 +5,7 @@ import { context } from '../../(Components)/(Context)/ContextProvider'
 import { apicontext } from '../../(Components)/(Context)/Apicontextprovider'
 import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel, OutlinedInput, Paper, Typography } from '@mui/material'
 import { communitydropdown, postingIcon, } from '../../(Components)/(Constants)/Asset';
-import { Link, Search, } from '@mui/icons-material'
+import { Link, Search, Image} from '@mui/icons-material'
 import Community from '../../(Components)/(Community)/Community'
 import { postinginstruction, markdown } from '../../(Components)/(Constants)/Asset';
 
@@ -155,7 +155,7 @@ export default function CreatePost(props) {
           </Box>
           {!popup['item'] ?
             (<Box sx={{ m: '10px', }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: `${theme === 'light' ? '#000' : '#808080'}`, width: '100%', p: '5px 15px', borderRadius: '2px 2px 0 0', border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, backgroundColor: `${theme === 'light' ? '#e9ecf08c' : '#1a1a1b'}` }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: `${theme === 'light' ? '#000' : '#808080'}`, width: '100%', p: '5px 15px', borderRadius: '2px 2px 0 0', border: `1px dashed ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, backgroundColor: `${theme === 'light' ? '#e9ecf08c' : '#1a1a1b'}` }}>
                 {!popup['markdown'] ? (<Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', }}>
                   <Typography sx={{ fontSize: '20px', p: '5px 10px', borderRadius: '5px', width: '30px', textAlign: 'center', fontWeight: '700', ":hover": { bgcolor: `${theme === 'light' ? '#c2c8d19c' : '#c2c8d13f'}` } }}>B</Typography>
                   <Typography sx={{ fontSize: '20px', p: '5px 10px', borderRadius: '5px', width: '30px', textAlign: 'center', fontWeight: '700', fontStyle: 'italic', ":hover": { bgcolor: `${theme === 'light' ? '#c2c8d19c' : '#c2c8d13f'}` } }}>i</Typography>
@@ -169,11 +169,12 @@ export default function CreatePost(props) {
                     <Typography sx={{ fontSize: '14px', textAlign: 'center', fontWeight: '700' }}>Switch to Fancy Pants Editor</Typography>}
                 </Box>
               </Box>
-              <textarea value={description} onChange={(e) => setdescription(e.target.value)} style={{ backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, color: `${theme === 'light' ? '#000' : '#fff'}`, padding: '10px', maxWidth: '100%', minWidth: '100%', minHeight: '150px', borderRadius: '2px', }} placeholder="Text (Optional)" />
+              <textarea value={description} onChange={(e) => setdescription(e.target.value)} style={{ backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `1px dashed ${theme === 'light' ? 'rgba(236, 232, 232, 0.534)' : 'rgba(224, 224, 247, 0.14)'}`, color: `${theme === 'light' ? '#000' : '#fff'}`, padding: '10px', maxWidth: '100%', minWidth: '100%', minHeight: '150px', borderRadius: '2px', }} placeholder="Text (Optional)" />
             </Box>)
-            : <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', m: '10px', height: '200px', padding: '10px', borderRadius: '2px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.834)' : 'rgba(224, 224, 247, 0.14)'}`, color: `${theme === 'light' ? '#000' : '#fff'}` }}>
-              <Typography sx={{ color: `${theme === 'light' ? '#000' : '#808080'}`, fontSize: '18px' }}>Drag and drop image or</Typography>
-              <input style={{ padding: '10px', backgroungColor: 'blue' }} type="file" onChange={(e) => setpostimage(e.target.files[0])} />
+            : <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', m: '10px', height: '200px', p: '10px', borderRadius: '2px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.834)' : 'rgba(224, 224, 247, 0.14)'}`, color: `${theme === 'light' ? '#000' : '#fff'}` }}>
+              <Typography sx={{ color: `${theme === 'light' ? '#0079d3' : '#808080'}`, fontSize: '16px' }}>Drag and drop image or</Typography>
+              <input style={{ padding: '10px', width:'50%', opacity:'0%', position:'relative', zIndex:'1',}} type="file" onChange={(e) => setpostimage(e.target.files[0])} />
+              <Typography variant='h6' sx={{color: `${theme === 'light' ? '#0079d3' : '#808080'}`, p:'5px 20px', fontSize:'15px',fontWeight:'700' , position:'absolute', borderRadius:'50px', border:`1px solid ${theme === 'light' ? '#0079d3' : '#808080'}`,}}>Upload</Typography>
             </Box>
           }
 
