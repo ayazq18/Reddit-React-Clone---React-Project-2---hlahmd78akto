@@ -53,8 +53,8 @@ export default function UserProfile(props) {
                         </Box>
                         <Box sx={{ width: '100%', }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
-                                {item ? <img style={{ width: '1rem', borderRadius: '4px' }} src={item.author.profileImage} />
-                                    : item.author && <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{(item.author.name.charAt(0))}</Typography>}
+                                {item.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} src={item.author.profileImage} />
+                                    : <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{(item.author.name.charAt(0))}</Typography>}
                                 <Typography variant="p" sx={{ fontSize: '12px' }}>{item.author.name} &nbsp;.</Typography>
                                 <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
                             </Box>
@@ -77,12 +77,12 @@ export default function UserProfile(props) {
 
             {/* ---------------UserDetails sec------------------ */}
 
-            <Box sx={{ p: '19px 10px', height: { xs: 'fit-content', md: '100vh' }, display: 'block',  width: { xs: '100%', md: '300px' }, }}>
+            {userdata && <Box sx={{ p: '19px 10px', height: { xs: 'fit-content', md: '100vh' }, display: 'block',  width: { xs: '100%', md: '300px' }, }}>
                 <Box sx={{ position: 'relative', pb: '20px', mt: '0px', height: `${popup['moreoptions'] ? 'fit-content' : '320px'}`, borderRadius: '4px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
                     <Box sx={{ position: 'relative', width: '100%', height: '100px', borderRadius: '4px 4px 0 0', bgcolor: '#33a8ff', }}>
                     </Box>
                     <Box sx={{ position: 'absolute', top: '40px', left: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '4px', width: '80px', height: '80px', backgroundColor: `${theme === 'light' ? '#fff' : '#000'}` }}>
-                        {userdata ? <img style={{ width: '70px', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={userdata.profileImage} />
+                        {userdata.profileImage ? <img style={{ width: '70px', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={userdata.profileImage} />
                             : <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{userdata.name.charAt(0)}</Typography>}
                     </Box>
                     <Typography sx={{ m: '20px 0px 10px 15px', fontSize: '12px' }}>{userdata.name}</Typography>
@@ -117,7 +117,7 @@ export default function UserProfile(props) {
                         {userdata.skills.map((item, index) => (<Typography variant="h6" sx={{ mb: '5px', fontSize: '14px', color: '#177ac5' }}>{item}</Typography>))}
                     </Box>}
                 </Box>
-            </Box>
+            </Box>}
 
             {/* ---------------UserDetails sec------------------ */}
 

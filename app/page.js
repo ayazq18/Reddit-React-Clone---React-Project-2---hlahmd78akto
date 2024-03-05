@@ -62,7 +62,7 @@ export default function Home() {
               <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
             </Box>
             <Typography variant="h6" sx={{ fontSize: '18px', mb: '10px', overflowX: 'hidden', textWrap: 'noWrap', textOverflow: 'ellipsis' }}>{item.content}</Typography>
-            <img style={{ borderRadius: '15px', width: '100%', height: '400px' }} src={item.images[0]} srcSet="" sizes="" alt=""></img>
+            <img style={{ borderRadius: '15px', width: '100%'}} src={item.images[0]} srcSet="" sizes="" alt=""></img>
             <Box display='flex' alignItems='center' gap='10px' sx={{ p: '10px 0', height: '50px' }}>
               <Box sx={{ p: '5px 0', display: 'flex', alignItems: 'center', borderRadius: '50px', bgcolor: 'rgba(236, 232, 232, 0.134)' }}>
                 <Typography onClick={() => setloginpop(true)} sx={{ display: 'flex', alignItems: 'center', p: '5px', borderRadius: '50px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>{arrowup}</Typography>
