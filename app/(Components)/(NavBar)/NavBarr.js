@@ -17,7 +17,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import { Avatar, Button, Divider, MenuItem, Switch } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import { trending, home, popular, notification, createicon, chat, advertise, scanner, shop, communitydropdown, thememode, } from '../(Constants)/Asset'
+import { trending, home, popular, notification, createicon, chat, advertise, scanner, shop, communitydropdown, thememode, reddittext, } from '../(Constants)/Asset'
 import Login from '../(Login)/Login';
 import { context } from '../(Context)/ContextProvider';
 import SideNavBar from './SideNavBar';
@@ -120,28 +120,10 @@ const NavBarr = ({ children }) => {
                 {popup['getapp'] && <Box sx={{ width: '100vw', height: '100vh', position: 'absolute', bgcolor: 'rgba(71, 58, 58, 0.758)', zIndex: '8' }}></Box>}
                 <Container maxWidth="xl" >
                     <Toolbar className="c" disableGutters sx={{ p: '1' }}>
-                        <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
+                        <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems:'center', mr: 1 }}>
                             <Reddit onClick={() => route.push('/Home')} sx={{ display: { xs: 'none', md: 'flex' }, mr: 0, backgroundColor: 'orangered', borderRadius: '50px', transform: 'scale(1.5)', }} />
                         </Box>
-                        <Typography
-                            mr={token ? 0 : 15}
-                            variant="h4"
-                            noWrap
-                            component="a"
-                            sx={{
-                                display: { xs: 'none', md: 'flex' },
-                                fontFamily: 'monospace',
-                                fontSize: '28px',
-                                fontWeight: 900,
-                                letterSpacing: '-.2rem',
-                                color: 'orangered',
-                                textDecoration: 'none',
-                                width: '110px',
-                                color: `${theme === 'light' ? 'orangered' : '#fff'}`
-                            }}
-                        >
-                            reddit
-                        </Typography>
+                        <Box sx={{ width:'100px', display: { xs: 'none', md: 'block' }}}>{reddittext}</Box>
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, }}>
                             {!token && <IconButton
                                 size="large"

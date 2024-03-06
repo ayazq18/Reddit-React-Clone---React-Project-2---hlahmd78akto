@@ -57,7 +57,7 @@ export default function UserProfile(props) {
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
                                     {item.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} src={item.author.profileImage} />
                                         : <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{(item.author.name.charAt(0))}</Typography>}
-                                    <Typography variant="p" sx={{ fontSize: '12px' }}>{item.author.name} &nbsp;.</Typography>
+                                    <Typography variant="p" sx={{ fontSize: '12px', fontWeight:'700' }}>{item.author.name} &nbsp;.</Typography>
                                     <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
                                 </Box>
                                 {item.author._id === loginInfo && <Box position='relative'>
@@ -74,7 +74,7 @@ export default function UserProfile(props) {
                                     </Box>}
                                 </Box>}
                             </Box>
-                            <Typography variant="h6" sx={{ fontSize: '12px', mb: '10px' }}>{item.content}</Typography>
+                            <Typography variant="h6" sx={{ fontSize: '18px', mb: '10px' }}>{item.content}</Typography>
                             <img style={{ width: '100%', }} src={item.images} />
                             <Box display='flex' alignItems='center' gap='10px' sx={{ p: '10px 0', height: '50px' }}>
                                 <Box onClick={() => router.push(`/PostComments/${item.author._id}?PostId=${item._id}`)} sx={{ display: 'flex', alignItems: 'center', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
