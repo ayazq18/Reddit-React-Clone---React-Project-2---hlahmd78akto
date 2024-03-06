@@ -97,33 +97,33 @@ const NavBarr = ({ children }) => {
                         <Box className={activeTabs === 'Popular' && 'activeclass'} onClick={() => { handleTabs('Popular'), router.push('/PopularHome') }} sx={{ display: 'flex', gap: '10px', alignItems: 'center', p: '7px 7px 7px 20px', borderRadius: '7px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography sx={{ position: 'relative', top: '2px' }}>{popular}</Typography><Typography variant='p' sx={{ fontSize: '14px' }}>Popular</Typography></Box>
                     </Box>
                 }
-                {popup['getapp'] && 
-                <Box sx={{ p: '20px 10px', width: '505', height: '500px', bgcolor: '#fff', borderRadius: '6px', position: 'absolute', left: { xs: '0%', md: '30%' }, top: '50px', zIndex: '9' }}>
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', p: '10px' }}>
-                        <Typography variant='h3' sx={{ color: '#000', fontSize: '32px', fontWeight: '700' }}>Get the Reddit app</Typography>
-                        <Avatar onClick={() => pop('getapp')} sx={{ color: '#000', fontSize: '10px', bgcolor: 'rgba(236, 232, 232, 0.334)' }}>
-                            <Close />
-                        </Avatar>
-                    </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: '10px' }}>
-                        <Box sx={{ width: '60%', height: '350px', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column' }}>
-                            <Typography variant='h5' sx={{ fontSize: '16px', fontWeight: '700', width: '60%', color: '#000', textAlign: 'center' }}>Scan this QR code to download the app now</Typography>
-                            <img style={{ width: '70%' }} src="/QRCode.png" srcSet="" sizes="" alt="Shreddit QR Code"></img>
-                            <Typography variant='p' sx={{ fontSize: '14px', color: '#000', textAlign: 'center' }}>Or check it out in the app stores</Typography>
-                            <Box sx={{ display: 'flex' }}>
-                                <img src="https://www.redditstatic.com/shreddit/assets/google-play.svg"  alt="Get it on Google Play" />
-                                <img src="https://www.redditstatic.com/shreddit/assets/app-store.svg"  alt="Download on the App Store" />
+                {popup['getapp'] &&
+                    <Box sx={{ p: '20px 10px', width: '505', height: '500px', bgcolor: '#fff', borderRadius: '6px', position: 'absolute', left: { xs: '0%', md: '30%' }, top: '50px', zIndex: '9' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', p: '10px' }}>
+                            <Typography variant='h3' sx={{ color: '#000', fontSize: '32px', fontWeight: '700' }}>Get the Reddit app</Typography>
+                            <Avatar onClick={() => pop('getapp')} sx={{ color: '#000', fontSize: '10px', bgcolor: 'rgba(236, 232, 232, 0.334)' }}>
+                                <Close />
+                            </Avatar>
+                        </Box>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', mt: '10px' }}>
+                            <Box sx={{ width: '60%', height: '350px', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'column' }}>
+                                <Typography variant='h5' sx={{ fontSize: '16px', fontWeight: '700', width: '60%', color: '#000', textAlign: 'center' }}>Scan this QR code to download the app now</Typography>
+                                <img style={{ width: '70%' }} src="/QRCode.png" srcSet="" sizes="" alt="Shreddit QR Code"></img>
+                                <Typography variant='p' sx={{ fontSize: '14px', color: '#000', textAlign: 'center' }}>Or check it out in the app stores</Typography>
+                                <Box sx={{ display: 'flex' }}>
+                                    <img src="https://www.redditstatic.com/shreddit/assets/google-play.svg" alt="Get it on Google Play" />
+                                    <img src="https://www.redditstatic.com/shreddit/assets/app-store.svg" alt="Download on the App Store" />
+                                </Box>
                             </Box>
                         </Box>
-                    </Box>
-                </Box>}
+                    </Box>}
                 {popup['getapp'] && <Box sx={{ width: '100vw', height: '100vh', position: 'absolute', bgcolor: 'rgba(71, 58, 58, 0.758)', zIndex: '8' }}></Box>}
                 <Container maxWidth="xl" >
                     <Toolbar className="c" disableGutters sx={{ p: '1' }}>
-                        <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems:'center', mr: 1 }}>
-                            <Reddit onClick={() => route.push('/Home')} sx={{ display: { xs: 'none', md: 'flex' }, mr: 0, backgroundColor: 'orangered', borderRadius: '50px', transform: 'scale(1.5)', }} />
+                        <Box onClick={() => route.push('/Home')} sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap:'10px', mr: 1 }}>
+                            <Reddit sx={{ display: { xs: 'none', md: 'flex' }, mr: 0, backgroundColor: 'orangered', borderRadius: '50px', transform: 'scale(1.5)', }} />
+                            <Box sx={{ width: '100px', display: { xs: 'none', md: 'block' } }}>{reddittext}</Box>
                         </Box>
-                        <Box sx={{ width:'100px', display: { xs: 'none', md: 'block' }}}>{reddittext}</Box>
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, }}>
                             {!token && <IconButton
                                 size="large"
@@ -395,9 +395,9 @@ const NavBarr = ({ children }) => {
                                                 </ListItemIcon>
                                                 Log In / Sign Up
                                             </MenuItem>
-                                            <MenuItem onClick={() => {pop('getapp'), handleClose()}}>
+                                            <MenuItem onClick={() => { pop('getapp'), handleClose() }}>
                                                 <ListItemIcon>
-                                                <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', color: '#000' }}>{scanner}</Typography>
+                                                    <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', color: '#000' }}>{scanner}</Typography>
 
                                                 </ListItemIcon>
                                                 Get app
