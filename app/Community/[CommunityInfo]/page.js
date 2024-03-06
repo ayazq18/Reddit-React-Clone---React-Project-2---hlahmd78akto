@@ -46,6 +46,8 @@ export default function CommunityInfo(props) {
             })
             const result = await response.json();
             setchannleid(result.data)
+            console.log(result)
+
         }
         catch (error) {
             console.log(error)
@@ -63,7 +65,6 @@ export default function CommunityInfo(props) {
             })
             const result = await response.json();
             setchannelpost(result.data)
-            console.log(result)
         }
         catch (error) {
             console.log(error)
@@ -111,7 +112,7 @@ export default function CommunityInfo(props) {
                     </Box>
                 </Box>
             </Box>}
-            <Box sx={{ width: '100%', height: '30vh', backgroundImage: "url('https://thumbs.dreamstime.com/b/d-high-decoration-background-wallpaper-n-d-wallpaper-design-floral-photo-mural-background-d-wallpaper-background-163061267.jpg')", }}></Box>
+           {channelid && <Box sx={{ width: '100%', height: '20vh', backgroundImage: `url(${(channelid.owner.profileImage)})`, }}></Box>}
             {channelid ?
                 (<Box>
                     <Box sx={{ width: '100%', height: '15vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, }}>
