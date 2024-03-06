@@ -15,7 +15,7 @@ import LikeDislike from "../(Components)/(SmallComponents)/LikeDislike";
 
 export default function Home() {
   const { theme, router, pop, popup, loginInfo } = useContext(context)
-  const { post, getTimeDifference, fetchDeletePost, fetchUpdatePost, popupdelete, handledeletecomment, setpopupdelete} = useContext(apicontext)
+  const { post, getTimeDifference, fetchDeletePost, fetchUpdatePost, popupdelete, handledeletecomment, setpopupdelete, } = useContext(apicontext)
 
   return (
     <Box className='home' sx={{ width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#0b1416'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
@@ -36,14 +36,29 @@ export default function Home() {
               {/* -------Like Dislike Component---------- */}
             </Box>
             <Box sx={{ p: '10px', width: '100%' }}>
-              <Box className="c" sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
-                {item.author.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.profileImage} />
-                  : <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{item.author.name.charAt(0)}</Typography>}
-                <Typography onClick={() => router.push(`/User/${item.author._id}`)} variant="p" sx={{ fontSize: '14px', fontWeight: '700' }}>{item.author.name} &nbsp;.</Typography>
-                <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
+              <Box className="c" sx={{ display: 'flex', alignItems: 'center', justifyContent:'space-between' }}>
+                <Box className="c" sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
+                  {item.author.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.profileImage} />
+                    : <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{item.author.name.charAt(0)}</Typography>}
+                  <Typography onClick={() => router.push(`/User/${item.author._id}`)} variant="p" sx={{ fontSize: '14px', fontWeight: '700' }}>{item.author.name} &nbsp;.</Typography>
+                  <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
+                </Box>
+                {item.author._id === loginInfo && <Box position='relative'>
+                  <Box sx={{ display: 'flex', alignItems: 'center', }}><MoreHoriz sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }} onClick={() => handledeletecomment(item._id)} /></Box>
+                  {popupdelete == item._id && <Box sx={{ position: 'absolute', right:'0', width: '200px', p: '10px', borderRadius: '5px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
+                    <Box onClick={() => { fetchDeletePost(item._id) }} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
+                      <Delete />
+                      <Typography variant="contained" >Delete Post</Typography>
+                    </Box>
+                    <Box onClick={() => { router.push(`/submit/${item._id}`), setpopupdelete(null) }} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
+                      <CreateIcon />
+                      <Typography variant="contained">Edit Post</Typography>
+                    </Box>
+                  </Box>}
+                </Box>}
               </Box>
               <Typography variant="h6" sx={{ fontSize: '18px', mb: '10px' }}>{item.content}</Typography>
-              <img style={{ width: '100%',}} src={item.images[0]}/>
+              <img style={{ width: '100%', }} src={item.images[0]} />
 
               {/* -----------------comment share delete options------------------------ */}
               <Box display='flex' alignItems='center' gap='15px' sx={{ p: '10px 0', height: '50px', cursor: 'pointer' }}>
@@ -52,19 +67,7 @@ export default function Home() {
                   <Typography variant="h6" sx={{ p: '5px', fontSize: '12px' }}>{item.commentCount} Comments</Typography>
                 </Box>
 
-                {item.author._id === loginInfo && <Box position='relative'>
-                  <Box sx={{ display: 'flex', alignItems: 'center', }}><MoreHoriz sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }} onClick={() => handledeletecomment(item._id)} /></Box>
-                  {popupdelete == item._id && <Box sx={{ position: 'absolute', width: '200px', p: '10px', borderRadius:'10px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
-                    <Box onClick={() => { fetchDeletePost(item._id)}} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
-                      <Delete />
-                      <Typography variant="contained" >Delete Post</Typography>
-                    </Box>
-                    <Box onClick={() => { router.push(`/submit/${item._id}`), setpopupdelete(null)}} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
-                      <CreateIcon />
-                      <Typography variant="contained">Edit Post</Typography>
-                    </Box>
-                  </Box>}
-                </Box>}
+
               </Box>
               {/* -----------------commen share delete options------------------------ */}
 

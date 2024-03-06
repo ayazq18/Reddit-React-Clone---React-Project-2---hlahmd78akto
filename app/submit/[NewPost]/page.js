@@ -173,8 +173,10 @@ export default function CreatePost(props) {
             </Box>)
             : <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', m: '10px', height: '200px', p: '10px', borderRadius: '2px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.834)' : 'rgba(224, 224, 247, 0.14)'}`, color: `${theme === 'light' ? '#000' : '#fff'}` }}>
               <Typography sx={{ color: `${theme === 'light' ? '#0079d3' : '#808080'}`, fontSize: '16px' }}>Drag and drop image or</Typography>
-              <input style={{ padding: '10px', width:'50%', opacity:'0%', position:'relative', zIndex:'1',}} type="file" onChange={(e) => setpostimage(e.target.files[0])} />
-              <Typography variant='h6' sx={{color: `${theme === 'light' ? '#0079d3' : '#808080'}`, p:'5px 20px', fontSize:'15px',fontWeight:'700' , position:'absolute', borderRadius:'50px', border:`1px solid ${theme === 'light' ? '#0079d3' : '#808080'}`,}}>Upload</Typography>
+              {postimage.length === 0 ? (<Box sx={{ display: 'flex', alignItems: 'center',}}><input style={{ padding: '10px', width:'50%', opacity:'0%', position:'relative', zIndex:'1',}} type="file" onChange={(e) => setpostimage(e.target.files[0])} />
+              <Typography variant='h6' sx={{color: `${theme === 'light' ? '#0079d3' : '#808080'}`, p:'5px 20px', fontSize:'15px',fontWeight:'700' , position:'absolute', borderRadius:'50px', border:`1px solid ${theme === 'light' ? '#0079d3' : '#808080'}`,}}>Upload</Typography></Box>)
+              :
+              <img style={{width:'200px', height:'200px'}} src={URL.createObjectURL(postimage)}/>}
             </Box>
           }
 
