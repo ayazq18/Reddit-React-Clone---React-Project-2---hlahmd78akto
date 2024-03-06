@@ -1,8 +1,9 @@
 'use client'
-import { Button, MenuItem, Paper, Typography } from "@mui/material";
-import { Box } from "@mui/system";
 import React, { useContext, useEffect, } from "react";
-import { Close, FilterVintage, LocalFireDepartment, NewReleasesTwoTone, Publish, Rocket, } from "@mui/icons-material";
+import { Button, MenuItem, Paper, Typography } from "@mui/material";
+import CreateIcon from '@mui/icons-material/Create';
+import { Box } from "@mui/system";
+import { Close, Delete, FilterVintage, LocalFireDepartment, MoreHoriz, NewReleasesTwoTone, Publish, Rocket, } from "@mui/icons-material";
 import { arrowdown, arrowdowncliked, arrowup, arrowupclicked, comments, followedicon, share } from "../../(Components)/(Constants)/Asset";
 import { context } from "../../(Components)/(Context)/ContextProvider";
 import { apicontext } from "../../(Components)/(Context)/Apicontextprovider";
@@ -10,12 +11,12 @@ import LikeDislike from "@/app/(Components)/(SmallComponents)/LikeDislike";
 import FilterandCreatePost from "@/app/(Components)/(SmallComponents)/FilterandCreatePost";
 
 export default function UserProfile(props) {
-    const { userprofilename, theme, pop, popup, router } = useContext(context)
-    const { sort, handleselect, isSwitchOn, getTimeDifference, formatDate, toggleuserfollow, setpopfollowuser, userdata, fetchUserProfile, filteredpost, fetchyourPosts, popfollowuser, handlefollowuser, Likepost, Dislikepost, liketoggle, disliketoggle } = useContext(apicontext)
+    const { userprofilename, theme, pop, popup, router, loginInfo, } = useContext(context)
+    const { sort, handleselect, handledeletecomment, fetchDeletePost, userposttoggle, popupdelete, setpopupdelete, isSwitchOn, getTimeDifference, formatDate, toggleuserfollow, setpopfollowuser, userdata, fetchUserProfile, filteredpost, fetchyourPosts, popfollowuser, handlefollowuser, Likepost, Dislikepost, liketoggle, disliketoggle } = useContext(apicontext)
     useEffect(() => {
         fetchUserProfile(props.params.Profile)
         fetchyourPosts(props.params.Profile)
-    }, [toggleuserfollow, liketoggle, disliketoggle,])
+    }, [toggleuserfollow, liketoggle, disliketoggle, userposttoggle])
 
     return (
         <Box sx={{ position: 'relative', width: '100vw', display: 'flex', justifyContent: 'center', flexDirection: { xs: 'column-reverse', md: 'row' }, alignItems: { xs: 'center', md: 'flex-start' }, backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, }}>
@@ -52,11 +53,26 @@ export default function UserProfile(props) {
                             {/* -------Like Dislike Component---------- */}
                         </Box>
                         <Box sx={{ width: '100%', }}>
-                            <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
-                                {item.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} src={item.author.profileImage} />
-                                    : <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{(item.author.name.charAt(0))}</Typography>}
-                                <Typography variant="p" sx={{ fontSize: '12px' }}>{item.author.name} &nbsp;.</Typography>
-                                <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
+                            <Box className="c" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
+                                    {item.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} src={item.author.profileImage} />
+                                        : <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{(item.author.name.charAt(0))}</Typography>}
+                                    <Typography variant="p" sx={{ fontSize: '12px' }}>{item.author.name} &nbsp;.</Typography>
+                                    <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
+                                </Box>
+                                {item.author._id === loginInfo && <Box position='relative'>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', }}><MoreHoriz sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }} onClick={() => handledeletecomment(item._id)} /></Box>
+                                    {popupdelete == item._id && <Box sx={{ position: 'absolute', right: '0', width: '200px', p: '10px', borderRadius: '5px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
+                                        <Box onClick={() => { fetchDeletePost(item._id) }} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
+                                            <Delete />
+                                            <Typography variant="contained" >Delete Post</Typography>
+                                        </Box>
+                                        <Box onClick={() => { router.push(`/submit/${item._id}`), setpopupdelete(null) }} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
+                                            <CreateIcon />
+                                            <Typography variant="contained">Edit Post</Typography>
+                                        </Box>
+                                    </Box>}
+                                </Box>}
                             </Box>
                             <Typography variant="h6" sx={{ fontSize: '12px', mb: '10px' }}>{item.content}</Typography>
                             <img style={{ width: '100%', }} src={item.images} />
@@ -70,6 +86,11 @@ export default function UserProfile(props) {
                     </Box>
                 ))}
 
+                {filteredpost.length === 0 && <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+                    <img src="https://www.redditstatic.com/shreddit/assets/hmm-snoo.png" srcset="" sizes="" alt="Image of a wondering Snoo" />
+                    { userdata && <Typography variant='h6' >u/{userdata.name} hasn't posted yet</Typography>}
+                </Box>}
+
                 {/* ---------------Post section------------------ */}
 
             </Box>
@@ -77,7 +98,7 @@ export default function UserProfile(props) {
 
             {/* ---------------UserDetails sec------------------ */}
 
-            {userdata && <Box sx={{ p: '19px 10px', height: { xs: 'fit-content', md: '100vh' }, display: 'block',  width: { xs: '100%', md: '300px' }, }}>
+            {userdata && <Box sx={{ p: '19px 10px', height: { xs: 'fit-content', md: '100vh' }, display: 'block', width: { xs: '100%', md: '300px' }, }}>
                 <Box sx={{ position: 'relative', pb: '20px', mt: '0px', height: `${popup['moreoptions'] ? 'fit-content' : '320px'}`, borderRadius: '4px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
                     <Box sx={{ position: 'relative', width: '100%', height: '100px', borderRadius: '4px 4px 0 0', bgcolor: '#33a8ff', }}>
                     </Box>

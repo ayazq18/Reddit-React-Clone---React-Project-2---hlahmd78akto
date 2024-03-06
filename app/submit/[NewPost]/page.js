@@ -15,7 +15,6 @@ export default function CreatePost(props) {
   const [dropnav, setdropnav] = useState(false)
   const [draftcount, setDraftCount] = useState(0);
   const [communityInput, setcommunityInput] = useState('')
-  console.log(channel)
   const handleToggleDropdown = () => {
     setdropnav(!dropnav);
   };

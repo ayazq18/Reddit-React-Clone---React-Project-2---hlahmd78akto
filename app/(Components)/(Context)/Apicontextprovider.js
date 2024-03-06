@@ -31,6 +31,8 @@ export default function Apicontextprovider({ children }) {
     const [toggleCommunity, settogglecommunity] = useState(false)
     const [liketoggle, setliketoggle] = useState(false)
     const [disliketoggle, setdisliketoggle] = useState(false)
+    const [userposttoggle, setuserposttoggle] = useState(false)
+
 
     const [sortval, setsortval] = useState('best')
 
@@ -71,7 +73,7 @@ export default function Apicontextprovider({ children }) {
         catch (error) {
             console.log(error)
         }
-    }, [toggle, liketoggle, disliketoggle, sortval])
+    }, [toggle, liketoggle, disliketoggle, sortval, userposttoggle])
 
     // ----------------FetchPost---------------------
 
@@ -238,7 +240,7 @@ export default function Apicontextprovider({ children }) {
                     'Authorization': `Bearer ${token}`,
                 },
             })
-            settoggle(!toggle)
+                setuserposttoggle(!userposttoggle)
         }
         catch (error) {
             console.log(error)
@@ -509,7 +511,7 @@ export default function Apicontextprovider({ children }) {
     };
 
     return (
-        <apicontext.Provider value={{ sortval, setsortval, toggleCommunity, settogglecommunity, recentChannels, isSwitchOn, handleSwitchChange, item, fetchCommentsPosts, popupdelete, setpopupdelete, handledeletecomment, usercommenttoggle, settoggleusercomments, postingComments, setpostComments, setpostingComments, fetchPostingComments, fetchDeleteComments, postcomments, fetchPostComments, popfollowuser, handlefollowuser, filteredpost, fetchyourPosts, userdata, fetchUserProfile, Userfollow, Userunfollow, settoggleuserfollow, toggleuserfollow, reddittoggle, setReddittoggle, settoggle, Likepost, Dislikepost, liketoggle, disliketoggle, disliketoggle, title, settitle, description, setdescription, postimage, setpostimage, subredditname, setsubredditname, fetchCreatePost, fetchDeletePost, fetchUpdatePost, fetchCreatesubreddit, createsubreddit, setcreatesubreddit, post, setpost, sort, setsort, handleselect, getTimeDifference, channel, setChannel, formatDate }}>
+        <apicontext.Provider value={{ sortval, setsortval, toggleCommunity, settogglecommunity, recentChannels, isSwitchOn, handleSwitchChange, item, fetchCommentsPosts, popupdelete, setpopupdelete, handledeletecomment, usercommenttoggle, settoggleusercomments, postingComments, setpostComments, setpostingComments, fetchPostingComments, fetchDeleteComments, postcomments, fetchPostComments, popfollowuser, handlefollowuser, filteredpost, fetchyourPosts, userdata, fetchUserProfile, Userfollow, Userunfollow, settoggleuserfollow, toggleuserfollow, reddittoggle, setReddittoggle, settoggle, Likepost, Dislikepost, liketoggle, disliketoggle, disliketoggle, userposttoggle, title, settitle, description, setdescription, postimage, setpostimage, subredditname, setsubredditname, fetchCreatePost, fetchDeletePost, fetchUpdatePost, fetchCreatesubreddit, createsubreddit, setcreatesubreddit, post, setpost, sort, setsort, handleselect, getTimeDifference, channel, setChannel, formatDate }}>
             <div>
                 {children}
             </div>
