@@ -122,7 +122,7 @@ const NavBarr = ({ children }) => {
                     <Toolbar className="c" disableGutters sx={{ p: '1' }}>
                         <Box onClick={() => route.push('/Home')} sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center', gap:'10px', mr: 1 }}>
                             <Reddit sx={{ display: { xs: 'none', md: 'flex' }, mr: 0, backgroundColor: 'orangered', borderRadius: '50px', transform: 'scale(1.5)', }} />
-                            <Box sx={{ width: '100px', display: { xs: 'none', md: 'block' } }}>{reddittext}</Box>
+                            <Box sx={{ width: '80px', display: { xs: 'none', md: 'block' } }}>{reddittext}</Box>
                         </Box>
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, }}>
                             {!token && <IconButton
