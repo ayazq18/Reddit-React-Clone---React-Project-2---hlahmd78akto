@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createContext, useState } from 'react'
 import { Project_ID } from '../(Constants)/Constants'
 import { useRouter } from 'next/navigation'
@@ -10,13 +10,16 @@ export const context = createContext()
 export const ContextProvider = ({ children }) => {
     const router = useRouter();
 
-    const [storedTheme, setstoredtheme] = useState(() => {
-        if (typeof window !== 'undefined') {
-            return localStorage.getItem('theme');
+    useEffect(()=>{
+        if (localStorage.getItem('theme')) {
+            setTheme (localStorage.getItem('theme'));
+        }else{
+            setTheme('light')
+            localStorage.setItem('theme', 'light')
         }
-        return 'light';
-    });
-    const [theme, setTheme] = useState(storedTheme || 'dark')
+        
+    }, [])
+    const [theme, setTheme] = useState()
     const [signUpdata, setSignUpdata] = useState({ name: '', email: '', password: '', isChecked: false })
     const [popup, setpopup] = useState({});
     const [loginpop, setloginpop] = useState(false)

@@ -12,7 +12,7 @@ import LikeDislike from "@/app/(Components)/(SmallComponents)/LikeDislike";
 export default function Comments(props) {
     const { theme, pop, popup, token, router, userprofilename } = useContext(context)
     const { sort, handleselect, getTimeDifference, formatDate, followbtntxt, item, liketoggle, disliketoggle, setCommentsPost, fetchCommentsPosts, userdata, setpopfollowuser, toggleuserfollow, fetchUserProfile, toggle, postingComments, setpostingComments, usercommenttoggle, popfollowuser, handlefollowuser, postcomments, fetchPostComments, fetchPostingComments, } = useContext(apicontext)
-
+console.log(props)
     useEffect(() => {
         fetchUserProfile(props.params.Comments)
         fetchCommentsPosts(props.searchParams.PostId)
