@@ -3,12 +3,17 @@ import { Button, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useContext } from 'react'
 import { context } from '../(Context)/ContextProvider'
+import Community from '../(Community)/Community'
 
 export default function PremiumandHomeDetails() {
-    const { theme, router, pop, homeorpopular } = useContext(context)
+    const { theme, router, pop, popup, homeorpopular } = useContext(context)
     return (
         <div>
             <Box sx={{ width: '100%', p: '10px', border: '1px solid red', borderRadius: '3px', backgroundColor: `${theme === 'light' ? '#fff' : '#091113'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
+                {popup['createcommunity'] &&
+                    <Box sx={{ position: 'absolute', top: '0px', right:'-48.5%', display: 'flex', justifyContent: 'center', alignItems: 'flex-start', width: '100vw', height: '100%', zIndex: '8', bgcolor: 'rgba(24, 23, 23, 0.923)' }}>
+                        <Box sx={{ zIndex: '9' }}><Community pop={pop} /></Box>
+                    </Box>}
                 <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <Security sx={{ color: "orangered", fontSize: '28px' }} />
                     <Box>

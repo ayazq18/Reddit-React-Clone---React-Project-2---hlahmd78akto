@@ -19,9 +19,7 @@ export default function Home() {
 
   return (
     <Box className='home' sx={{ width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#0b1416'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
-      {popup['createcommunity'] && <Box sx={{ position: 'absolute', top: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%', zIndex: '8', bgcolor: 'rgba(24, 23, 23, 0.923)' }}>
-        <Box sx={{ zIndex: '9' }}><Community pop={pop} /></Box>
-      </Box>}
+      
       <Box sx={{ width: { xs: '100%', md: '50%' } }}>
 
         {/* --------Create post and Filters------------- */}
@@ -36,7 +34,7 @@ export default function Home() {
               {/* -------Like Dislike Component---------- */}
             </Box>
             <Box sx={{ p: '10px', width: '100%' }}>
-              <Box className="c" sx={{ display: 'flex', alignItems: 'center', justifyContent:'space-between' }}>
+              <Box className="c" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Box className="c" sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
                   {item.author.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.profileImage} />
                     : <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{item.author.name.charAt(0)}</Typography>}
@@ -45,7 +43,7 @@ export default function Home() {
                 </Box>
                 {item.author._id === loginInfo && <Box position='relative'>
                   <Box sx={{ display: 'flex', alignItems: 'center', }}><MoreHoriz sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }} onClick={() => handledeletecomment(item._id)} /></Box>
-                  {popupdelete == item._id && <Box sx={{ position: 'absolute', right:'0', width: '200px', p: '10px', borderRadius: '5px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
+                  {popupdelete == item._id && <Box sx={{ position: 'absolute', right: '0', width: '200px', p: '10px', borderRadius: '5px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
                     <Box onClick={() => { fetchDeletePost(item._id) }} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
                       <Delete />
                       <Typography variant="contained" >Delete Post</Typography>
@@ -74,7 +72,7 @@ export default function Home() {
             </Box>
           </Box>))}
       </Box>
-      <Box sx={{ width: '25%', p: '19px 10px', height: '100vh', display: { xs: 'none', md: 'block' }, position:'sticky', top:'60px' }}>
+      <Box sx={{ width: '25%', p: '19px 10px', height: '100vh', display: { xs: 'none', md: 'block' }, position: 'sticky', top: '60px' }}>
 
         {/* --------Premium and Detail Section------------- */}
         <PremiumandHomeDetails />

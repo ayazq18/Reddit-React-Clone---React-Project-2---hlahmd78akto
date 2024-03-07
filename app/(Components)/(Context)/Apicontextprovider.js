@@ -253,8 +253,6 @@ export default function Apicontextprovider({ children }) {
         try {
             const formData = new FormData();
             formData.append('name', subredditname);
-            formData.append('content', description);
-            formData.append('images', postimage);
             const response = await fetch(`${Base_URL}/channel/`, {
                 method: 'Post',
                 headers: {

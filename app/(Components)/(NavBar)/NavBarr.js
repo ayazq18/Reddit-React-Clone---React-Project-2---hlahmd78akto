@@ -85,7 +85,7 @@ const NavBarr = ({ children }) => {
     return (
         <Box sx={{ position: 'relative',}}>
             <AppBar elevation={0} sx={{ height:'60px', backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, p: '0', zIndex: "10", border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
-                {popup['popcommunity'] && <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: { sx: '100%', md: '100vh' }, zIndex: '8', bgcolor: 'rgba(71, 58, 58, 0.758)' }}>
+                {popup['popcommunity'] && <Box sx={{position:'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: { sx: '100%', md: '100vh' }, zIndex: '8', bgcolor: 'rgba(71, 58, 58, 0.758)' }}>
                     <Box sx={{ zIndex: '9' }}><Community pop={pop} /></Box>
                 </Box>}
                 {loginpop && <Box sx={{ width: '100vw',height: '100vh', p:'20px', position: 'absolute', zIndex: '18', bgcolor: 'rgba(71, 58, 58, 0.758)' }}>
@@ -156,7 +156,7 @@ const NavBarr = ({ children }) => {
                         {/* ---------------------Dropdownsidenav----------------- */}
                         {token &&
                             <Box sx={{ borderRadius: '3px', width: '320px', height: 'auto', top: '-15px', border: `${popup['popsidenavbar'] && '1px solid #c9c7c7'}` }}>
-                                <Box onClick={() => handleToggleDropdown()} sx={{ position: 'relative', p: '10px', width: '100%', }}>
+                                <Box onClick={() => {handleToggleDropdown(), pop('')}} sx={{ position: 'relative', p: '10px', width: '100%', }}>
                                     <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'space-between' }}>
                                         <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', }}>
                                             <Typography sx={{ display: 'flex', alignItems: 'center', }}>{activeTabs === 'Home' ? home : popular}</Typography>
@@ -243,7 +243,7 @@ const NavBarr = ({ children }) => {
                                 (
                                     <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, flexGrow: 0, display: 'flex', alignItems: 'center', gap: '5px' }}>
                                         <Tooltip title="Popular">
-                                            <IconButton onClick={() => router.push('/Popular')} sx={{ p: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)', borderRadius: '50px' } }}>
+                                            <IconButton onClick={() =>{ router.push('/Popular'), pop('')}} sx={{ p: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)', borderRadius: '50px' } }}>
                                                 <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, }}>{popular}</Typography>
                                             </IconButton>
                                         </Tooltip>
