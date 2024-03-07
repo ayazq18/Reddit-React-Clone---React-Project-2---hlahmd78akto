@@ -338,7 +338,7 @@ const NavBarr = ({ children }) => {
                                             <MenuItem sx={{ display: 'flex', gap: '20px', alignItems: 'center', p: '0', color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: '#16282c7a' } }}>
                                                 <Avatar sx={{ visibility: 'hidden' }} />
                                                 Dark mode
-                                                <SwitchBtn theme={theme} switchLight={switchLight} switchDark={switchDark} />
+                                                <SwitchBtn />
                                             </MenuItem>
                                             <MenuItem onClick={() => { handleClose(), handleSignOut() }} sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: '#16282c7a' } }}>
                                                 <Logout fontSize="small" /> &nbsp;&nbsp;&nbsp;&nbsp;

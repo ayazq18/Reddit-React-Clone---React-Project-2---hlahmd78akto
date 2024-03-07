@@ -9,7 +9,7 @@ export const context = createContext()
 
 export const ContextProvider = ({ children }) => {
     const router = useRouter();
-
+    const [themetoggle, setthemetoggle] = useState(false)
     useEffect(()=>{
         if (localStorage.getItem('theme')) {
             setTheme (localStorage.getItem('theme'));
@@ -157,7 +157,7 @@ export const ContextProvider = ({ children }) => {
     }
 
     return (
-        <context.Provider value={{ homeorpopular, sethomeorpopular, setIsSignUp, isSignup, loginInfo, setloginInfo, activepostTabs, setuserprofilename, userprofilename, setActivepostTabs, postingTabs, router, handleTabs, activeTabs, setActiveTabs, switchDark, switchLight, theme, signUpdata, setSignUpdata, handleSignUp, handleSubmit, popup, setpopup, pop, loginpop, setloginpop, token, settoken }}>
+        <context.Provider value={{ homeorpopular, setthemetoggle, sethomeorpopular, setIsSignUp, isSignup, loginInfo, setloginInfo, activepostTabs, setuserprofilename, userprofilename, setActivepostTabs, postingTabs, router, handleTabs, activeTabs, setActiveTabs, switchDark, switchLight, theme, signUpdata, setSignUpdata, handleSignUp, handleSubmit, popup, setpopup, pop, loginpop, setloginpop, token, settoken }}>
             <div className={`${theme}`}>
                 {children}
             </div>

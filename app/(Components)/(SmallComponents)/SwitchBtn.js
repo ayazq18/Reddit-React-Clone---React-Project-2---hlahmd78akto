@@ -3,8 +3,11 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import { context } from '../(Context)/ContextProvider';
 
-export default function SwitchBtn({ theme, switchDark, switchLight }) {
+export default function SwitchBtn() {
+  const { theme, switchDark, switchLight, setthemetoggle } = React.useContext(context)
+
   const IOSSwitch = styled((props) => (
     <Switch focusVisibleClassName=".Mui-focusVisible" onChange={theme === 'light' ? switchDark : switchLight} checked={theme === "dark"} disableRipple {...props} />
   ))(({ theme }) => ({
