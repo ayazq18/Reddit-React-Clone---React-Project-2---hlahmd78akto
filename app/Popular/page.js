@@ -70,7 +70,7 @@ export default function Home() {
           </Box>)
           )}
       </Box>
-      <Box sx={{ width: '25%', p: '19px 10px', height: '100vh', display: { xs: 'none', md: 'block' } }}>
+      <Box sx={{ width: '25%', p: '19px 10px', height: '100vh', display: { xs: 'none', md: 'block' }, position:'sticky', top:'60px' }}>
 
         {/* --------Premium and Detail Section------------- */}
         <PremiumandHomeDetails />

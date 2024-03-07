@@ -53,7 +53,7 @@ export default function page() {
 
       </Box>
 
-      <Box sx={{ width: { xs: '100%', md: '48%' }, }}>
+      <Box sx={{ width: { xs: '100%', md: '48%' } }}>
         <Box width='100%' height='50px' sx={{ p: '10px', mb: '5px', borderBottom: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
         </Box>
         {post && post.map((item, index) => item.likeCount >= 5 && (
@@ -86,8 +86,8 @@ export default function page() {
 
       {/* -----------------PopularCommunities----------------- */}
 
-      <Box className='seemorecommunities' sx={{ display: { xs: 'none', md: 'block' }, position: 'sticky', top: '20px', width: '25%', mt: '20px', height: `${popup['seemorecommunities'] ? '80vh' : '480px'}`, overflowY: 'scroll', p: '20px', backgroundColor: `${theme === 'light' ? '#dae0e62a' : '#000'}`, borderRadius: '10px',border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`,  }}>
-        <PopularCommunities popup={popup} pop={pop}/>
+      <Box className='seemorecommunities' sx={{ display: { xs: 'none', md: 'block' }, position: 'sticky', top: '20px', width: '25%', mt: '20px', height: `${popup['seemorecommunities'] ? '80vh' : '480px'}`, overflowY: 'scroll', p: '20px', backgroundColor: `${theme === 'light' ? '#dae0e62a' : '#000'}`, borderRadius: '10px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
+        <PopularCommunities popup={popup} pop={pop} />
       </Box>
 
       {/* -----------------PopularCommunities----------------- */}

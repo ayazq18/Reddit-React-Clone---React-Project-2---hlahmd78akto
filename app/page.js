@@ -48,7 +48,7 @@ export default function Home() {
         {/* -----------------SideNavbar----------------- */}
       </Box>
 
-      <Box sx={{ width: { xs: '100%', md: '48%' }, }}>
+      <Box sx={{ width: { xs: '100%', md: '48%' }}}>
         <Box width='100%' height='50px' sx={{ p: '10px', mb: '5px', borderBottom: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`, }}></Box>
 
         {/* ------------------------Post Section---------------------------- */}

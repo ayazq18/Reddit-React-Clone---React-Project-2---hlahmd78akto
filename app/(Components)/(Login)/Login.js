@@ -44,12 +44,12 @@ export default function Login({ }) {
             justifyContent: 'center',
             alignItems: 'center',
             position: 'relative',
-            width: { xs: '100vw', md: '540px' }, height: '100vh', borderRadius: { xs: '0', md: '15px' },
+            width: { xs: '100vw', md: '540px' }, height: '90vh', borderRadius: { xs: '0', md: '15px' },
             position: 'absolute', left: { xs: '0px', md: '30%' },
             backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`,
           }}
         >
-          <Avatar onClick={() => { setloginpop(false), setSignUpdata({ name: '', email: '', password: '' }) }} sx={{ position: 'absolute', top: '10px', right: '20px', color: '#000', fontSize: '10px', bgcolor: 'rgba(236, 232, 232, 0.334)' }}>
+          <Avatar className='c' onClick={() => { setloginpop(false), setSignUpdata({ name: '', email: '', password: '' }) }} sx={{ position: 'absolute', top: '10px', right: '20px', color: '#000', fontSize: '10px', bgcolor: 'rgba(236, 232, 232, 0.334)' }}>
             <Close />
           </Avatar>
           <Box sx={{
@@ -79,7 +79,7 @@ export default function Login({ }) {
               </Box>
               <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', alignItems: 'center', gap: '10px', p: '5px', width: '100%', border: '3px solid rgba(236, 232, 232, 0.334)', borderRadius: '20px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
                 <Apple />
-                <Typography variant='p' sx={{ fontSize: '13px',color:'red' }}>Continue with Apple (Coming soon)</Typography>
+                <Typography variant='p' sx={{ fontSize: '13px',color:'red' }}>Continue with Apple (Feature Coming soon)</Typography>
               </Box>
             </Box>
 
@@ -96,6 +96,7 @@ export default function Login({ }) {
                 autoComplete="email"
                 type="email"
                 autoFocus
+                sx={{bgcolor:'white'}}
                 value={signUpdata.email}
                 onChange={(e) => setSignUpdata({ ...signUpdata, email: e.target.value })}
               />
@@ -107,6 +108,7 @@ export default function Login({ }) {
                   className='input'
                   value={signUpdata.password}
                   inputProps={{ min: 8 }}
+                  sx={{bgcolor:'white'}}
                   onChange={(e)=>handlepassword(e)}
                   endAdornment={
                     <InputAdornment position="end">
@@ -158,7 +160,8 @@ export default function Login({ }) {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  autoFocus
+                  // autoFocus
+                  sx={{bgcolor:'white'}}
                   InputProps={{ notched: false }}
                   value={signUpdata.email}
                   onChange={(e) => setSignUpdata({ ...signUpdata, email: e.target.value })}
@@ -179,7 +182,7 @@ export default function Login({ }) {
                 </Button>
                 {/* {!signUpdata.email.includes('@') && <Typography bgcolor='red'>invalid email</Typography>} */}
                 {popup['continue'] &&
-                  <Box sx={{ p: '50px', position: 'absolute', top: '0', left: '0px', width: { xs: '100vw', md: '520px' }, height: '100%', backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, borderRadius: { xs: 'none', md: '15px' }, zIndex: '2' }}>
+                  <Box sx={{ p: '50px', position: 'absolute', top: '0', left: '0px', width: { xs: '100vw', md: '100%' }, height: '100%', backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, borderRadius: { xs: 'none', md: '15px' }, zIndex: '2' }}>
                     <Typography onClick={() => pop('continue')} sx={{ position: 'absolute', top: '20px', left: '20px', width: '40px', height: '40px', p: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#fff'}`, borderRadius: '100%' } }}>{backicon}</Typography>
                     <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, width: '400px', p: '30px' }}>
                       <Typography component="h1" variant="h5" sx={{ fontWeight: '900' }}>
@@ -196,7 +199,8 @@ export default function Login({ }) {
                           label="name"
                           name="name"
                           autoComplete="text"
-                          autoFocus
+                          // autoFocus
+                          sx={{bgcolor:'white'}}
                           value={signUpdata.name}
                           onChange={(e) => setSignUpdata({ ...signUpdata, name: e.target.value })}
                         />
@@ -208,6 +212,7 @@ export default function Login({ }) {
                             className='input'
                             value={signUpdata.password}
                             inputProps={{ min: 8 }}
+                            sx={{bgcolor:'white'}}
                             onChange={(e) => setSignUpdata({ ...signUpdata, password: e.target.value })}
                             endAdornment={
                               <InputAdornment position="end">

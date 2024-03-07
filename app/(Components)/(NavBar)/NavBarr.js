@@ -83,13 +83,13 @@ const NavBarr = ({ children }) => {
 
 
     return (
-        <Box sx={{}}>
-            <AppBar elevation={0} sx={{ position: 'relative', height:'60px', backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, p: '0', zIndex: "10", border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
-                {popup['popcommunity'] && <Box sx={{ position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: { sx: '100%', md: '100vh' }, zIndex: '8', bgcolor: 'rgba(71, 58, 58, 0.758)' }}>
+        <Box sx={{ position: 'relative',}}>
+            <AppBar elevation={0} sx={{ height:'60px', backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, p: '0', zIndex: "10", border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
+                {popup['popcommunity'] && <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: { sx: '100%', md: '100vh' }, zIndex: '8', bgcolor: 'rgba(71, 58, 58, 0.758)' }}>
                     <Box sx={{ zIndex: '9' }}><Community pop={pop} /></Box>
                 </Box>}
-                {loginpop && <Box sx={{ width: '100vw', height: '100vh', position: 'absolute', zIndex: '18', bgcolor: 'rgba(71, 58, 58, 0.758)' }}>
-                    <Login />
+                {loginpop && <Box sx={{ width: '100vw',height: '100vh', p:'20px', position: 'absolute', zIndex: '18', bgcolor: 'rgba(71, 58, 58, 0.758)' }}>
+                    <Box sx={{}}><Login /></Box>
                 </Box>}
                 {popup['drawer'] &&
                     <Box p={2} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, zIndex: '100', position: 'absolute', top: '55px', display: { xs: 'block', md: 'none' }, width: '280px', height: '100vh', borderRight: '1px solid #2c2b2b15', backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, }}>
@@ -410,7 +410,7 @@ const NavBarr = ({ children }) => {
                     </Toolbar>
                 </Container>
             </AppBar>
-            <Box display='flex' gap='30px' sx={{ backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, }}>
+            <Box display='flex' gap='30px' sx={{ backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, mt:'60px'}}>
                 <Box>{children}</Box>
             </Box>
         </Box >
