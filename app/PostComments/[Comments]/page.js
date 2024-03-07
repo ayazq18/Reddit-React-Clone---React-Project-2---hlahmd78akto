@@ -85,7 +85,7 @@ console.log(props)
                         </Box>
                         <Box sx={{ position: 'absolute', top: '40px', left: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '4px', width: '80px', height: '80px', backgroundColor: `${theme === 'light' ? '#fff' : '#000'}` }}>
                             {userdata ? <img style={{ width: '70px', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={userdata.profileImage} />
-                                : <Typography variant='h6' sx={{ fontSize: '50px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', }}>{userdata.name.charAt(0)}</Typography>}
+                                : userdata.name && <Typography variant='h6' sx={{ fontSize: '50px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', }}>{userdata.name.charAt(0)}</Typography>}
                         </Box>
                         <Typography sx={{ m: '25px 0px 10px 15px', fontSize: '12px' }}>{userdata.name}</Typography>
                         <Box sx={{ p: '0 15px', width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
