@@ -8,8 +8,6 @@ import { arrowdown, arrowdowncliked, arrowup, arrowupclicked, comments, followed
 import { context } from "../../(Components)/(Context)/ContextProvider";
 import { apicontext } from "../../(Components)/(Context)/Apicontextprovider";
 import LikeDislike from "@/app/(Components)/(SmallComponents)/LikeDislike";
-import FilterandCreatePost from "@/app/(Components)/(SmallComponents)/FilterandCreatePost";
-import Userprofiledetails from "@/app/(Components)/(SmallComponents)/userprofiledetails";
 
 export default function UserProfile(props) {
     const { userprofilename, theme, pop, popup, router, loginInfo, } = useContext(context)

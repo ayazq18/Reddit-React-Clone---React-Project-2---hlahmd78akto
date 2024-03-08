@@ -24,7 +24,7 @@ export default function Comments(props) {
             {item && userdata && <Box sx={{ width: '100vw', height: '100%', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '10px', flexDirection: { xs: 'column-Reverse', md: 'row' } }}>
 
                 {/* ---------------Follow unfollow popup------------------ */}
-                {popfollowuser && <Paper sx={{ display: 'flex', alignItems: 'center', gap: '15px', position: 'absolute', bottom: '100px', width: '40%', height: '60px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, zIndex: '9' }}>
+                {popfollowuser && <Paper sx={{ display: 'flex', alignItems: 'center', gap: '15px', position: 'absolute', top: '450px', width: '40%', height: '60px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, zIndex: '9' }}>
                     <Box display='flex' alignItems='center' justifyContent='center' borderRadius='5px 0 0 5px' bgcolor='red' height='100%' width='40px' color={`${theme === 'light' ? 'black' : '#fff'}`} sx={{ ":hover": { transform: 'scale(1.5)', borderRadius: '50px', transition: 'all 1s ease' } }} onClick={() => setpopfollowuser(false)}><Close /></Box>
                     {followbtntxt !== 'Follow' ? <Box display='flex' alignItems='center' gap='10px'><Typography sx={{ width: '30px' }}>{followedicon}</Typography><Typography variant="h5" sx={{ color: 'green', fontSize: '15px' }}>You Followed {userdata.name}</Typography></Box>
                         : <Box display='flex' alignItems='center' gap='10px'><Typography sx={{ width: '30px' }}>{followedicon}</Typography><Typography variant="h5" sx={{ color: 'red', fontSize: '15px' }}>You Unfollowed {userdata.name}</Typography></Box>}
@@ -106,7 +106,7 @@ export default function Comments(props) {
                         </Box>
                         <Box sx={{ display: 'flex', mt: '10px', p: '15px', justifyContent: 'flex-start', alignItems: 'center', gap: '10px' }}>
                             {userprofilename !== userdata.name ?
-                                <Button variant='contained' sx={{ width: '40%', p: '3px', fontSize: '14px', textTransform: 'revert', borderRadius: '20px', color: `${theme === 'light' ? '#fff' : '#000'}`, bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}` } }} onClick={() => { handlefollowuser(props.params.Comments), console.log(props.params.Comments) }}>{userdata.isFollowed === true ? 'Unfollow' : 'Follow'}</Button>
+                                <Button variant='contained' sx={{ width: '40%', p: '3px', fontSize: '14px', textTransform: 'revert', borderRadius: '20px', color: `${theme === 'light' ? '#fff' : '#000'}`, bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}` } }} onClick={() => { handlefollowuser(props.params.Comments)}}>{userdata.isFollowed === true ? 'Unfollow' : 'Follow'}</Button>
                                 :
                                 <Typography sx={{ width: '40%', p: '3px', fontSize: '14px', textTransform: 'uppercase', textAlign: 'center', color: `${theme === 'light' ? '#fff' : '#000'}`, bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}` } }}>My Profile</Typography>
                             }

@@ -496,7 +496,7 @@ export default function Apicontextprovider({ children }) {
         setpopfollowuser(!popfollowuser)
         setTimeout(() => {
             setpopfollowuser(false)
-        }, 3000);
+        }, 1000);
     }
 
 
