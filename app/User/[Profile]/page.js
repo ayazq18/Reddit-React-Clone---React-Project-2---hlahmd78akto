@@ -9,6 +9,7 @@ import { context } from "../../(Components)/(Context)/ContextProvider";
 import { apicontext } from "../../(Components)/(Context)/Apicontextprovider";
 import LikeDislike from "@/app/(Components)/(SmallComponents)/LikeDislike";
 import FilterandCreatePost from "@/app/(Components)/(SmallComponents)/FilterandCreatePost";
+import Userprofiledetails from "@/app/(Components)/(SmallComponents)/userprofiledetails";
 
 export default function UserProfile(props) {
     const { userprofilename, theme, pop, popup, router, loginInfo, } = useContext(context)
@@ -138,6 +139,7 @@ export default function UserProfile(props) {
                         {userdata.skills.map((item, index) => (<Typography variant="h6" sx={{ mb: '5px', fontSize: '14px', color: '#177ac5' }}>{item}</Typography>))}
                     </Box>}
                 </Box>
+                {/* <Userprofiledetails userprops={props}/> */}
             </Box>}
 
             {/* ---------------UserDetails sec------------------ */}

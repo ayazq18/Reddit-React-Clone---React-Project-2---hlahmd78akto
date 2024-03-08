@@ -12,6 +12,7 @@ import LikeDislike from "@/app/(Components)/(SmallComponents)/LikeDislike";
 export default function Comments(props) {
     const { theme, pop, popup, router, userprofilename } = useContext(context)
     const { getTimeDifference, formatDate, followbtntxt, item, liketoggle, disliketoggle, fetchCommentsPosts, userdata, setpopfollowuser, toggleuserfollow, fetchUserProfile, toggle, postingComments, setpostingComments, usercommenttoggle, popfollowuser, handlefollowuser, postcomments, fetchPostComments, fetchPostingComments, } = useContext(apicontext)
+
     useEffect(() => {
         fetchUserProfile(props.params.Comments)
         fetchCommentsPosts(props.searchParams.PostId)
@@ -47,7 +48,7 @@ export default function Comments(props) {
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
                                 {item.author.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.profileImage} />
                                     : <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{item.author.name.charAt(0)}</Typography>}
-                                {item && <Typography onClick={() => router.push(`/User/${item.author._id}`)} variant="p" sx={{ fontSize: '12px' }}>{item.author.name} &nbsp;.</Typography>}
+                                <Typography onClick={() => router.push(`/User/${item.author._id}`)} variant="p" sx={{ fontSize: '12px', fontWeight:'700' }}>{item.author.name} &nbsp;.</Typography>
                                 <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
                             </Box>
                             <Typography variant="h6" sx={{ fontSize: '12px', m: '10px' }}>{item.content}</Typography>
@@ -78,7 +79,7 @@ export default function Comments(props) {
 
                 {/* ---------------UserDetails sec------------------ */}
 
-                <Box sx={{ p: '19px 10px', height: '100%', width: { xs: '100%', md: '300px' } }}>
+                {userdata && <Box sx={{ p: '19px 10px', height: '100%', width: { xs: '100%', md: '300px' } }}>
                     <Box sx={{ position: 'relative', pb: '20px', mt: '0px', width: { xs: '100%', md: '300px' }, height: `${popup['moreoptions'] ? 'fit-content' : '300px'}`, borderRadius: '4px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
                         <Box sx={{ position: 'relative', width: '100%', height: '100px', borderRadius: '4px 4px 0 0', bgcolor: '#33a8ff', }}>
                         </Box>
@@ -105,7 +106,7 @@ export default function Comments(props) {
                         </Box>
                         <Box sx={{ display: 'flex', mt: '10px', p: '15px', justifyContent: 'flex-start', alignItems: 'center', gap: '10px' }}>
                             {userprofilename !== userdata.name ?
-                                <Button variant='contained' sx={{ width: '40%', p: '3px', fontSize: '14px', textTransform: 'revert', borderRadius: '20px', color: `${theme === 'light' ? '#fff' : '#000'}`, bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}` } }} onClick={() => { handlefollowuser(props.params.Profile) }}>{userdata.isFollowed === true ? 'Unfollow' : 'Follow'}</Button>
+                                <Button variant='contained' sx={{ width: '40%', p: '3px', fontSize: '14px', textTransform: 'revert', borderRadius: '20px', color: `${theme === 'light' ? '#fff' : '#000'}`, bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}` } }} onClick={() => { handlefollowuser(props.params.Comments), console.log(props.params.Comments) }}>{userdata.isFollowed === true ? 'Unfollow' : 'Follow'}</Button>
                                 :
                                 <Typography sx={{ width: '40%', p: '3px', fontSize: '14px', textTransform: 'uppercase', textAlign: 'center', color: `${theme === 'light' ? '#fff' : '#000'}`, bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#33a8ff' : '#fff'}` } }}>My Profile</Typography>
                             }
@@ -118,7 +119,7 @@ export default function Comments(props) {
                             {userdata.skills.map((item, index) => (<Typography variant="h6" sx={{ mb: '5px', fontSize: '14px', color: '#177ac5' }}>{item}</Typography>))}
                         </Box>}
                     </Box>
-                </Box>
+                </Box>}
 
                 {/* ---------------UserDetails sec------------------ */}
 
