@@ -49,7 +49,7 @@ export default function ParentComment({ itemcomment, index, }) {
                         </Box>
                         <Box position='relative'>
                             {data._id == loginInfo && <MoreHoriz onClick={() => handledeletecomment(itemcomment._id)} />}
-                            {popupdelete == itemcomment._id && <Box sx={{ zIndex: '9', position: 'absolute', right: '0', p: '10px', bgcolor: 'red', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.934)' : 'rgba(224, 224, 247, 0.14)'}`, color: `${theme === 'light' ? '#000' : '#fff'}`, }}>
+                            {popupdelete == itemcomment._id && <Box sx={{ zIndex: '9', position: 'absolute', bottom:'10px', right: '22px', p: '10px', bgcolor: 'red', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, border: `1px solid ${theme === 'light' ? 'rgba(236, 232, 232, 0.934)' : 'rgba(224, 224, 247, 0.14)'}`, color: `${theme === 'light' ? '#000' : '#fff'}`, }}>
                                 <Box onClick={() => fetchDeleteComments(itemcomment._id)} sx={{ p: '10px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
                                     <DeleteOutline />
                                     <Typography variant="h6" sx={{ fontSize: '14px' }}>Delete Comment</Typography>
