@@ -12,7 +12,6 @@ import LikeDislike from "@/app/(Components)/(SmallComponents)/LikeDislike";
 export default function Comments(props) {
     const { theme, pop, popup, token, router, userprofilename } = useContext(context)
     const { sort, handleselect, getTimeDifference, formatDate, followbtntxt, item, liketoggle, disliketoggle, setCommentsPost, fetchCommentsPosts, userdata, setpopfollowuser, toggleuserfollow, fetchUserProfile, toggle, postingComments, setpostingComments, usercommenttoggle, popfollowuser, handlefollowuser, postcomments, fetchPostComments, fetchPostingComments, } = useContext(apicontext)
-console.log(props)
     useEffect(() => {
         fetchUserProfile(props.params.Comments)
         fetchCommentsPosts(props.searchParams.PostId)
@@ -21,7 +20,7 @@ console.log(props)
 
     return (
         <>
-            {item && <Box sx={{ width: '100vw', height: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '10px', flexDirection: { xs: 'column-Reverse', md: 'row' } }}>
+            {item && userdata && <Box sx={{ width: '100vw', height: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '10px', flexDirection: { xs: 'column-Reverse', md: 'row' } }}>
 
                 {/* ---------------Follow unfollow popup------------------ */}
                 {popfollowuser && <Paper sx={{ display: 'flex', alignItems: 'center', gap: '15px', position: 'absolute', bottom: '100px', width: '40%', height: '60px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, zIndex: '9' }}>
@@ -84,7 +83,7 @@ console.log(props)
                         <Box sx={{ position: 'relative', width: '100%', height: '100px', borderRadius: '4px 4px 0 0', bgcolor: '#33a8ff', }}>
                         </Box>
                         <Box sx={{ position: 'absolute', top: '40px', left: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '4px', width: '80px', height: '80px', backgroundColor: `${theme === 'light' ? '#fff' : '#000'}` }}>
-                            {userdata && userdata.name ? <img style={{ width: '70px', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={userdata.profileImage} />
+                            {userdata.profileImage !== null ? <img style={{ width: '70px', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={userdata.profileImage} />
                                 : <Typography variant='h6' sx={{ fontSize: '50px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', }}>{userdata.name.charAt(0)}</Typography>}
                         </Box>
                         <Typography sx={{ m: '25px 0px 10px 15px', fontSize: '12px' }}>{userdata.name}</Typography>

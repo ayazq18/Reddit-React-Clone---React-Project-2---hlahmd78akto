@@ -6,43 +6,43 @@ import React, { useContext, useEffect, useState } from 'react'
 import { context } from '../(Context)/ContextProvider'
 import { apicontext } from '../(Context)/Apicontextprovider'
 
-export default function ChildComment({itemcomment, index, item }) {
-    const { theme, token, userprofilename, loginInfo} = useContext(context)
-    const { popupdelete, handledeletecomment, fetchDeleteComments, getTimeDifference} = useContext(apicontext)
+export default function ChildComment({ index, item }) {
+    const { theme, token, userprofilename, loginInfo } = useContext(context)
+    const { popupdelete, handledeletecomment, fetchDeleteComments, getTimeDifference } = useContext(apicontext)
     const [childcommentdata, setchildcommentdata] = useState()
-        // -------------------Fetch Userdata for comments section------------------
+    // -------------------Fetch Userdata for comments section------------------
 
-        const fetchuserdata = async (val) => {
-            try {
-                const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/user/${val}`, {
-                    method: 'GET',
-                    headers: {
-                        'ProjectID': 'hlahmd78akto',
-                        'Authorization': `Bearer ${token}`,
-                        "Content-Type": "application/json",
-                    }
-                })
-                const result = await response.json();
-                setchildcommentdata(result.data)
-            }
-            catch (error) {
-                console.log(error)
-            }
+    const fetchuserdata = async (val) => {
+        try {
+            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/user/${val}`, {
+                method: 'GET',
+                headers: {
+                    'ProjectID': 'hlahmd78akto',
+                    'Authorization': `Bearer ${token}`,
+                    "Content-Type": "application/json",
+                }
+            })
+            const result = await response.json();
+            setchildcommentdata(result.data)
         }
-        // -------------------Fetch User Profile------------------
-    useEffect(()=>{
-    fetchuserdata(item.author)
+        catch (error) {
+            console.log(error)
+        }
+    }
+    // -------------------Fetch User Profile------------------
+    useEffect(() => {
+        fetchuserdata(item.author)
     }, [])
-    
+
     return (
         <>{childcommentdata &&
-        <Box key={index} sx={{ width: '100%', border: `1px solid ${theme === 'light' ? '#fff' : '#000'}`, p: '10px', }}>
+            <Box key={index} sx={{ width: '100%', border: `1px solid ${theme === 'light' ? '#fff' : '#000'}`, p: '10px', }}>
                 <Box key={index} sx={{ width: '100%', bgcolor: '#0079d30d', border: `1px solid ${theme === 'light' ? '#fff' : '#000'}`, p: '10px', }}>
                     <Box sx={{ width: '100%', pl: '10px', borderLeft: `.5px dashed ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
                         <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                            {childcommentdata.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={childcommentdata.profileImage} />
-                                : <Typography variant='h6' sx={{fontSize:'12px',fontWeight:'700', textTransform:'uppercase', p:'2px 7px', borderRadius:'100%',backgroundColor: '#808080'}}>{childcommentdata.name.charAt(0)}</Typography>}
+                                {childcommentdata.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={childcommentdata.profileImage} />
+                                    : <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{childcommentdata.name.charAt(0)}</Typography>}
                                 <Typography variant="h6" sx={{ fontSize: '12px' }}>{childcommentdata.name}</Typography>
                                 <Typography variant="h4" sx={{ fontSize: '12px', color: '#808080' }}>.&nbsp;&nbsp;{getTimeDifference(item.createdAt)}</Typography>
                             </Box>
@@ -56,10 +56,10 @@ export default function ChildComment({itemcomment, index, item }) {
                                 </Box>}
                             </Box>
                         </Box>
-                        <Typography variant="h6" sx={{ fontSize: '14px', ml:'25px' }}>{item.content}</Typography>
+                        <Typography variant="h6" sx={{ fontSize: '14px', ml: '25px' }}>{item.content}</Typography>
                     </Box>
                 </Box>
-        </Box>
+            </Box>
         }</>
     )
 }

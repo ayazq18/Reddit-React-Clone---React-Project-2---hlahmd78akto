@@ -60,7 +60,7 @@ export default function ParentComment({ itemcomment, index, }) {
                     <Typography variant="h6" sx={{ fontSize: '14px', ml:'25px' }}>{itemcomment.content}</Typography>
                 </Box>
                 {itemcomment.children.map((item, index) => (
-                    <ChildComment item={item} itemcomment={itemcomment} />
+                    <ChildComment key={index} item={item} index={index} />
                 ))}
 
             </Box>}
