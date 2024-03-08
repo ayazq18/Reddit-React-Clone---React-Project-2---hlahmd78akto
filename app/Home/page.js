@@ -33,7 +33,7 @@ export default function Home() {
               <LikeDislike item={item} />
               {/* -------Like Dislike Component---------- */}
             </Box>
-            <Box sx={{ p: '10px', width: { xs: '100vw', md: '50vw' },}}>
+            <Box sx={{ p: '10px', width: '92%'}}>
               <Box className="c" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Box className="c" sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
                   {item.author.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.profileImage} />
