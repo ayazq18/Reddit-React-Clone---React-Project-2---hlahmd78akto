@@ -10,8 +10,8 @@ import ParentComment from "@/app/(Components)/(ParentComment)/ParentComment";
 import LikeDislike from "@/app/(Components)/(SmallComponents)/LikeDislike";
 
 export default function Comments(props) {
-    const { theme, pop, popup, token, router, userprofilename } = useContext(context)
-    const { sort, handleselect, getTimeDifference, formatDate, followbtntxt, item, liketoggle, disliketoggle, setCommentsPost, fetchCommentsPosts, userdata, setpopfollowuser, toggleuserfollow, fetchUserProfile, toggle, postingComments, setpostingComments, usercommenttoggle, popfollowuser, handlefollowuser, postcomments, fetchPostComments, fetchPostingComments, } = useContext(apicontext)
+    const { theme, pop, popup, router, userprofilename } = useContext(context)
+    const { getTimeDifference, formatDate, followbtntxt, item, liketoggle, disliketoggle, fetchCommentsPosts, userdata, setpopfollowuser, toggleuserfollow, fetchUserProfile, toggle, postingComments, setpostingComments, usercommenttoggle, popfollowuser, handlefollowuser, postcomments, fetchPostComments, fetchPostingComments, } = useContext(apicontext)
     useEffect(() => {
         fetchUserProfile(props.params.Comments)
         fetchCommentsPosts(props.searchParams.PostId)
@@ -20,7 +20,7 @@ export default function Comments(props) {
 
     return (
         <>
-            {item && userdata && <Box sx={{ width: '100vw', height: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '10px', flexDirection: { xs: 'column-Reverse', md: 'row' } }}>
+            {item && userdata && <Box sx={{ width: '100vw', height: '100%', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '10px', flexDirection: { xs: 'column-Reverse', md: 'row' } }}>
 
                 {/* ---------------Follow unfollow popup------------------ */}
                 {popfollowuser && <Paper sx={{ display: 'flex', alignItems: 'center', gap: '15px', position: 'absolute', bottom: '100px', width: '40%', height: '60px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, zIndex: '9' }}>
@@ -45,8 +45,8 @@ export default function Comments(props) {
                         </Box>
                         <Box sx={{ width: '100%', }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
-                                {item.image ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.image} />
-                                    : item.author.name && <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{item.author.name.charAt(0)}</Typography>}
+                                {item.author.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.profileImage} />
+                                    : <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{item.author.name.charAt(0)}</Typography>}
                                 {item && <Typography onClick={() => router.push(`/User/${item.author._id}`)} variant="p" sx={{ fontSize: '12px' }}>{item.author.name} &nbsp;.</Typography>}
                                 <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
                             </Box>
@@ -83,8 +83,8 @@ export default function Comments(props) {
                         <Box sx={{ position: 'relative', width: '100%', height: '100px', borderRadius: '4px 4px 0 0', bgcolor: '#33a8ff', }}>
                         </Box>
                         <Box sx={{ position: 'absolute', top: '40px', left: '10px', display: 'flex', justifyContent: 'center', alignItems: 'center', borderRadius: '4px', width: '80px', height: '80px', backgroundColor: `${theme === 'light' ? '#fff' : '#000'}` }}>
-                            {userdata.profileImage !== null ? <img style={{ width: '70px', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={userdata.profileImage} />
-                                : <Typography variant='h6' sx={{ fontSize: '50px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', }}>{userdata.name.charAt(0)}</Typography>}
+                            {userdata.profileImage && <img style={{ width: '70px', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={userdata.profileImage} />}
+                            {userdata.profileImage === null && <Typography variant='h6' sx={{ fontSize: '50px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', }}>{userdata.name.charAt(0)}</Typography>}
                         </Box>
                         <Typography sx={{ m: '25px 0px 10px 15px', fontSize: '12px' }}>{userdata.name}</Typography>
                         <Box sx={{ p: '0 15px', width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
