@@ -20,20 +20,20 @@ export default function Home() {
   return (
     <Box className='home' sx={{ width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#0b1416'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
       
-      <Box sx={{ width: { xs: '100%', md: '50vw' } }}>
+      <Box sx={{ width: { xs: '100%', md: '50%' } }}>
 
         {/* --------Create post and Filters------------- */}
         <FilterandCreatePost />
         {/* --------Create post and Filters------------- */}
 
         {post && post.map((item, index) => (
-          <Box key={index} sx={{ width: '50vw', display: 'flex', gap: '5px', mb: '10px', borderRadius: '3px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, backgroundColor: `${theme === 'light' ? '#fff' : '#091113'}`, ":hover": { border: `${theme === 'light' ? '1px solid #808080' : '1px solid white'}` } }}>
+          <Box key={index} sx={{ width: { xs: '100%', md: '100%' }, display: 'flex', gap: '5px', mb: '10px', borderRadius: '3px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, backgroundColor: `${theme === 'light' ? '#fff' : '#091113'}`, ":hover": { border: `${theme === 'light' ? '1px solid #808080' : '1px solid white'}` } }}>
             <Box sx={{width:'7%', p: '10px', borderRadius: '3px 0 0 3px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, boxSizing: 'border-box' }}>
               {/* -------Like Dislike Component---------- */}
               <LikeDislike item={item} />
               {/* -------Like Dislike Component---------- */}
             </Box>
-            <Box sx={{ p: '10px', width: '92%',}}>
+            <Box sx={{ p: '10px', width: { xs: '100vw', md: '50vw' },}}>
               <Box className="c" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                 <Box className="c" sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
                   {item.author.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.profileImage} />
