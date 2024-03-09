@@ -37,21 +37,21 @@ export default function Comments(props) {
                     {/* ---------------Post section------------------ */}
 
                     <Box sx={{ width: { xs: '100%', md: '100%' }, display: 'flex', gap: '5px', m: '20px 0', borderRadius: '3px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, ":hover": { border: `${theme === 'light' ? '1px solid #808080' : '1px solid white'}` } }}>
-                        <Box sx={{ p: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '3px 0 0 3px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, boxSizing: 'border-box' }}>
+                        <Box sx={{width:'7%', p: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', borderRadius: '3px 0 0 3px', backgroundColor: `${theme === 'light' ? '#f6f7f8' : '#111113'}`, boxSizing: 'border-box' }}>
 
                             {/* ---------------LikeDislike section------------------ */}
                             <LikeDislike item={item} />
                             {/* ---------------LikeDislike section------------------ */}
 
                         </Box>
-                        <Box sx={{ width: '100%', }}>
+                        <Box sx={{ width: '92%', }}>
                             <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', p: '5px 0' }}>
                                 {item.author.profileImage ? <img style={{ width: '1rem', borderRadius: '4px' }} className="_2TN8dEgAQbSyKntWpSPYM7 _3Y33QReHCnUZm9ewFAsk8C" src={item.author.profileImage} />
                                     : <Typography variant='h6' sx={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', p: '2px 7px', borderRadius: '100%', backgroundColor: '#808080' }}>{item.author.name.charAt(0)}</Typography>}
                                 <Typography onClick={() => router.push(`/User/${item.author._id}`)} variant="p" sx={{ fontSize: '14px', fontWeight:'700' }}>{item.author.name} &nbsp;.</Typography>
                                 <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
                             </Box>
-                            <Typography variant="h6" sx={{ fontSize: '12px', m: '10px' }}>{item.content}</Typography>
+                            <Typography variant="h6" sx={{ fontSize: '18px', overflowWrap: 'break-word', wordWrap: 'break-word', mb: '10px'}}>{item.content}</Typography>
                             <img style={{ width: '100%', }} src={item.images} />
                             <Box display='flex' alignItems='center' gap='10px' sx={{ p: '10px 0', height: '50px' }}>
                                 <Box sx={{ display: 'flex', alignItems: 'center', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>

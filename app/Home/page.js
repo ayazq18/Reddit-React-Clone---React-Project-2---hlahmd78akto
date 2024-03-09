@@ -55,7 +55,7 @@ export default function Home() {
                   </Box>}
                 </Box>}
               </Box>
-              <Typography variant="h6" sx={{ fontSize: '18px',  overflowWrap: 'break-word', wordWrap: 'break-word', mb: '10px'}}>{item.content}</Typography>
+              <Typography variant="h6" sx={{ fontSize: '18px', overflowWrap: 'break-word', wordWrap: 'break-word', mb: '10px'}}>{item.content}</Typography>
 
               <img style={{ width: '100%', }} src={item.images[0]} />
 

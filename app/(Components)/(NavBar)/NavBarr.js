@@ -238,8 +238,11 @@ const NavBarr = ({ children }) => {
                                         </Box>
                                     )))
                                     }
-                                    {searchresults.length === 0 && <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                    {searchresults.length === 0 && <Box sx={{ display: 'flex', flexDirection: 'column',alignItems: 'center' }}>
+                                        <Box sx={{display: 'flex',justifyContent:'center', alignItems: 'flex-end' }}>
+                                        <video style={{ width: '20%', }} src='https://cdnl.iconscout.com/lottie/premium/preview-watermark/content-missing-6023278-5017533.mp4' autoPlay loop />
                                         <img src="https://www.redditstatic.com/shreddit/assets/hmm-snoo.png" srcset="" sizes="" alt="Image of a wondering Snoo" />
+                                        </Box>
                                         <Typography variant='h6' >No search results available!</Typography>
                                     </Box>}
                                 </Paper>}

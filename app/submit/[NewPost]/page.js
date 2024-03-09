@@ -63,7 +63,7 @@ export default function CreatePost(props) {
 
   return (
     <Box sx={{ width: '100vw', height: '100%', p: '20px 0 0 0', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#091113'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
-      {popup['createcommunity'] && <Box sx={{ position: 'absolute', top: '65px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100%', zIndex: '90', bgcolor: 'rgba(24, 23, 23, 0.923)' }}>
+      {popup['createcommunity'] && <Box sx={{ position: 'absolute', top: '0px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: '100%', zIndex: '90', bgcolor: 'rgba(24, 23, 23, 0.923)' }}>
         <Box sx={{ zIndex: '9' }}><Community pop={pop} /></Box>
       </Box>}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px', boxSizing: 'border-box', width: { xs: '100%', md: '55%', } }}>
