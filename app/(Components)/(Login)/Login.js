@@ -167,8 +167,8 @@ export default function Login({ }) {
                   onChange={(e) => setSignUpdata({ ...signUpdata, email: e.target.value })}
                 />
                 <Grid item>
-                  <Box variant="p" mt={2} display='flex' alignItems='center' gap='5px' fontSize='12px' color={`${theme === 'light' ? '#000' : '#fff'}`}>
-                    Already a Redditor? <Typography fontSize='12px' onClick={() => { setIsSignUp(true), setSignUpdata({ name: '', email: '', password: '' }) }}>Log In</Typography>
+                  <Box variant="p" mt={2} display='flex' alignItems='center' gap='5px' fontSize='12px' color={`${theme === 'light' ? 'blue' : '#fff'}`}>
+                    Already a Redditor? <Typography className='c' fontSize='12px' onClick={() => { setIsSignUp(true), setSignUpdata({ name: '', email: '', password: '' }) }}>Log In</Typography>
                   </Box>
                 </Grid>
                 <Button
