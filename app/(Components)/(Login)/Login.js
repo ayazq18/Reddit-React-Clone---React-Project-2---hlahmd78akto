@@ -129,7 +129,7 @@ export default function Login({ }) {
               <Grid >
                 <Grid item>
                   <Box variant="p" mt='10px' display='flex' alignItems='center' gap='5px' fontSize='12px' color={`${theme === 'light' ? '#000' : '#fff'}`} >
-                    New to Reddit? <Typography className='c' fontSize='12px' color={`${theme=='light' ? 'blue' : 'green'}`} onClick={() => { setIsSignUp(false), setSignUpdata({ name: '', email: '', password: '' }) }}>Sign Up</Typography>
+                    New to Reddit? <Typography className='c' fontSize='12px' color={`${theme=='light' ? 'blue' : 'Yellow'}`} onClick={() => { setIsSignUp(false), setSignUpdata({ name: '', email: '', password: '' }) }}>Sign Up</Typography>
                   </Box>
                 </Grid>
               </Grid>
