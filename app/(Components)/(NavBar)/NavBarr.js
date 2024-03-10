@@ -174,10 +174,10 @@ const NavBarr = ({ children }) => {
                                                 <Box sx={{ display: 'flex', flexDirection: 'column', }}>
                                                     <Box sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: '10px', borderRadius: '10px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography variant='p' sx={{ fontSize: '13px', letterSpacing: '2px', }}>COMMUNITY</Typography><Typography sx={{ display: 'flex', alignItems: 'center', transition: 'all .5s ease' }}>{communitydropdown}</Typography></Box>
                                                     <Box sx={{ width: '100%' }}>
-                                                        <IconButton onClick={() => pop('popcommunity')} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '7px', borderRadius: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
+                                                        {/* <IconButton onClick={() => pop('popcommunity')} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '7px', borderRadius: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                                                             <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', }}>{createicon}</Typography>
                                                             <Typography variant='h6' sx={{ fontSize: '14px', textWrap: 'nowrap' }}>Create a community</Typography>
-                                                        </IconButton>
+                                                        </IconButton> */}
 
                                                         {/* ---------------Channel mapping---------------- */}
                                                         {channel && channel.map((item, index) => (

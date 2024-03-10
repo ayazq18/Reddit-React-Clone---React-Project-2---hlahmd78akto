@@ -129,7 +129,7 @@ export default function Login({ }) {
               <Grid >
                 <Grid item>
                   <Box variant="p" mt='10px' display='flex' alignItems='center' gap='5px' fontSize='12px' color={`${theme === 'light' ? '#000' : '#fff'}`} >
-                    New to Reddit? <Typography fontSize='12px' color={`${theme=='light' ? 'blue' : 'green'}`} onClick={() => { setIsSignUp(false), setSignUpdata({ name: '', email: '', password: '' }) }}>Sign Up</Typography>
+                    New to Reddit? <Typography className='c' fontSize='12px' color={`${theme=='light' ? 'blue' : 'green'}`} onClick={() => { setIsSignUp(false), setSignUpdata({ name: '', email: '', password: '' }) }}>Sign Up</Typography>
                   </Box>
                 </Grid>
               </Grid>
@@ -168,7 +168,7 @@ export default function Login({ }) {
                 />
                 <Grid item>
                   <Box variant="p" mt={2} display='flex' alignItems='center' gap='5px' fontSize='12px' color={`${theme === 'light' ? '#000' : '#fff'}`}>
-                    Already a Redditor? <Typography fontSize='12px' color='blue' onClick={() => { setIsSignUp(true), setSignUpdata({ name: '', email: '', password: '' }) }}>Log In</Typography>
+                    Already a Redditor? <Typography className='c' fontSize='12px' color='blue' onClick={() => { setIsSignUp(true), setSignUpdata({ name: '', email: '', password: '' }) }}>Log In</Typography>
                   </Box>
                 </Grid>
                 <Button
