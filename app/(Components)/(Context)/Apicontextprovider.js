@@ -262,8 +262,9 @@ export default function Apicontextprovider({ children }) {
                 body: formData
             })
             const result = await response.json();
+            console.log(result)
             settoggle(!toggle)
-            router.push('Home')
+            router.push(`/Community/${result.data._id}`)
         }
         catch (error) {
             console.log(error)

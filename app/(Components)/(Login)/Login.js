@@ -49,7 +49,7 @@ export default function Login({ }) {
             backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`,
           }}
         >
-          <Avatar className='c' onClick={() => { setloginpop(false), setSignUpdata({ name: '', email: '', password: '' }) }} sx={{ position: 'absolute', top: '10px', right: '20px', color: '#000', fontSize: '10px', bgcolor: 'rgba(236, 232, 232, 0.334)' }}>
+          <Avatar className='c' onClick={() => { setloginpop(false), setIsSignUp(true), setSignUpdata({ name: '', email: '', password: '' }) }} sx={{ position: 'absolute', top: '10px', right: '20px', color: '#000', fontSize: '10px', bgcolor: 'rgba(236, 232, 232, 0.334)' }}>
             <Close />
           </Avatar>
           <Box sx={{
@@ -167,23 +167,24 @@ export default function Login({ }) {
                   onChange={(e) => setSignUpdata({ ...signUpdata, email: e.target.value })}
                 />
                 <Grid item>
-                  <Box variant="p" mt={2} display='flex' alignItems='center' gap='5px' fontSize='12px' color={`${theme === 'light' ? 'blue' : '#fff'}`}>
-                    Already a Redditor? <Typography className='c' fontSize='12px' onClick={() => { setIsSignUp(true), setSignUpdata({ name: '', email: '', password: '' }) }}>Log In</Typography>
+                  <Box variant="p" display='flex' alignItems='center' gap='5px' fontSize='12px' color={`${theme === 'light' ? 'black' : 'white'}`}>
+                    Already a Redditor? <Typography className='c' fontSize='12px' color={`${theme === 'light' ? 'blue' : 'yellow'}`} onClick={() => { setIsSignUp(true), setSignUpdata({ name: '', email: '', password: '' }) }}>Log In</Typography>
                   </Box>
                 </Grid>
                 <Button
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 15, mb: 2, p: '10px 0', bgcolor: '#d93a00', borderRadius: '20px' }}
-                  onClick={() => pop('continue')}
+                  disabled={signUpdata.email === ''}
+                  sx={{ mt: 5, mb: 2, p: '10px 0', bgcolor: '#d93a00', borderRadius: '20px', border:'1p solid red' }}
+                  onClick={() => pop('continue') }
                 >
                   Continue
                 </Button>
                 {/* {!signUpdata.email.includes('@') && <Typography bgcolor='red'>invalid email</Typography>} */}
                 {popup['continue'] &&
-                  <Box sx={{ p: '50px', position: 'absolute', top: '0', left: '0px', width: { xs: '100vw', md: '100%' },  backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, borderRadius: { xs: 'none', md: '15px' }, zIndex: '2' }}>
-                    <Typography onClick={() => pop('continue')} sx={{ position: 'absolute', top: '20px', left: '20px', width: '40px', height: '40px', p: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#fff'}`, borderRadius: '100%' } }}>{backicon}</Typography>
+                  <Box sx={{ p: '50px', position: 'absolute', top: '0', left: '0px', width: { xs: '100vw', md: '100%' }, backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, borderRadius: { xs: 'none', md: '15px' }, zIndex: '2' }}>
+                    <Typography onClick={() => {pop('continue'), setSignUpdata({ ...signUpdata, isChecked: false })}} sx={{ position: 'absolute', top: '20px', left: '20px', width: '40px', height: '40px', p: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#fff'}`, borderRadius: '100%' } }}>{backicon}</Typography>
                     <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, width: '400px', p: '30px' }}>
                       <Typography component="h1" variant="h5" sx={{ fontWeight: '900' }}>
                         Create your name and password

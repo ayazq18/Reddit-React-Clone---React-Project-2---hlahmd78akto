@@ -84,13 +84,14 @@ export const ContextProvider = ({ children }) => {
                 const result = await response.json()
                 if (result.status==='success') {
                     localStorage.setItem('token', result.token)
-                    localStorage.setItem('_id', result.data._id)
+                    localStorage.setItem('_id', result.data.user._id)
                     localStorage.setItem('name', result.data.user.name)
                     setuserprofilename(result.data.user.name)
+                    settoken(result.token)
+                    setloginInfo(result.data.user._id)
                     setloginpop(false)
                     setIsSignUp(false)
-                    settoken(result.token)
-                    setloginInfo(result.data._id)
+                    setpopup({})
                     setSignUpdata({ name: '', email: '', password: '' })
                     setTimeout(() => {
                         router.push('/Home')

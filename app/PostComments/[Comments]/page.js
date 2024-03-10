@@ -21,7 +21,7 @@ export default function Comments(props) {
 
     return (
         <>
-            {item && userdata && <Box sx={{ width: '100vw', height: '100%', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '10px', flexDirection: { xs: 'column-Reverse', md: 'row' } }}>
+            {item && userdata && <Box sx={{ width: '100vw', height: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#000'}`, display: 'flex', justifyContent: 'center', alignItems: 'flex-start', gap: '10px', flexDirection: { xs: 'column-Reverse', md: 'row' } }}>
 
                 {/* ---------------Follow unfollow popup------------------ */}
                 {popfollowuser && <Paper sx={{ display: 'flex', alignItems: 'center', gap: '15px', position: 'absolute', top: '450px', width: '40%', height: '60px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, zIndex: '9' }}>

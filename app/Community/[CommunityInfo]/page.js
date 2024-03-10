@@ -2,7 +2,7 @@
 import { apicontext } from '@/app/(Components)/(Context)/Apicontextprovider'
 import { arrowdown, arrowup, comments, communityprofile, share } from '@/app/(Components)/(Constants)/Asset'
 import { context } from '@/app/(Components)/(Context)/ContextProvider'
-import { Cake, CircleNotificationsOutlined, LocalFireDepartment, MoreHoriz, NewReleasesTwoTone, NotificationAdd, Notifications, Publish, Rocket, VisibilityOff } from '@mui/icons-material'
+import { Cake, CircleNotificationsOutlined, LocalFireDepartment, MobileFriendly, MoreHoriz, NewReleasesTwoTone, NotificationAdd, Notifications, Publish, Rocket, VisibilityOff } from '@mui/icons-material'
 import { Typography, Button, MenuItem, Tooltip } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useContext, useEffect, useState } from 'react'
@@ -126,7 +126,7 @@ export default function CommunityInfo(props) {
                                         {channelid && <Typography variant='h6' sx={{ fontSize: '15px', fontWeight: '700', color: `${theme === 'light' ? '#808080' : '#fff'}` }}>r/{channelid.name}</Typography>}
                                     </Box>
                                     <Box sx={{ width: '100%', height: '10vh', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                        <Button variant='outlined' onClick={() => setjoin(!join)} sx={{ width: '100px', p: '5px', borderRadius: '50px', fontSize: '16px', fontWeight: '900', textTransform: 'revert', color: `${theme === 'light' ? 'blue' : '#fff'}`, }}>{join ? "Leave" : "Join"}</Button>
+                                        {channelid.owner._id !== loginInfo && <Button variant='outlined' onClick={() => setjoin(!join)} sx={{ width: '100px', p: '5px', borderRadius: '50px', fontSize: '16px', fontWeight: '900', textTransform: 'revert', color: `${theme === 'light' ? 'blue' : '#fff'}`, }}>{join ? "Leave" : "Join"}</Button>}
                                         {join && <Box sx={{ border: '1px solid blue', borderRadius: "50%", p: '5px', display: 'flex', alignItems: 'center', }}><Tooltip title='Option coming soon'><Notifications sx={{ color: 'blue', width: '25px', height: '25px' }} /></Tooltip></Box>}
                                         <Box position='relative' sx={{ cursor: 'pointer' }} >
                                             {channelid.owner._id === loginInfo && <MoreHoriz onClick={() => pop('deleteChannelpop')} />}
@@ -200,8 +200,13 @@ export default function CommunityInfo(props) {
                             </Box>
                             {channelid && <Typography sx={{ p: '10px', fontWeight: '500', color: `${theme === 'light' ? '#000' : '#fff'}`, }}>{channelid.description}</Typography>}
                             <Tooltip title='Created at'>
-                                <Box sx={{ p: '10px', display: 'flex', alignItems: 'center', gap: '10px', }}>
-                                    {channelid && <><Cake /><Typography>Created {formatDate(channelid.createdAt)}</Typography></>}
+                                <Box sx={{ p: '10px', alignItems: 'center', gap: '10px', }}>
+                                    {channelid && <>
+                                    <Box sx={{ p: '10px', display:'flex', alignItems: 'center', gap: '5px', }}><Typography sx={{fontWeight:'700'}}>Owner:</Typography><Typography sx={{ p: '10px',}}>{channelid.owner.name}</Typography></Box>
+                                    <Box sx={{ p: '10px', display:'flex', alignItems: 'center', gap: '10px', }}><MobileFriendly/><Typography>{channelid.owner.email}</Typography></Box>
+                                    <Box sx={{ p: '10px', display:'flex', alignItems: 'center', gap: '10px', }}><Cake /><Typography>Created {formatDate(channelid.createdAt)}</Typography></Box>
+                                    </>
+                                    }
                                 </Box>
                             </Tooltip>
                             {/* <Box sx={{ display: 'flex', justifyContent: 'space-between', width: '100%', m: '10px 0', p: '10px', border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.107)' : 'rgba(224, 224, 247, 0.04)'}` }}>

@@ -8,7 +8,7 @@ import { context } from '../(Context)/ContextProvider'
 import { apicontext } from '../(Context)/Apicontextprovider'
 
 export default function Community({ pop }) {
-    const { theme, } = useContext(context)
+    const { theme, router} = useContext(context)
     const { subredditname, setsubredditname, fetchCreatesubreddit } = useContext(apicontext)
     const [letterCount, setLetterCount] = useState(0)
     const [checked, setchecked] = useState()
