@@ -21,6 +21,7 @@ export default function Apicontextprovider({ children }) {
     const [toggleuserfollow, settoggleuserfollow] = useState(false)
     const [userdata, setuserdata] = useState()
     const [filteredpost, setfilteredpost] = useState([])
+    const [userId, setUserId] = useState('')
     const [popfollowuser, setpopfollowuser] = useState(false)
     const [postcomments, setpostComments] = useState([])
     const [postingComments, setpostingComments] = useState([])
@@ -309,6 +310,7 @@ export default function Apicontextprovider({ children }) {
             const result = await response.json();
             const filteredresult = result.data.filter((item) => { return item.author._id == val })
             setfilteredpost(filteredresult)
+            setUserId(filteredresult[0].author._id)
         }
         catch (error) {
             console.log(error)
@@ -510,7 +512,7 @@ export default function Apicontextprovider({ children }) {
     };
 
     return (
-        <apicontext.Provider value={{ sortval, setsortval, toggleCommunity, settogglecommunity, recentChannels, isSwitchOn, handleSwitchChange, item, fetchCommentsPosts, popupdelete, setpopupdelete, handledeletecomment, usercommenttoggle, settoggleusercomments, postingComments, setpostComments, setpostingComments, fetchPostingComments, fetchDeleteComments, postcomments, fetchPostComments, popfollowuser, handlefollowuser, filteredpost, fetchyourPosts, userdata, fetchUserProfile, Userfollow, Userunfollow, settoggleuserfollow, toggleuserfollow, reddittoggle, setReddittoggle, settoggle, Likepost, Dislikepost, liketoggle, disliketoggle, disliketoggle, userposttoggle, title, settitle, description, setdescription, postimage, setpostimage, subredditname, setsubredditname, fetchCreatePost, fetchDeletePost, fetchUpdatePost, fetchCreatesubreddit, createsubreddit, setcreatesubreddit, post, setpost, sort, setsort, handleselect, getTimeDifference, channel, setChannel, formatDate }}>
+        <apicontext.Provider value={{ userId, sortval, setsortval, toggleCommunity, settogglecommunity, recentChannels, isSwitchOn, handleSwitchChange, item, fetchCommentsPosts, popupdelete, setpopupdelete, handledeletecomment, usercommenttoggle, settoggleusercomments, postingComments, setpostComments, setpostingComments, fetchPostingComments, fetchDeleteComments, postcomments, fetchPostComments, popfollowuser, handlefollowuser, filteredpost, fetchyourPosts, userdata, fetchUserProfile, Userfollow, Userunfollow, settoggleuserfollow, toggleuserfollow, reddittoggle, setReddittoggle, settoggle, Likepost, Dislikepost, liketoggle, disliketoggle, disliketoggle, userposttoggle, title, settitle, description, setdescription, postimage, setpostimage, subredditname, setsubredditname, fetchCreatePost, fetchDeletePost, fetchUpdatePost, fetchCreatesubreddit, createsubreddit, setcreatesubreddit, post, setpost, sort, setsort, handleselect, getTimeDifference, channel, setChannel, formatDate }}>
             <div>
                 {children}
             </div>
