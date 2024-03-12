@@ -7,7 +7,7 @@ import { commType, } from '../(Constants)/Asset'
 import { context } from '../(Context)/ContextProvider'
 import { apicontext } from '../(Context)/Apicontextprovider'
 
-export default function Community({ pop }) {
+export default function Community({ pop, }) {
     const { theme, router} = useContext(context)
     const { subredditname, setsubredditname, fetchCreatesubreddit } = useContext(apicontext)
     const [letterCount, setLetterCount] = useState(0)

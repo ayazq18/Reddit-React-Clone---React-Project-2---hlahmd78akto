@@ -30,6 +30,7 @@ import { apicontext } from '../(Context)/Apicontextprovider';
 const NavBarr = ({ children }) => {
     const { sethomeorpopular, loginInfo, setuserprofilename, router, pop, popup, token, settoken, switchDark, switchLight, theme, loginpop, setloginpop, signUpdata, setSignUpdata, setloginInfo, handleTabs, activeTabs, userprofilename } = useContext(context)
     const { handleSwitchChange, isSwitchOn, channel, } = useContext(apicontext)
+    // const [popcommunity, setpopcommunity] = useState(false)
     const ITEM_HEIGHT = 48;
     const route = useRouter()
     const [inputValue, setInputValue] = useState("")
@@ -85,7 +86,7 @@ const NavBarr = ({ children }) => {
     return (
         <Box sx={{ position: 'relative', }}>
             <AppBar elevation={0} sx={{ height: '60px', backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, p: '0', zIndex: "10", border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
-                {popup['popcommunity'] && <Box sx={{ position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: { sx: '100%', md: '100vh' }, zIndex: '8', bgcolor: 'rgba(71, 58, 58, 0.758)' }}>
+                {popup['popupcommunity'] && <Box sx={{ position: 'absolute', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100vw', height: { sx: '100%', md: '100vh' }, zIndex: '8', bgcolor: 'rgba(71, 58, 58, 0.758)' }}>
                     <Box sx={{ zIndex: '9' }}><Community pop={pop} /></Box>
                 </Box>}
                 {loginpop && <Box sx={{ width: '100vw', height: '100vh', p: '20px', position: 'absolute', zIndex: '18', bgcolor: 'rgba(71, 58, 58, 0.758)' }}>
@@ -156,7 +157,7 @@ const NavBarr = ({ children }) => {
                         {/* ---------------------Dropdownsidenav----------------- */}
                         {token &&
                             <Box sx={{ borderRadius: '3px', width: '320px', height: 'auto', top: '-15px', border: `${popup['popsidenavbar'] && '1px solid #c9c7c7'}` }}>
-                                <Box onClick={() => { handleToggleDropdown(), pop('') }} sx={{ position: 'relative', p: '10px', width: '100%', }}>
+                                <Box onClick={() => { handleToggleDropdown()}} sx={{ position: 'relative', p: '10px', width: '100%', }}>
                                     <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'space-between' }}>
                                         <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', }}>
                                             <Typography sx={{ display: 'flex', alignItems: 'center', }}>{activeTabs === 'Home' ? home : popular}</Typography>
@@ -174,10 +175,10 @@ const NavBarr = ({ children }) => {
                                                 <Box sx={{ display: 'flex', flexDirection: 'column', }}>
                                                     <Box sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: '10px', borderRadius: '10px', ":hover": { backgroundColor: 'rgba(236, 232, 232, 0.334)' } }}><Typography variant='p' sx={{ fontSize: '13px', letterSpacing: '2px', }}>COMMUNITY</Typography><Typography sx={{ display: 'flex', alignItems: 'center', transition: 'all .5s ease' }}>{communitydropdown}</Typography></Box>
                                                     <Box sx={{ width: '100%' }}>
-                                                        {/* <IconButton onClick={() => pop('popcommunity')} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '7px', borderRadius: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
+                                                        <IconButton onClick={() => pop('popupcommunity')} sx={{ color: `${theme === 'light' ? '#0b1416' : '#fff'}`, width: '100%', p: '10px', display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: '7px', borderRadius: '10px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.734)' } }}>
                                                             <Typography sx={{ flexGrow: 0, display: 'flex', alignItems: 'center', }}>{createicon}</Typography>
                                                             <Typography variant='h6' sx={{ fontSize: '14px', textWrap: 'nowrap' }}>Create a community</Typography>
-                                                        </IconButton> */}
+                                                        </IconButton>
 
                                                         {/* ---------------Channel mapping---------------- */}
                                                         {channel && channel.map((item, index) => (
