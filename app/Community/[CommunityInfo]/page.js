@@ -14,6 +14,7 @@ export default function CommunityInfo(props) {
     const [channelid, setchannleid] = useState()
     const [join, setjoin] = useState(false)
     const [channelpost, setchannelpost] = useState([])
+    // console.log(channelid._id)
     // console.log(props.params.CommunityInfo)
     // const fetchPostsChannel = async () => {
     //     try {
@@ -112,7 +113,7 @@ export default function CommunityInfo(props) {
                     </Box>
                 </Box>
             </Box>}
-           {channelid && <Box sx={{ width: '100%', height: '20vh', backgroundImage: `url(${(channelid.owner.profileImage)})`, }}></Box>}
+            {channelid && <Box sx={{ width: '100%', height: '20vh', backgroundImage: `url(${(channelid.owner.profileImage)})`, }}></Box>}
             {channelid ?
                 (<Box>
                     <Box sx={{ width: '100%', height: '15vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, }}>
@@ -202,9 +203,9 @@ export default function CommunityInfo(props) {
                             <Tooltip title='Created at'>
                                 <Box sx={{ p: '10px', alignItems: 'center', gap: '10px', }}>
                                     {channelid && <>
-                                    <Box sx={{ p: '10px', display:'flex', alignItems: 'center', gap: '5px', }}><Typography sx={{fontWeight:'700'}}>Owner:</Typography><Typography sx={{ p: '10px',}}>{channelid.owner.name}</Typography></Box>
-                                    <Box sx={{ p: '10px', display:'flex', alignItems: 'center', gap: '10px', }}><MobileFriendly/><Typography>{channelid.owner.email}</Typography></Box>
-                                    <Box sx={{ p: '10px', display:'flex', alignItems: 'center', gap: '10px', }}><Cake /><Typography>Created {formatDate(channelid.createdAt)}</Typography></Box>
+                                        <Box sx={{ p: '10px', display: 'flex', alignItems: 'center', gap: '5px', }}><Typography sx={{ fontWeight: '700' }}>Owner:</Typography><Typography sx={{ p: '10px', }}>{channelid.owner.name}</Typography></Box>
+                                        <Box sx={{ p: '10px', display: 'flex', alignItems: 'center', gap: '10px', }}><MobileFriendly /><Typography>{channelid.owner.email}</Typography></Box>
+                                        <Box sx={{ p: '10px', display: 'flex', alignItems: 'center', gap: '10px', }}><Cake /><Typography>Created {formatDate(channelid.createdAt)}</Typography></Box>
                                     </>
                                     }
                                 </Box>
@@ -223,11 +224,11 @@ export default function CommunityInfo(props) {
                             <Typography sx={{ fontSize: '12px', color: '#808080' }}>Ranked by Size</Typography>
                         </Box>
                     </Box> */}
-                    {/* <IconButton title='Feature coming soon'>
-                            <Box sx={{ display: 'flex', justifyContent: 'center', mt: '10px' }}>
-                                <Button variant='contained' sx={{ width: '90%', p: '6px', fontSize: '14px', textTransform: 'revert', borderRadius: '20px', color: `${theme === 'light' ? '#fff' : '#000'}`, backgroundColor: `${theme === 'light' ? '#48576b' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#48576b' : '#fff'}` } }}>Create Post</Button>
-                            </Box>
-                        </IconButton> */}
+                           {channelid.owner._id === loginInfo && <Tooltip title='Feature coming soon'>
+                                <Box sx={{ display: 'flex', justifyContent: 'center', mt: '10px' }}>
+                                    <Button variant='contained' sx={{ width: '90%', p: '6px', fontSize: '14px', textTransform: 'revert', borderRadius: '20px', color: `${theme === 'light' ? '#fff' : '#000'}`, backgroundColor: `${theme === 'light' ? '#48576b' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#48576b' : '#fff'}` } }}>Create Post</Button>
+                                </Box>
+                            </Tooltip>}
                         </Box>
                     </Box>
                 </Box>)
