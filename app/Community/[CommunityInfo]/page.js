@@ -3,7 +3,7 @@ import { apicontext } from '@/app/(Components)/(Context)/Apicontextprovider'
 import { arrowdown, arrowup, comments, communityprofile, share } from '@/app/(Components)/(Constants)/Asset'
 import { context } from '@/app/(Components)/(Context)/ContextProvider'
 import { Cake, CircleNotificationsOutlined, LocalFireDepartment, MobileFriendly, MoreHoriz, NewReleasesTwoTone, NotificationAdd, Notifications, Publish, Rocket, VisibilityOff } from '@mui/icons-material'
-import { Typography, Button, MenuItem, Tooltip } from '@mui/material'
+import { Typography, Button, MenuItem, Tooltip, IconButton } from '@mui/material'
 import { Box } from '@mui/system'
 import React, { useContext, useEffect, useState } from 'react'
 import LikeDislike from '@/app/(Components)/(SmallComponents)/LikeDislike'
@@ -223,9 +223,11 @@ export default function CommunityInfo(props) {
                             <Typography sx={{ fontSize: '12px', color: '#808080' }}>Ranked by Size</Typography>
                         </Box>
                     </Box> */}
+                    {/* <IconButton title='Feature coming soon'>
                             <Box sx={{ display: 'flex', justifyContent: 'center', mt: '10px' }}>
-                                <Button onClick={() => router.push('/submit/newpost')} variant='contained' sx={{ width: '90%', p: '6px', fontSize: '14px', textTransform: 'revert', borderRadius: '20px', color: `${theme === 'light' ? '#fff' : '#000'}`, backgroundColor: `${theme === 'light' ? '#48576b' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#48576b' : '#fff'}` } }}>Create Post</Button>
+                                <Button variant='contained' sx={{ width: '90%', p: '6px', fontSize: '14px', textTransform: 'revert', borderRadius: '20px', color: `${theme === 'light' ? '#fff' : '#000'}`, backgroundColor: `${theme === 'light' ? '#48576b' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#48576b' : '#fff'}` } }}>Create Post</Button>
                             </Box>
+                        </IconButton> */}
                         </Box>
                     </Box>
                 </Box>)
