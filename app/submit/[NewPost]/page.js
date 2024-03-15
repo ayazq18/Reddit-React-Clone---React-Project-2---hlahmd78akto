@@ -175,7 +175,6 @@ export default function CreatePost(props) {
               <Box sx={{ display: 'flex', alignItems: 'center',}}>
                 <input style={{ padding: '10px', width:'50%', opacity:'00%', position:'relative', zIndex:'1',}} type="file" onChange={(e) => setpostimage(e.target.files[0])} />
               <Typography variant='h6' sx={{color: `${theme === 'light' ? '#0079d3' : '#808080'}`, p:'5px 20px', fontSize:'15px',fontWeight:'700' , position:'absolute', borderRadius:'50px', border:`1px solid ${theme === 'light' ? '#0079d3' : '#808080'}`,}}>Upload</Typography></Box>
-              {/* {postimage.length === 0 && <Typography>Hello</Typography>} */}
             </Box>
           }
 
@@ -195,20 +194,8 @@ export default function CreatePost(props) {
             />
             <Typography variant='h6' sx={{ fontSize: '14px' }}>Send me post reply notifications</Typography>
           </Box>
-
-
-
         </Paper>
-
-
-
-
-
       </Box>
-
-
-
-
       <Box sx={{ width: '25%', p: '19px 10px', height: '100vh', display: { xs: 'none', md: 'block' } }}>
         <Box sx={{ position: 'relative', p: '20px 10px', mt: '20px', width: '100%', borderRadius: '4px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.04)'}` }}>
           <Box display='flex' alignItems='center' gap='10px' sx={{ borderBottom: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.207)' : 'rgba(224, 224, 247, 0.04)'}` }}>

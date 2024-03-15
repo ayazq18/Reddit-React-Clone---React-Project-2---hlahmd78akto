@@ -1,6 +1,5 @@
 'use client'
-import React, { useContext, useEffect, useMemo, useState } from 'react';
-// import '../global.css'
+import React, { useContext, useEffect, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,7 +9,7 @@ import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Tooltip from '@mui/material/Tooltip';
-import { AccountCircle, Close, FilterVintage, Logout, MoreHoriz, PersonAdd, Podcasts, Reddit, Settings, Visibility } from '@mui/icons-material';
+import { AccountCircle, Close, FilterVintage, Logout, MoreHoriz, Podcasts, Reddit, Settings, Visibility } from '@mui/icons-material';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -20,7 +19,6 @@ import { useRouter } from 'next/navigation';
 import { trending, home, popular, notification, createicon, chat, advertise, scanner, shop, communitydropdown, thememode, reddittext, } from '../(Constants)/Asset'
 import Login from '../(Login)/Login';
 import { context } from '../(Context)/ContextProvider';
-import SideNavBar from './SideNavBar';
 import SwitchBtn from '../(SmallComponents)/SwitchBtn';
 import Community from '../(Community)/Community';
 import { apicontext } from '../(Context)/Apicontextprovider';
@@ -30,7 +28,6 @@ import { apicontext } from '../(Context)/Apicontextprovider';
 const NavBarr = ({ children }) => {
     const { sethomeorpopular, loginInfo, setuserprofilename, router, pop, popup, token, settoken, switchDark, switchLight, theme, loginpop, setloginpop, signUpdata, setSignUpdata, setloginInfo, handleTabs, activeTabs, userprofilename } = useContext(context)
     const { handleSwitchChange, isSwitchOn, channel, } = useContext(apicontext)
-    // const [popcommunity, setpopcommunity] = useState(false)
     const ITEM_HEIGHT = 48;
     const route = useRouter()
     const [inputValue, setInputValue] = useState("")
@@ -157,7 +154,7 @@ const NavBarr = ({ children }) => {
                         {/* ---------------------Dropdownsidenav----------------- */}
                         {token &&
                             <Box sx={{ borderRadius: '3px', width: '320px', height: 'auto', top: '-15px', border: `${popup['popsidenavbar'] && '1px solid #c9c7c7'}` }}>
-                                <Box onClick={() => { handleToggleDropdown()}} sx={{ position: 'relative', p: '10px', width: '100%', }}>
+                                <Box onClick={() => { handleToggleDropdown() }} sx={{ position: 'relative', p: '10px', width: '100%', }}>
                                     <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', gap: '10px', alignItems: 'center', justifyContent: 'space-between' }}>
                                         <Box sx={{ display: 'flex', gap: '10px', alignItems: 'center', }}>
                                             <Typography sx={{ display: 'flex', alignItems: 'center', }}>{activeTabs === 'Home' ? home : popular}</Typography>
@@ -239,10 +236,10 @@ const NavBarr = ({ children }) => {
                                         </Box>
                                     )))
                                     }
-                                    {searchresults.length === 0 && <Box sx={{ display: 'flex', flexDirection: 'column',alignItems: 'center' }}>
-                                        <Box sx={{display: 'flex',justifyContent:'center', alignItems: 'flex-end' }}>
-                                        <video style={{ width: '20%', }} src='https://cdnl.iconscout.com/lottie/premium/preview-watermark/content-missing-6023278-5017533.mp4' autoPlay loop />
-                                        <img src="https://www.redditstatic.com/shreddit/assets/hmm-snoo.png" srcset="" sizes="" alt="Image of a wondering Snoo" />
+                                    {searchresults.length === 0 && <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-end' }}>
+                                            <video style={{ width: '20%', }} src='https://cdnl.iconscout.com/lottie/premium/preview-watermark/content-missing-6023278-5017533.mp4' autoPlay loop />
+                                            <img src="https://www.redditstatic.com/shreddit/assets/hmm-snoo.png" srcset="" sizes="" alt="Image of a wondering Snoo" />
                                         </Box>
                                         <Typography variant='h6' >No search results available!</Typography>
                                     </Box>}

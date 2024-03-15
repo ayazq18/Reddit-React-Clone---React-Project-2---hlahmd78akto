@@ -6,7 +6,6 @@ import { Delete, MoreHoriz, VisibilityOff, } from "@mui/icons-material";
 import CreateIcon from '@mui/icons-material/Create';
 import { comments, share } from "../(Components)/(Constants)/Asset";
 import { context } from "../(Components)/(Context)/ContextProvider";
-import Community from "../(Components)/(Community)/Community";
 import { apicontext } from "../(Components)/(Context)/Apicontextprovider";
 import FilterandCreatePost from "../(Components)/(SmallComponents)/FilterandCreatePost";
 import PremiumandHomeDetails from "../(Components)/(SmallComponents)/PremiumandHomeDetails";
@@ -14,8 +13,8 @@ import LikeDislike from "../(Components)/(SmallComponents)/LikeDislike";
 
 
 export default function Home() {
-  const { theme, router, pop, popup, loginInfo } = useContext(context)
-  const { post, getTimeDifference, fetchDeletePost, fetchUpdatePost, popupdelete, handledeletecomment, setpopupdelete, } = useContext(apicontext)
+  const { theme, router, loginInfo } = useContext(context)
+  const { post, getTimeDifference, fetchDeletePost, popupdelete, handledeletecomment, setpopupdelete, } = useContext(apicontext)
 
   return (
     <Box className='home' sx={{ width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#0b1416'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>

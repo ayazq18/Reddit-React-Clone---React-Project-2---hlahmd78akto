@@ -91,10 +91,7 @@ export default function UserProfile(props) {
                 </Box>}
 
                 {/* ---------------Post section------------------ */}
-
             </Box>
-
-
             {/* ---------------UserDetails sec------------------ */}
 
             {userdata && <Box sx={{ p: '19px 10px', height: { xs: 'fit-content', md: '100vh' }, display: 'block', width: { xs: '100%', md: '300px' }, }}>
@@ -137,7 +134,6 @@ export default function UserProfile(props) {
                         {userdata.skills.map((item, index) => (<Typography variant="h6" sx={{ mb: '5px', fontSize: '14px', color: '#177ac5' }}>{item}</Typography>))}
                     </Box>}
                 </Box>
-                {/* <Userprofiledetails userprops={props}/> */}
             </Box>}
 
             {/* ---------------UserDetails sec------------------ */}

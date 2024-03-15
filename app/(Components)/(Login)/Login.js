@@ -145,8 +145,8 @@ export default function Login({ }) {
             </Box>}
             {/* ------------------Login---------------- */}
 
-            {/* ------------------Signup---------------- */}
 
+            {/* ------------------Signup---------------- */}
 
             {!isSignup &&
               <Box sx={{ width: '350px', height: '200px' }}>
@@ -160,7 +160,6 @@ export default function Login({ }) {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  // autoFocus
                   sx={{bgcolor:'white'}}
                   InputProps={{ notched: false }}
                   value={signUpdata.email}
@@ -181,7 +180,6 @@ export default function Login({ }) {
                 >
                   Continue
                 </Button>
-                {/* {!signUpdata.email.includes('@') && <Typography bgcolor='red'>invalid email</Typography>} */}
                 {popup['continue'] &&
                   <Box sx={{ p: '50px', position: 'absolute', top: '0', left: '0px', width: { xs: '100vw', md: '100%' }, backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`, borderRadius: { xs: 'none', md: '15px' }, zIndex: '2' }}>
                     <Typography onClick={() => {pop('continue'), setSignUpdata({ ...signUpdata, isChecked: false })}} sx={{ position: 'absolute', top: '20px', left: '20px', width: '40px', height: '40px', p: '5px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: `${theme === 'light' ? '#000' : '#fff'}`, ":hover": { bgcolor: `${theme === 'light' ? '#808080' : '#fff'}`, borderRadius: '100%' } }}>{backicon}</Typography>

@@ -11,8 +11,8 @@ export default function ParentComment({ itemcomment, index, }) {
     const { theme, token, loginInfo, router } = useContext(context)
     const { popupdelete, handledeletecomment, fetchDeleteComments, getTimeDifference} = useContext(apicontext)
     const [data, setdata] = useState()
-    // -------------------Fetch Userdata for comments section------------------
 
+    // -------------------Fetch Userdata for comments section------------------
     const fetchuserdata = async (val) => {
         try {
             const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/user/${val}`, {

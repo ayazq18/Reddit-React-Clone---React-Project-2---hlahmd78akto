@@ -1,11 +1,10 @@
 'use client'
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import React, { useContext, useState } from "react";
+import React, { useContext, } from "react";
 import { MoreHoriz, VisibilityOff, } from "@mui/icons-material";
-import { comments, share } from "../(Components)/(Constants)/Asset";
+import { comments } from "../(Components)/(Constants)/Asset";
 import { context } from "../(Components)/(Context)/ContextProvider";
-import Community from "../(Components)/(Community)/Community";
 import { apicontext } from "../(Components)/(Context)/Apicontextprovider";
 import FilterandCreatePost from "../(Components)/(SmallComponents)/FilterandCreatePost";
 import PremiumandHomeDetails from "../(Components)/(SmallComponents)/PremiumandHomeDetails";
@@ -18,9 +17,6 @@ export default function Home() {
 
   return (
     <Box className='home' sx={{ width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#091113'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
-      {/* {popup['createcommunity'] && <Box sx={{ position: 'absolute', top: '30px', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '100%', zIndex: '8', bgcolor: 'rgba(24, 23, 23, 0.923)' }}>
-        <Box sx={{ zIndex: '9' }}><Community pop={pop} /></Box>
-      </Box>} */}
       <Box sx={{ width: { xs: '100%', md: '50%' }}}>
         {/* --------Create post and Filters------------- */}
         <FilterandCreatePost />
