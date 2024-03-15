@@ -11,15 +11,19 @@ export default function Community({ pop, }) {
     const { theme, router} = useContext(context)
     const { subredditname, setsubredditname, fetchCreatesubreddit } = useContext(apicontext)
     const [letterCount, setLetterCount] = useState(0)
-    const [checked, setchecked] = useState()
+    const [checked, setchecked] = useState(false)
     const handleNameLength = (e) => {
         setLetterCount(e.target.value.length)
     }
 
     const handlecreatesubreddit = () => {
-        fetchCreatesubreddit();
-        setsubredditname('')
-        pop('popcom')
+        if(checked){
+            fetchCreatesubreddit();
+            setsubredditname('')
+            pop('popcom')
+        }else if(!checked){
+            alert('Please select a community type!')
+        }
     }
 
     return (
@@ -66,7 +70,7 @@ export default function Community({ pop, }) {
                                     name='radio'
                                     autoFocus
                                     value={checked}
-                                    onChange={(e) => setchecked(e.target.value)}
+                                    onClick={(e) => setchecked(!checked)}
                                 />
                                 <Typography sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', alignItems: 'center', width: '15px' }}>{com.icon}</Typography>
                                 <Box sx={{ display: 'flex', alignItems: 'center', gap: '5px', }}>
