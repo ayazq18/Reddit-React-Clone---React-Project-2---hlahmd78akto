@@ -37,14 +37,14 @@ export default function Login({ }) {
         <CssBaseline />
         <Box
           sx={{
-            margin: { xs: 0, md: 0.5 },
-            p: '10px 0',
+            // margin: { xs: 0, md: 0 },
+            // p: '10px 0',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             position: 'relative',
-            width: { xs: '100vw', md: '540px' }, height: '90vh', borderRadius: { xs: '0', md: '15px' },
+            width: { xs: '100vw', md: '520px' }, height: '100vh', borderRadius: { xs: '0', md: '15px' },
             position: 'absolute', left: { xs: '0px', md: '30%' },
             backgroundColor: `${theme === 'light' ? '#fff' : '#0b1416'}`,
           }}
@@ -53,7 +53,7 @@ export default function Login({ }) {
             <Close />
           </Avatar>
           <Box sx={{
-            width: { xs: '100vw', md: '520px' }, height: '80%', overflowY: 'scroll',
+            width: { xs: '100vw', md: '420px' }, height: '90%',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -65,21 +65,20 @@ export default function Login({ }) {
               <Typography component="p" sx={{ fontSize: '14px' }}>By continuing, you agree to our User Agreement and acknowledge that you understand the Privacy Policy.</Typography>
             </Box>
 
-            <Box sx={{ width: '350px', p: '20px 0', m: '0', }}>
+            <Box sx={{ width: '350px',p: '20px 0', m: '0', }}>
               <Box mb={1} sx={{ width: '100%', p: '5px', color: `${theme === 'light' ? '#000' : '#fff'}`, borderTop: '3px solid rgba(236, 232, 232, 0.334)', borderBottom: '3px solid rgba(236, 232, 232, 0.334)', borderRadius: '15px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
                 <Box display='flex' justifyContent='space-between' p='0 5px'>
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px', }}>
-                    <img style={{ width: '1rem', height: '1rem', borderRadius: '50px' }} src="https://styles.redditmedia.com/t5_3is08/styles/communityIcon_i0bub98epp4a1.png" srcSet="" sizes="" alt="Icon for r/"></img>
+                  <Box sx={{ width: '1rem', display: 'flex', alignItems: 'center' }}>{google}</Box>
                     <Box >
-                      <Typography variant='p' sx={{ fontSize: '13px',color:'red'}}>Continue with Google (Feature coming soon)</Typography>
+                      <Typography variant='p' sx={{ fontSize: '13px',color:'red', cursor:'pointer'}}>Continue with Google (Feature coming soon)</Typography>
                     </Box>
                   </Box>
-                  <Box sx={{ width: '1rem', display: 'flex', alignItems: 'center' }}>{google}</Box>
                 </Box>
               </Box>
               <Box sx={{ color: `${theme === 'light' ? '#000' : '#fff'}`, display: 'flex', alignItems: 'center', gap: '10px', p: '5px', width: '100%', border: '3px solid rgba(236, 232, 232, 0.334)', borderRadius: '20px', ":hover": { bgcolor: 'rgba(236, 232, 232, 0.334)' } }}>
                 <Apple />
-                <Typography variant='p' sx={{ fontSize: '13px',color:'red' }}>Continue with Apple (Feature Coming soon)</Typography>
+                <Typography variant='p' sx={{ fontSize: '13px',color:'red', cursor:'pointer' }}>Continue with Apple (Feature Coming soon)</Typography>
               </Box>
             </Box>
 
@@ -96,7 +95,6 @@ export default function Login({ }) {
                 autoComplete="email"
                 type="email"
                 autoFocus
-                sx={{bgcolor:'white'}}
                 value={signUpdata.email}
                 onChange={(e) => setSignUpdata({ ...signUpdata, email: e.target.value })}
               />

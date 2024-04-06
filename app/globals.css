@@ -45,10 +45,10 @@
     border: none;
 }
 .input fieldset{
-    border-radius: 20px;
-    background-color: rgba(236, 232, 232, 0.334);
+    background-color: #eaedef;
     /* height: 20px; */
-    border-radius: 3px;
+    border: none;
+    border-radius: 22px;
 }
 .inputname fieldset{
     border-radius: 20px;

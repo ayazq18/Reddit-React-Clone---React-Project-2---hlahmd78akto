@@ -60,7 +60,7 @@ const NavBarr = ({ children }) => {
 
     const fetchResultSearch = async () => {
         try {
-            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/post?search={"author.name":"${inputValue}"}`, {
+            const response = await fetch(`https://academics.newtonschool.co/api/v1/reddit/post?search={"content":"${inputValue}"}`, {
                 method: 'GET',
                 headers: {
                     'ProjectID': 'hlahmd78akto',
