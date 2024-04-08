@@ -49,9 +49,9 @@
     /* height: 20px; */
     border: 0.5px solid gray;
     border-radius: 22px;
-    color: #000;
 }
 .inputname fieldset{
+    color: #000;
     border-radius: 20px;
     /* background-color: rgba(236, 232, 232, 0.334); */
     /* border: 1px solid rgb(70, 70, 218); */
