@@ -159,7 +159,6 @@ export default function Login({ }) {
                   name="email"
                   autoComplete="email"
                   sx={{bgcolor:'white'}}
-                  InputProps={{ notched: false }}
                   value={signUpdata.email}
                   onChange={(e) => setSignUpdata({ ...signUpdata, email: e.target.value })}
                 />

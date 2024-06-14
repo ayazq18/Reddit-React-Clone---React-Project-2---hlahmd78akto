@@ -2,11 +2,15 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { context } from './ContextProvider'
 import { useRouter } from 'next/navigation'
+import { useSnackbar } from 'notistack';
+
 const Base_URL = 'https://academics.newtonschool.co/api/v1/reddit'
 const Project_ID = 'hlahmd78akto'
 
 export const apicontext = createContext()
 export default function Apicontextprovider({ children }) {
+    const { enqueueSnackbar } = useSnackbar();
+
     const router = useRouter();
     const { token } = useContext(context)
     const [post, setpost] = useState([])
@@ -200,11 +204,19 @@ export default function Apicontextprovider({ children }) {
                 body: formData
             })
             const result = await response.json();
+            enqueueSnackbar('Post created Successfully', { variant: 'success', anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'right',
+              }, });
             settoggle(!toggle)
             router.push('/Home')
         }
         catch (error) {
             console.log(error)
+            enqueueSnackbar('Something went wrong', { variant: 'error', anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'right',
+              }, });
         }
     }
 
@@ -263,12 +275,22 @@ export default function Apicontextprovider({ children }) {
                 body: formData
             })
             const result = await response.json();
-            console.log(result)
-            settoggle(!toggle)
-            router.push(`/Community/${result.data._id}`)
+            // console.log(result)
+            if(result){
+                enqueueSnackbar('SubReddit created Successfully', { variant: 'success', anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }, });
+                settoggle(!toggle)
+                router.push(`/Community/${result.data._id}`)
+            }
         }
         catch (error) {
-            console.log(error)
+            // console.log(error)
+            enqueueSnackbar(error, { variant: 'error', anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'right',
+              }, });
         }
     }
 
@@ -493,8 +515,16 @@ export default function Apicontextprovider({ children }) {
     const handlefollowuser = (_id) => {
         if (userdata.isFollowed === true) {
             Userunfollow(_id)
+            enqueueSnackbar('User UnFollowed', { variant: 'error', anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'right',
+              }, });
         } else {
             Userfollow(_id)
+            enqueueSnackbar('User Followed', { variant: 'success', anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'right',
+              }, });
         }
         setpopfollowuser(!popfollowuser)
         setTimeout(() => {

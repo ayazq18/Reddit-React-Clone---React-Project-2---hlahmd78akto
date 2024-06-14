@@ -4,20 +4,23 @@ import { createContext, useState } from 'react'
 import { Project_ID } from '../(Constants)/Constants'
 import { useRouter } from 'next/navigation'
 import { Image, Link, Poll, PostAdd } from "@mui/icons-material"
+import { useSnackbar } from 'notistack';
 
 export const context = createContext()
 
+
 export const ContextProvider = ({ children }) => {
+    const { enqueueSnackbar } = useSnackbar();
     const router = useRouter();
     const [themetoggle, setthemetoggle] = useState(false)
-    useEffect(()=>{
+    useEffect(() => {
         if (localStorage.getItem('theme')) {
-            setTheme (localStorage.getItem('theme'));
-        }else{
+            setTheme(localStorage.getItem('theme'));
+        } else {
             setTheme('light')
             localStorage.setItem('theme', 'light')
         }
-        
+
     }, [])
     const [theme, setTheme] = useState()
     const [signUpdata, setSignUpdata] = useState({ name: '', email: '', password: '', isChecked: false })
@@ -82,7 +85,11 @@ export const ContextProvider = ({ children }) => {
                     })
                 })
                 const result = await response.json()
-                if (result.status==='success') {
+                if (result) {
+                    enqueueSnackbar('SignUp Successful', { variant: 'success', anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }, });
                     localStorage.setItem('token', result.token)
                     localStorage.setItem('_id', result.data.user._id)
                     localStorage.setItem('name', result.data.user.name)
@@ -97,17 +104,30 @@ export const ContextProvider = ({ children }) => {
                         router.push('/Home')
                     }, 20);
                 } else if (result.message === "User already exists") {
-                    alert("User already exists")
+                    enqueueSnackbar('User already exists!', { variant: 'error', anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }, });
                     setIsSignUp(true)
                 } else if (result.message === 'Invalid input data. Please provide a valid email') {
-                    alert("Please enter correct email")
+                    enqueueSnackbar('Please enter correct email!', { variant: 'error', anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right',
+                      }, });
                 }
             } catch (error) {
-                alert(error)
+                enqueueSnackbar(error, { variant: 'error', anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }, });
             }
         }
         else if (!signUpdata.isChecked) {
-            alert("Please Verify!")
+            enqueueSnackbar('Please Verify!', { variant: 'error', anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'right',
+              }, });
+
         }
 
     }
@@ -128,12 +148,17 @@ export const ContextProvider = ({ children }) => {
                 })
             })
             const result = await response.json()
+            // console.log('result------->', result)
             if (result.status === "success") {
+                enqueueSnackbar('Login Successful', { variant: 'success', anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }, });
                 localStorage.setItem('token', result.token)
-                localStorage.setItem('_id', result.data._id)
-                localStorage.setItem('name', result.data.name)
+                localStorage.setItem('_id', result?.data?.user?._id)
+                localStorage.setItem('name', result?.data?.user?.name)
                 settoken(result.token)
-                setuserprofilename(result.data.name)
+                setuserprofilename(result?.data?.user?.name)
                 setloginInfo(result.data._id)
                 setloginpop(false)
                 setTimeout(() => {
@@ -141,10 +166,18 @@ export const ContextProvider = ({ children }) => {
                 }, 20);
                 setSignUpdata({ name: '', email: '', password: '' })
             } else if (result.status === 'fail') {
-                alert("Incorrect Email or Password")
+                enqueueSnackbar('Incorrect Email or Password!', { variant: 'error', anchorOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }, });
+
             }
         } catch (error) {
-            console.log('Enter Correct details')
+            // console.log('Enter Correct details')
+            enqueueSnackbar('Enter Correct details!', { variant: 'error', anchorOrigin: {
+                vertical: 'top',
+                horizontal: 'right',
+              }, });
         }
     };
 

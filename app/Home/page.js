@@ -15,6 +15,7 @@ import LikeDislike from "../(Components)/(SmallComponents)/LikeDislike";
 export default function Home() {
   const { theme, router, loginInfo } = useContext(context)
   const { post, getTimeDifference, fetchDeletePost, popupdelete, handledeletecomment, setpopupdelete, } = useContext(apicontext)
+  console.log('post------->',post)
 
   return (
     <Box className='home' sx={{ width: '100vw', backgroundColor: `${theme === 'light' ? '#DAE0E6' : '#0b1416'}`, display: 'flex', justifyContent: 'center', gap: '10px' }}>
@@ -41,7 +42,9 @@ export default function Home() {
                   <Typography variant="p" sx={{ fontSize: '10px' }}>{getTimeDifference(item.createdAt)}</Typography>
                 </Box>
                 {item.author._id === loginInfo && <Box position='relative'>
-                  <Box sx={{ display: 'flex', alignItems: 'center', }}><MoreHoriz sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }} onClick={() => handledeletecomment(item._id)} /></Box>
+                  <Box sx={{ display: 'flex', alignItems: 'center', }}>
+                    <MoreHoriz sx={{ color: `${theme === 'light' ? '#000' : '#fff'}` }} onClick={() => handledeletecomment(item._id)} />
+                    </Box>
                   {popupdelete == item._id && <Box sx={{ position: 'absolute', right: '0', width: '200px', p: '10px', borderRadius: '5px', backgroundColor: `${theme === 'light' ? '#fff' : '#1a1a1b'}`, border: `.5px solid ${theme === 'light' ? 'rgba(119, 117, 117, 0.507)' : 'rgba(224, 224, 247, 0.104)'}`, }}>
                     <Box onClick={() => { fetchDeletePost(item._id) }} sx={{ p: '10px 0 10px 20px', textWrap: 'nowrap', display: 'flex', alignItems: 'center', gap: '10px', ":hover": { bgcolor: 'rgba(174, 174, 241, 0.558)' } }}>
                       <Delete />
